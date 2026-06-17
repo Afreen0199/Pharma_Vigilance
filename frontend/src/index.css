@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #f0f7ff;
+  --color-brand-100: #e0effe;
+  --color-brand-200: #bae2fd;
+  --color-brand-300: #7cc8fc;
+  --color-brand-400: #38aaf8;
+  --color-brand-500: #0e90e9;
+  --color-brand-600: #0271c7;
+  --color-brand-700: #035ba3;
+  --color-brand-800: #074e87;
+  --color-brand-900: #0c4270;
+  --color-brand-950: #082a4a;
+  --color-darkBg: #0f172a;
+  --color-darkCard: #1e293b;
+  --color-darkBorder: #334155;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 transition-colors duration-200;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body.dark {
+  @apply bg-slate-950 text-slate-100;
+}
+
+/* Custom scrollbars for slick clinical screens */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-700 rounded;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400 dark:bg-slate-600;
+}
+
+/* Micro-animations and transition effects */
+.hover-scale {
+  @apply transition-all duration-200 hover:scale-[1.01] hover:shadow-md;
+}
+
+.glass-card {
+  @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/50 dark:border-slate-800/50;
+}

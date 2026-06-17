@@ -1,0 +1,1006 @@
+================================================================================
+LINE 3273 | STEP 2810 | TYPE PLANNER_RESPONSE | TIME 2026-06-14T10:09:02Z
+================================================================================
+CONTENT:
+I will create the implementation plan to outline the technical design for the Enterprise AI Pharmacovigilance Safety Copilot upgrade. This includes introducing the 11 required files under `backend/app/services/chat/`, orchestrating them via the main `ChatService`, and updating the response schema with dynamic reasoning, traceability, and suggested follow-ups.
+
+TOOL CALLS:
+[
+  {
+    "name": "write_to_file",
+    "args": {
+      "ArtifactMetadata": "{\"ArtifactType\":\"implementation_plan\",\"RequestFeedback\":true,\"Summary\":\"Implementation plan to refactor the chatbot into a dynamic, evidence-grounded Enterprise Pharmacovigilance Safety Copilot.\"}",
+      "CodeContent": "\"# Implementation Plan - Final Enterprise Chatbot Upgrade: AI Pharmacovigilance Safety Copilot\\n\\nWe are upgrading the chatbot into a fully dynamic **Enterprise AI Pharmacovigilance Safety Copilot**. The copilot will reason dynamically over report data, retrieve evidence from FDA, FAERS, and the knowledge base, classify questions into 13 dynamic categories, provide traceability sources, and suggest follow-up questions.\\n\\n---\\n\\n## User Review Required\\n\\n> [!IMPORTANT]\\n> **Dynamic Reasoning (Zero Hardcoding)**: The chatbot will not use hardcoded answers or templates. It will run dynamic RAG over case details and reference guidelines to synthesize clinical answers.\\n>\\n> **11-Module Architecture**: We will add the 11 requested service files inside `backend/app/services/chat/` to separate concerns (classification, context building, semantic retrieval, clinical reasoning, and follow-ups).\\n>\\n> **Rich Schema Enrichment**: Every response will include `suggested_questions` and `sources` (e.g. `[\\\"FDA Signal\\\", \\\"Safety Assessment\\\", \\\"Timeline\\\"]`) in the JSON card to enhance frontend capability and medical explainability.\\n\\n---\\n\\n## Proposed Changes\\n\\n### chat Component\\n\\n#### [NEW] [response_type_classifier.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/response_type_classifier.py)\\n* Classifies incoming questions into one of the 13 supported response types:\\n  - `seriousness_explanation`\\n  - `causality_explanation`\\n  - `fda_signal_summary`\\n  - `timeline_explanation`\\n  - `missing_information_review`\\n  - `regulatory_intelligence`\\n  - `organ_system_analysis`\\n  - `confidence_explanation`\\n  - `similar_case_retrieval`\\n  - `safety_recommendation`\\n  - `chart_interpretation`\\n  - `interaction_analysis`\\n  - `dynamic_contextual_reasoning`\\n\\n#### [NEW] [semantic_retrieval_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py)\\n* Dynamically fetches context-specific data:\\n  - Local FAERS query matching counts\\n  - Milvus KB warning guide chunk\n<truncated 3140 bytes>",
+      "Description": "\"Create implementation plan for Enterprise AI Pharmacovigilance Safety Copilot.\"",
+      "IsArtifact": "true",
+      "Overwrite": "true",
+      "TargetFile": "\"/Users/affu01/.gemini/antigravity-ide/brain/268c45e6-1c20-463b-b840-2ec2ac644add/implementation_plan.md\"",
+      "toolAction": "\"Editing file\"",
+      "toolSummary": "\"Write implementation_plan.md\""
+    }
+  }
+]
+
+================================================================================
+LINE 3281 | STEP 2818 | TYPE PLANNER_RESPONSE | TIME 2026-06-14T10:10:00Z
+================================================================================
+CONTENT:
+I will write `backend/app/services/chat/semantic_retrieval_service.py` to retrieve dynamic clinical signals and database records for our RAG context.
+
+TOOL CALLS:
+[
+  {
+    "name": "write_to_file",
+    "args": {
+      "ArtifactMetadata": "{\"ArtifactType\":\"other\",\"RequestFeedback\":false,\"Summary\":\"Semantic retrieval service to fetch dynamic database records and RAG chunks.\"}",
+      "CodeContent": "\"import logging\\nfrom typing import Dict, Any, List\\nfrom app.services.verification.evidence_service import evidence_service\\nfrom app.services.verification.verification_service import verification_service\\nfrom app.services.verification.traceability_service import traceability_service\\nfrom app.services.fda_service import fda_service_instance\\n\\nlogger = logging.getLogger(__name__)\\n\\nclass SemanticRetrievalService:\\n    def retrieve_evidence_context(self, primary_drug: str, symptoms: List[str], analysis_id: str) -> Dict[str, Any]:\\n        \\\"\\\"\\\"\\n        Dynamically retrieves clinical signals and reference database evidence for a suspect drug.\\n        \\\"\\\"\\\"\\n        logger.info(f\\\"Dynamically retrieving semantic safety evidence for '{primary_drug}' (symptoms: {symptoms})...\\\")\\n        \\n        # 1. Fetch live FDA openFDA summary stats\\n        fda_ev = evidence_service.get_fda_evidence(primary_drug)\\n        \\n        # 2. Fetch local FAERS CSV counts\\n        local_faers = evidence_service.get_local_faers_evidence(primary_drug)\\n        \\n        # 3. Fetch warning guideline chunks from Milvus collection 'knowledge_base'\\n        kb_ev = evidence_service.get_knowledge_base_evidence(primary_drug)\\n        \\n        # 4. Run explainability verification claims\\n        claims = verification_service.verify_case_claims(primary_drug, symptoms)\\n        \\n        # 5. Fetch semantic traceable chunks for the specific file analysis\\n        chunks = traceability_service.get_traceable_chunks(primary_drug, analysis_id=analysis_id, limit=3)\\n        \\n        # 6. Fetch similar case IDs and outcomes from local FAERS\\n        similar_cases = evidence_service.get_supporting_cases(primary_drug)\\n\\n        return {\\n            \\\"fda_evidence\\\": fda_ev,\\n            \\\"local_faers\\\": local_faers,\\n            \\\"kb_evidence\\\": kb_ev,\\n            \\\"verified_claims\\\": claims,\\n            \\\"traceable_chunks\\\": chunks,\\n            \\\"similar_cases\\\": similar_cases\\n        }\\n\\nsemantic_retrieval_service = SemanticRetrievalS\n<truncated 11 bytes>",
+      "Description": "\"Create semantic_retrieval_service.py to fetch RAG evidence dynamically.\"",
+      "IsArtifact": "false",
+      "Overwrite": "true",
+      "TargetFile": "\"/Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py\"",
+      "toolAction": "\"Editing file\"",
+      "toolSummary": "\"Create semantic_retrieval_service.py\""
+    }
+  }
+]
+
+================================================================================
+LINE 3282 | STEP 2819 | TYPE CODE_ACTION | TIME 2026-06-14T10:10:03Z
+================================================================================
+CONTENT:
+Created At: 2026-06-14T10:10:03Z
+Completed At: 2026-06-14T10:10:06Z
+Created file file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py with requested content.
+If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+
+================================================================================
+LINE 3335 | STEP 2872 | TYPE PLANNER_RESPONSE | TIME 2026-06-14T10:15:56Z
+================================================================================
+CONTENT:
+I will update `walkthrough.md` to append the final technical implementations, architecture, and verification results of the Enterprise AI Pharmacovigilance Safety Copilot.
+
+TOOL CALLS:
+[
+  {
+    "name": "replace_file_content",
+    "args": {
+      "AllowMultiple": "false",
+      "Description": "\"Append Enterprise Safety Copilot documentation to walkthrough.md\"",
+      "EndLine": "516",
+      "Instruction": "\"Add details of the 11 new modules, dynamic reasoning context, suggested questions, and E2E verification results.\"",
+      "ReplacementContent": "\"* **[chat.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/routes/chat.py)**:\\n  * Updates `POST /chat/{analysis_id}` to return the structured dictionary containing the root-level legacy `\\\"response\\\"` key mapped directly to `answer.summary`, preventing regressions on legacy test scripts.\\n\\n### 3. Automated Test Upgrades\\n* **[test_chat_e2e.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_chat_e2e.py)**:\\n  * Upgraded assertions to validate both the backward compatibility layer and the presence, schema types, and values of the new nested card structure keys.\\n\\n---\\n\\n## Final Enterprise Chatbot Upgrade \u2014 AI Pharmacovigilance Safety Copilot\\n\\nWe have fully refactored and upgraded the chatbot to serve as an **Enterprise AI Pharmacovigilance Safety Copilot**. The copilot dynamically classifies and reasons over clinical queries, executes dynamic RAG retrieves, provides traceable sources, and suggests follow-up questions tailored to case risks.\\n\\n### 1. New Service Architecture (`backend/app/services/chat/`)\\n* **[response_type_classifier.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/response_type_classifier.py)**: Dynamically classifies incoming questions into one of the 13 supported response types (e.g. `seriousness_explanation`, `causality_explanation`, `fda_signal_summary`, `regulatory_intelligence`, `organ_system_analysis`).\\n* **[semantic_retrieval_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py)**: Dynamically queries the case data, OpenFDA API summaries, local FAERS matching counts, verified claims, and Milvus KB guidances.\\n* **[dynamic_context_builder.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/dynamic_context_builder.py)**: Formats all case parameters (timeline, missing data gaps, FDA signals, verified claims, and KB documents) into a unified context block.\\n* **[followup_question_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/followup_question_service.py)**: Dynamical\n<truncated 3492 bytes>",
+      "StartLine": "510",
+      "TargetContent": "\"* **[chat.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/routes/chat.py)**:\\n  * Updates `POST /chat/{analysis_id}` to return the structured dictionary containing the root-level legacy `\\\"response\\\"` key mapped directly to `answer.summary`, preventing regressions on legacy test scripts.\\n\\n### 3. Automated Test Upgrades\\n* **[test_chat_e2e.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_chat_e2e.py)**:\\n  * Upgraded assertions to validate both the backward compatibility layer and the presence, schema types, and values of the new nested card structure keys.\"",
+      "TargetFile": "\"/Users/affu01/.gemini/antigravity-ide/brain/268c45e6-1c20-463b-b840-2ec2ac644add/walkthrough.md\"",
+      "toolAction": "\"Editing file\"",
+      "toolSummary": "\"Append final section to walkthrough.md\""
+    }
+  }
+]
+
+================================================================================
+LINE 3336 | STEP 2873 | TYPE CODE_ACTION | TIME 2026-06-14T10:16:00Z
+================================================================================
+CONTENT:
+Created At: 2026-06-14T10:16:00Z
+Completed At: 2026-06-14T10:16:01Z
+The following changes were made by the replace_file_content tool to: /Users/affu01/.gemini/antigravity-ide/brain/268c45e6-1c20-463b-b840-2ec2ac644add/walkthrough.md. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -513,4 +513,40 @@
+ ### 3. Automated Test Upgrades
+ * **[test_chat_e2e.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_chat_e2e.py)**:
+   * Upgraded assertions to validate both the backward compatibility layer and the presence, schema types, and values of the new nested card structure keys.
++
++---
++
++## Final Enterprise Chatbot Upgrade — AI Pharmacovigilance Safety Copilot
++
++We have fully refactored and upgraded the chatbot to serve as an **Enterprise AI Pharmacovigilance Safety Copilot**. The copilot dynamically classifies and reasons over clinical queries, executes dynamic RAG retrieves, provides traceable sources, and suggests follow-up questions tailored to case risks.
++
++### 1. New Service Architecture (`backend/app/services/chat/`)
++* **[response_type_classifier.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/response_type_classifier.py)**: Dynamically classifies incoming questions into one of the 13 supported response types (e.g. `seriousness_explanation`, `causality_explanation`, `fda_signal_summary`, `regulatory_intelligence`, `organ_system_analysis`).
++* **[semantic_retrieval_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py)**: Dynamically queries the case data, OpenFDA API summaries, local FAERS matching counts, verified claims, and Milvus KB guidances.
++* **[dynamic_context_builder.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/dynamic_context_builder.py)**: Formats all case parameters (timeline, missing data gaps, FDA signals, verified claims, and KB documents) into a unified context block.
++* **[followup_question_service.py](file:///Users/af
+<truncated 1775 bytes>
+egration and Formatter Enrichment
++* **[chat_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat_service.py)**: Refactored `generate_chat_response` to run entirely via the orchestrator.
++* **[response_formatter_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/response_formatter_service.py)**: Integrated classifier routing and dynamically compiles lists of follow-up questions and traceable clinical databases, returning them under both `answer` and root payload scopes.
++
++### 3. Verification & E2E Validation
++* Updated [test_chat_e2e.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_chat_e2e.py) to assert presence of `suggested_questions` and `sources` lists, and validate all 13 response types.
++* Executed the suite successfully against the active Milvus server. Both standard questions and open-ended queries returned correctly formatted conversational cards, as verified in E2E logs:
++  - `✓ Structured format verified for: dynamic_contextual_reasoning`
++    - Suggested follow-ups: `['Explain causality reasoning', 'What information is missing?', 'Is this drug banned anywhere?', 'Show ADR timeline', 'Have similar cases been reported?']`
++    - Traceable sources: `['FDA openFDA Signal Stats', 'Local FAERS Dataset', 'Safety Claims Verification', 'Timeline Chronology']`
++  - `✓ Structured format verified for: seriousness_explanation`
++    - Suggested follow-ups: `['Explain causality reasoning', 'What information is missing?', 'Is this drug banned anywhere?', 'Show ADR timeline', 'Have similar cases been reported?']`
++    - Traceable sources: `['FDA openFDA Signal Stats', 'Local FAERS Dataset', 'Safety Claims Verification', 'Timeline Chronology']`
++  - `🎉 ALL CONVERSATIONAL CHAT SESSION TESTS COMPLETED SUCCESSFULLY!`
++
+ 
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+================================================================================
+LINE 3337 | STEP 2874 | TYPE PLANNER_RESPONSE | TIME 2026-06-14T10:16:01Z
+================================================================================
+CONTENT:
+I have successfully refactored and upgraded the chatbot to serve as a fully dynamic, clinical-grade **Enterprise AI Pharmacovigilance Safety Copilot**.
+
+### Summary of Implementations
+
+1. **Created 11 Modular Chat Services**
+   * [response_type_classifier.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/response_type_classifier.py): Semantic classifier supporting 13 response types.
+   * [semantic_retrieval_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py): Dynamically fetches active case records, FDA signal trends, local FAERS matching counts, claims verifications, and regulatory warning chunks.
+   * [dynamic_context_builder.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/dynamic_context_builder.py): Packages timeline, missing gaps, narrative text, and verification metrics into a clean context prompt for the LLM.
+   * [followup_question_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/followup_question_service.py): Dynamically generates 3-5 high-value follow-up questions tailored to case risks (e.g. recommending renal function queries if renal indicators are present).
+   * **Domain Specific Sub-Services** ([seriousness](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/seriousness_chat_service.py), [causality](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/causality_chat_service.py), [fda_signal](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/fda_signal_chat_service.py), [regulatory](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/regulatory_chat_service.py), [timeline](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/timeline_chat_service.py), [safety_recommendation](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/safety_recommendation_service.py)): Supply clinical rules, compliance checks, and prompt guidelines for clinical reasoning.
+   * [conversational_reasoning_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/conversational_reasoning_service.py): Orchestrates context building, memory history, and clinical guidelines to execute Groq LLM reasoning dynamically without any hardcoding or keyword intent mapping templates.
+
+2. **Integration and Card Formatting**
+   * Refactored [chat_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat_service.py) to route questions through the orchestrator.
+   * Updated [response_formatter_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/response_formatter_service.py) to compile and return the dynamic list of clinical sources and guided follow-up questions under both nested `answer` and root scopes.
+
+3. **E2E Validation and Verification**
+   * Extended [test_chat_e2e.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_chat_e2e.py) to assert metadata typing and lists length validations for `suggested_questions` and `sources` across all 13 response types.
+   * Executed the suite successfully against the active Milvus server. All tests passed cleanly:
+     - `✓ Structured format verified for: dynamic_contextual_reasoning`
+       - Suggested follow-ups: `['Explain causality reasoning', 'What information is missing?', 'Is this drug banned anywhere?', 'Show ADR timeline', 'Have similar cases been reported?']`
+       - Traceable sources: `['FDA openFDA Signal Stats', 'Local FAERS Dataset', 'Safety Claims Verification', 'Timeline Chronology']`
+     - `🎉 ALL CONVERSATIONAL CHAT SESSION TESTS COMPLETED SUCCESSFULLY!`
+
+The [walkthrough.md](file:///Users/affu01/.gemini/antigravity-ide/brain/268c45e6-1c20-463b-b840-2ec2ac644add/walkthrough.md) artifact has been updated to document all the changes. Please let me know how you would like to proceed!
+
+================================================================================
+LINE 3364 | STEP 2901 | TYPE VIEW_FILE | TIME 2026-06-14T10:30:15Z
+================================================================================
+CONTENT:
+Created At: 2026-06-14T10:30:15Z
+Completed At: 2026-06-14T10:30:15Z
+File Path: `file:///Users/affu01/.gemini/antigravity-ide/brain/268c45e6-1c20-463b-b840-2ec2ac644add/walkthrough.md`
+Total Lines: 552
+Total Bytes: 41320
+Showing lines 520 to 552
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+520: 
+521: We have fully refactored and upgraded the chatbot to serve as an **Enterprise AI Pharmacovigilance Safety Copilot**. The copilot dynamically classifies and reasons over clinical queries, executes dynamic RAG retrieves, provides traceable sources, and suggests follow-up questions tailored to case risks.
+522: 
+523: ### 1. New Service Architecture (`backend/app/services/chat/`)
+524: * **[response_type_classifier.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/response_type_classifier.py)**: Dynamically classifies incoming questions into one of the 13 supported response types (e.g. `seriousness_explanation`, `causality_explanation`, `fda_signal_summary`, `regulatory_intelligence`, `organ_system_analysis`).
+525: * **[semantic_retrieval_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py)**: Dynamically queries the case data, OpenFDA API summaries, local FAERS matching counts, verified claims, and Milvus KB guidances.
+526: * **[dynamic_context_builder.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/dynamic_context_builder.py)**: Formats all case parameters (timeline, missing data gaps, FDA signals, verified claims, and KB documents) into a unified context block.
+527: * **[followup_question_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/followup_question_service.py)**: Dynamically suggests 3-5 high-value questions based on the active case details (e.g. recommending `"Explain renal safety risk"` if renal impairment is detec
+<truncated 1583 bytes>
+ration and Formatter Enrichment
+538: * **[chat_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat_service.py)**: Refactored `generate_chat_response` to run entirely via the orchestrator.
+539: * **[response_formatter_service.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/response_formatter_service.py)**: Integrated classifier routing and dynamically compiles lists of follow-up questions and traceable clinical databases, returning them under both `answer` and root payload scopes.
+540: 
+541: ### 3. Verification & E2E Validation
+542: * Updated [test_chat_e2e.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_chat_e2e.py) to assert presence of `suggested_questions` and `sources` lists, and validate all 13 response types.
+543: * Executed the suite successfully against the active Milvus server. Both standard questions and open-ended queries returned correctly formatted conversational cards, as verified in E2E logs:
+544:   - `✓ Structured format verified for: dynamic_contextual_reasoning`
+545:     - Suggested follow-ups: `['Explain causality reasoning', 'What information is missing?', 'Is this drug banned anywhere?', 'Show ADR timeline', 'Have similar cases been reported?']`
+546:     - Traceable sources: `['FDA openFDA Signal Stats', 'Local FAERS Dataset', 'Safety Claims Verification', 'Timeline Chronology']`
+547:   - `✓ Structured format verified for: seriousness_explanation`
+548:     - Suggested follow-ups: `['Explain causality reasoning', 'What information is missing?', 'Is this drug banned anywhere?', 'Show ADR timeline', 'Have similar cases been reported?']`
+549:     - Traceable sources: `['FDA openFDA Signal Stats', 'Local FAERS Dataset', 'Safety Claims Verification', 'Timeline Chronology']`
+550:   - `🎉 ALL CONVERSATIONAL CHAT SESSION TESTS COMPLETED SUCCESSFULLY!`
+551: 
+552: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+
+================================================================================
+LINE 4317 | STEP 3716 | TYPE GREP_SEARCH | TIME 2026-06-15T11:00:12Z
+================================================================================
+CONTENT:
+Created At: 2026-06-15T11:00:12Z
+Completed At: 2026-06-15T11:00:13Z
+{"File":"/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py","LineNumber":11,"LineContent":"    def get_fda_evidence(self, drug_name: str) -\u003e Dict[str, Any]:"}
+{"File":"/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/verification_service.py","LineNumber":17,"LineContent":"        fda_ev = evidence_service.get_fda_evidence(drug_name)"}
+{"File":"/Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/response_formatter_service.py","LineNumber":147,"LineContent":"        fda_ev = evidence_service.get_fda_evidence(primary_drug)"}
+{"File":"/Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py","LineNumber":18,"LineContent":"        fda_ev = evidence_service.get_fda_evidence(primary_drug)"}
+{"File":"/Users/affu01/GRAD_PROJ_NEW/backend/app/routes/report.py","LineNumber":445,"LineContent":"            fda_ev = evidence_service.get_fda_evidence(normalized_drug)"}
+{"File":"/Users/affu01/GRAD_PROJ_NEW/backend/app/routes/verification.py","LineNumber":27,"LineContent":"    fda_ev = evidence_service.get_fda_evidence(drug_name)"}
+{"File":"/Users/affu01/GRAD_PROJ_NEW/backend/app/routes/verification.py","LineNumber":130,"LineContent":"    fda_ev = evidence_service.get_fda_evidence(primary_drug)"}
+
+================================================================================
+LINE 4326 | STEP 3725 | TYPE PLANNER_RESPONSE | TIME 2026-06-15T11:00:27Z
+================================================================================
+TOOL CALLS:
+[
+  {
+    "name": "view_file",
+    "args": {
+      "AbsolutePath": "\"/Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py\"",
+      "EndLine": "60",
+      "StartLine": "1",
+      "toolAction": "\"View semantic_retrieval_service.py\"",
+      "toolSummary": "\"View lines 1-60 of semantic_retrieval_service.py\""
+    }
+  }
+]
+
+================================================================================
+LINE 4327 | STEP 3726 | TYPE VIEW_FILE | TIME 2026-06-15T11:00:29Z
+================================================================================
+CONTENT:
+Created At: 2026-06-15T11:00:29Z
+Completed At: 2026-06-15T11:00:29Z
+File Path: `file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py`
+Total Lines: 45
+Total Bytes: 1993
+Showing lines 1 to 45
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: import logging
+2: from typing import Dict, Any, List
+3: from app.services.verification.evidence_service import evidence_service
+4: from app.services.verification.verification_service import verification_service
+5: from app.services.verification.traceability_service import traceability_service
+6: from app.services.fda_service import fda_service_instance
+7: 
+8: logger = logging.getLogger(__name__)
+9: 
+10: class SemanticRetrievalService:
+11:     def retrieve_evidence_context(self, primary_drug: str, symptoms: List[str], analysis_id: str) -> Dict[str, Any]:
+12:         """
+13:         Dynamically retrieves clinical signals and reference database evidence for a suspect drug.
+14:         """
+15:         logger.info(f"Dynamically retrieving semantic safety evidence for '{primary_drug}' (symptoms: {symptoms})...")
+16:         
+17:         # 1. Fetch live FDA openFDA summary stats
+18:         fda_ev = evidence_service.get_fda_evidence(primary_drug)
+19:         
+20:         # 2. Fetch local FAERS CSV counts
+21:         local_faers = evidence_service.get_local_faers_evidence(primary_drug)
+22:         
+23:         # 3. Fetch warning guideline chunks from Milvus collection 'knowledge_base'
+24:         kb_ev = evidence_service.get_knowledge_base_evidence(primary_drug)
+25:         
+26:         # 4. Run explainability verification claims
+27:         claims = verification_service.verify_case_claims(primary_drug, symptoms)
+28:         
+29:         # 5. Fetch semantic traceable chunks for the specific file analysis
+30:         chunks = traceability_service.get_traceable_chunks(primary_drug, analysis_id=analysis_id, limit=3)
+31:         
+32:         # 6. Fetch similar case IDs and outcomes from local FAERS
+33:         similar_cases = evidence_service.get_supporting_cases(primary_drug)
+34: 
+35:         return {
+36:             "fda_evidence": fda_ev,
+37:             "local_faers": local_faers,
+38:             "kb_evidence": kb_ev,
+39:             "verified_claims": claims,
+40:             "traceable_chunks": chunks,
+41:             "similar_cases": similar_cases
+42:         }
+43: 
+44: semantic_retrieval_service = SemanticRetrievalService()
+45: 
+The above content shows the entire, complete file contents of the requested file.
+
+
+================================================================================
+LINE 4398 | STEP 3798 | TYPE PLANNER_RESPONSE | TIME 2026-06-15T11:02:28Z
+================================================================================
+CONTENT:
+I will view the `app/services/chat/semantic_retrieval_service.py` file to understand how chat context retrieves FDA and FAERS details.
+
+TOOL CALLS:
+[
+  {
+    "name": "view_file",
+    "args": {
+      "AbsolutePath": "\"/Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py\"",
+      "toolAction": "\"Viewing semantic retrieval service file\"",
+      "toolSummary": "\"Semantic retrieval service viewing\""
+    }
+  }
+]
+
+================================================================================
+LINE 4399 | STEP 3799 | TYPE VIEW_FILE | TIME 2026-06-15T11:02:29Z
+================================================================================
+CONTENT:
+Created At: 2026-06-15T11:02:29Z
+Completed At: 2026-06-15T11:02:30Z
+File Path: `file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py`
+Total Lines: 45
+Total Bytes: 1993
+Showing lines 1 to 45
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: import logging
+2: from typing import Dict, Any, List
+3: from app.services.verification.evidence_service import evidence_service
+4: from app.services.verification.verification_service import verification_service
+5: from app.services.verification.traceability_service import traceability_service
+6: from app.services.fda_service import fda_service_instance
+7: 
+8: logger = logging.getLogger(__name__)
+9: 
+10: class SemanticRetrievalService:
+11:     def retrieve_evidence_context(self, primary_drug: str, symptoms: List[str], analysis_id: str) -> Dict[str, Any]:
+12:         """
+13:         Dynamically retrieves clinical signals and reference database evidence for a suspect drug.
+14:         """
+15:         logger.info(f"Dynamically retrieving semantic safety evidence for '{primary_drug}' (symptoms: {symptoms})...")
+16:         
+17:         # 1. Fetch live FDA openFDA summary stats
+18:         fda_ev = evidence_service.get_fda_evidence(primary_drug)
+19:         
+20:         # 2. Fetch local FAERS CSV counts
+21:         local_faers = evidence_service.get_local_faers_evidence(primary_drug)
+22:         
+23:         # 3. Fetch warning guideline chunks from Milvus collection 'knowledge_base'
+24:         kb_ev = evidence_service.get_knowledge_base_evidence(primary_drug)
+25:         
+26:         # 4. Run explainability verification claims
+27:         claims = verification_service.verify_case_claims(primary_drug, symptoms)
+28:         
+29:         # 5. Fetch semantic traceable chunks for the specific file analysis
+30:         chunks = traceability_service.get_traceable_chunks(primary_drug, analysis_id=analysis_id, limit=3)
+31:         
+32:         # 6. Fetch similar case IDs and outcomes from local FAERS
+33:         similar_cases = evidence_service.get_supporting_cases(primary_drug)
+34: 
+35:         return {
+36:             "fda_evidence": fda_ev,
+37:             "local_faers": local_faers,
+38:             "kb_evidence": kb_ev,
+39:             "verified_claims": claims,
+40:             "traceable_chunks": chunks,
+41:             "similar_cases": similar_cases
+42:         }
+43: 
+44: semantic_retrieval_service = SemanticRetrievalService()
+45: 
+The above content shows the entire, complete file contents of the requested file.
+
+
+================================================================================
+LINE 4458 | STEP 3858 | TYPE PLANNER_RESPONSE | TIME 2026-06-15T11:05:54Z
+================================================================================
+CONTENT:
+I will view the `app/services/chat/semantic_retrieval_service.py` file to locate where `evidence_service` methods are called.
+
+TOOL CALLS:
+[
+  {
+    "name": "view_file",
+    "args": {
+      "AbsolutePath": "\"/Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py\"",
+      "EndLine": "45",
+      "StartLine": "1",
+      "toolAction": "\"Viewing app services chat semantic_retrieval_service.py file\"",
+      "toolSummary": "\"Semantic retrieval service file viewing\""
+    }
+  }
+]
+
+================================================================================
+LINE 4459 | STEP 3859 | TYPE VIEW_FILE | TIME 2026-06-15T11:05:57Z
+================================================================================
+CONTENT:
+Created At: 2026-06-15T11:05:57Z
+Completed At: 2026-06-15T11:05:57Z
+File Path: `file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py`
+Total Lines: 45
+Total Bytes: 1993
+Showing lines 1 to 45
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: import logging
+2: from typing import Dict, Any, List
+3: from app.services.verification.evidence_service import evidence_service
+4: from app.services.verification.verification_service import verification_service
+5: from app.services.verification.traceability_service import traceability_service
+6: from app.services.fda_service import fda_service_instance
+7: 
+8: logger = logging.getLogger(__name__)
+9: 
+10: class SemanticRetrievalService:
+11:     def retrieve_evidence_context(self, primary_drug: str, symptoms: List[str], analysis_id: str) -> Dict[str, Any]:
+12:         """
+13:         Dynamically retrieves clinical signals and reference database evidence for a suspect drug.
+14:         """
+15:         logger.info(f"Dynamically retrieving semantic safety evidence for '{primary_drug}' (symptoms: {symptoms})...")
+16:         
+17:         # 1. Fetch live FDA openFDA summary stats
+18:         fda_ev = evidence_service.get_fda_evidence(primary_drug)
+19:         
+20:         # 2. Fetch local FAERS CSV counts
+21:         local_faers = evidence_service.get_local_faers_evidence(primary_drug)
+22:         
+23:         # 3. Fetch warning guideline chunks from Milvus collection 'knowledge_base'
+24:         kb_ev = evidence_service.get_knowledge_base_evidence(primary_drug)
+25:         
+26:         # 4. Run explainability verification claims
+27:         claims = verification_service.verify_case_claims(primary_drug, symptoms)
+28:         
+29:         # 5. Fetch semantic traceable chunks for the specific file analysis
+30:         chunks = traceability_service.get_traceable_chunks(primary_drug, analysis_id=analysis_id, limit=3)
+31:         
+32:         # 6. Fetch similar case IDs and outcomes from local FAERS
+33:         similar_cases = evidence_service.get_supporting_cases(primary_drug)
+34: 
+35:         return {
+36:             "fda_evidence": fda_ev,
+37:             "local_faers": local_faers,
+38:             "kb_evidence": kb_ev,
+39:             "verified_claims": claims,
+40:             "traceable_chunks": chunks,
+41:             "similar_cases": similar_cases
+42:         }
+43: 
+44: semantic_retrieval_service = SemanticRetrievalService()
+45: 
+The above content shows the entire, complete file contents of the requested file.
+
+
+================================================================================
+LINE 4460 | STEP 3860 | TYPE PLANNER_RESPONSE | TIME 2026-06-15T11:05:57Z
+================================================================================
+CONTENT:
+I will now update `app/services/chat/semantic_retrieval_service.py` to pass the `case_context` containing symptoms when querying FDA and FAERS evidence, keeping the counts consistent.
+
+TOOL CALLS:
+[
+  {
+    "name": "replace_file_content",
+    "args": {
+      "AllowMultiple": "false",
+      "Description": "\"Updated retrieve_evidence_context in semantic_retrieval_service.py to pass case_context parameters.\"",
+      "EndLine": "28",
+      "Instruction": "\"Modify semantic_retrieval_service.py to construct case_context and pass it down.\"",
+      "ReplacementContent": "\"        case_context = {\\\"symptoms\\\": symptoms}\\n\\n        # 1. Fetch live FDA openFDA summary stats\\n        fda_ev = evidence_service.get_fda_evidence(primary_drug, case_context=case_context)\\n        \\n        # 2. Fetch local FAERS CSV counts\\n        local_faers = evidence_service.get_local_faers_evidence(primary_drug, case_context=case_context)\\n        \\n        # 3. Fetch warning guideline chunks from Milvus collection 'knowledge_base'\\n        kb_ev = evidence_service.get_knowledge_base_evidence(primary_drug)\\n        \\n        # 4. Run explainability verification claims\\n        claims = verification_service.verify_case_claims(primary_drug, symptoms, case_context=case_context)\"",
+      "StartLine": "17",
+      "TargetContent": "\"        # 1. Fetch live FDA openFDA summary stats\\n        fda_ev = evidence_service.get_fda_evidence(primary_drug)\\n        \\n        # 2. Fetch local FAERS CSV counts\\n        local_faers = evidence_service.get_local_faers_evidence(primary_drug)\\n        \\n        # 3. Fetch warning guideline chunks from Milvus collection 'knowledge_base'\\n        kb_ev = evidence_service.get_knowledge_base_evidence(primary_drug)\\n        \\n        # 4. Run explainability verification claims\\n        claims = verification_service.verify_case_claims(primary_drug, symptoms)\"",
+      "TargetFile": "\"/Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py\"",
+      "toolAction": "\"Replacing evidence fetching lines in semantic_retrieval_service.py\"",
+      "toolSummary": "\"Semantic retrieval service file modification\""
+    }
+  }
+]
+
+================================================================================
+LINE 4461 | STEP 3861 | TYPE CODE_ACTION | TIME 2026-06-15T11:05:59Z
+================================================================================
+CONTENT:
+Created At: 2026-06-15T11:05:59Z
+Completed At: 2026-06-15T11:06:02Z
+The following changes were made by the replace_file_content tool to: /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -14,11 +14,13 @@
+         """
+         logger.info(f"Dynamically retrieving semantic safety evidence for '{primary_drug}' (symptoms: {symptoms})...")
+         
++        case_context = {"symptoms": symptoms}
++
+         # 1. Fetch live FDA openFDA summary stats
+-        fda_ev = evidence_service.get_fda_evidence(primary_drug)
++        fda_ev = evidence_service.get_fda_evidence(primary_drug, case_context=case_context)
+         
+         # 2. Fetch local FAERS CSV counts
+-        local_faers = evidence_service.get_local_faers_evidence(primary_drug)
++        local_faers = evidence_service.get_local_faers_evidence(primary_drug, case_context=case_context)
+         
+         # 3. Fetch warning guideline chunks from Milvus collection 'knowledge_base'
+         kb_ev = evidence_service.get_knowledge_base_evidence(primary_drug)
+@@ -25,5 +25,5 @@
+         # 4. Run explainability verification claims
+-        claims = verification_service.verify_case_claims(primary_drug, symptoms)
++        claims = verification_service.verify_case_claims(primary_drug, symptoms, case_context=case_context)
+         
+         # 5. Fetch semantic traceable chunks for the specific file analysis
+         chunks = traceability_service.get_traceable_chunks(primary_drug, analysis_id=analysis_id, limit=3)
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+================================================================================
+LINE 4602 | STEP 3703 | TYPE RUN_COMMAND | TIME 2026-06-15T09:49:34Z
+================================================================================
+CONTENT:
+The USER performed the following action:
+Command: python -m uvicorn main:app --reload
+CWD: /Users/affu01/GRAD_PROJ_NEW/backend
+
+				The command completed successfully.
+				Output:
+				<truncated 558 lines>
+I0615 16:44:48.786820  726175 ev_poll_posix.cc:593] FD from fork parent still in poll list: fd(19, generation: 1)
+Loading weights: 100%|█████████████████████████████████████████████████████████████████| 103/103 [00:00<00:00, 12196.87it/s]
+INFO:     127.0.0.1:50364 - "POST /analyze/text HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'scripts/test_vancomycin_rms.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [24104]
+/Users/affu01/GRAD_PROJ_NEW/backend/venv/lib/python3.12/site-packages/spacy/util.py:971: UserWarning: [W095] Model 'en_core_sci_md' (0.5.4) was trained with spaCy v3.7.4 and may not be 100% compatible with the current version (3.8.14). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate
+  warnings.warn(warn_msg)
+/Users/affu01/GRAD_PROJ_NEW/backend/venv/lib/python3.12/site-packages/spacy/language.py:2235: FutureWarning: Possible set union at position 6328
+  deserializers["tokenizer"] = lambda p: self.tokenizer.from_disk(  # type: ignore[union-attr]
+INFO:     Started server process [24168]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights: 100%|██████████████████████████████████████████████████████████
+<truncated 4058 bytes>
+ponse as JSON: Expecting value: line 1 column 1 (char 0)
+INFO:     127.0.0.1:50421 - "POST /analyze/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50421 - "OPTIONS /report/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50421 - "POST /report/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50426 - "POST /report/generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50428 - "POST /report/generate HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/routes/verification.py', 'app/services/verification/evidence_service.py', 'app/services/llm_service.py', 'scripts/test_contextual_fda.py', 'app/services/chat/response_formatter_service.py', 'app/routes/report.py', 'app/services/rag_service.py', 'scripts/test_vancomycin_rms.py', 'app/services/verification/verification_service.py', 'app/services/fda_service.py', 'app/services/chat/semantic_retrieval_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [24168]
+^C/Users/affu01/GRAD_PROJ_NEW/backend/venv/lib/python3.12/site-packages/spacy/util.py:971: UserWarning: [W095] Model 'en_core_sci_md' (0.5.4) was trained with spaCy v3.7.4 and may not be 100% compatible with the current version (3.8.14). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate
+  warnings.warn(warn_msg)
+/Users/affu01/GRAD_PROJ_NEW/backend/venv/lib/python3.12/site-packages/spacy/language.py:2235: FutureWarning: Possible set union at position 6328
+  deserializers["tokenizer"] = lambda p: self.tokenizer.from_disk(  # type: ignore[union-attr]
+INFO:     Started server process [24470]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [24470]
+INFO:     Stopping reloader process [21985]
+
+
+================================================================================
+LINE 4655 | STEP 3757 | TYPE PLANNER_RESPONSE | TIME 2026-06-15T11:24:45Z
+================================================================================
+CONTENT:
+I will view `semantic_retrieval_service.py` to see how it gathers evidence and how we can pass `case_context` or symptoms there.
+
+TOOL CALLS:
+[
+  {
+    "name": "view_file",
+    "args": {
+      "AbsolutePath": "\"/Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py\"",
+      "toolAction": "\"Viewing semantic_retrieval_service.py\"",
+      "toolSummary": "\"Read semantic retrieval service\""
+    }
+  }
+]
+
+================================================================================
+LINE 4656 | STEP 3758 | TYPE VIEW_FILE | TIME 2026-06-15T11:24:55Z
+================================================================================
+CONTENT:
+Created At: 2026-06-15T11:24:55Z
+Completed At: 2026-06-15T11:24:55Z
+File Path: `file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py`
+Total Lines: 45
+Total Bytes: 1993
+Showing lines 1 to 45
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: import logging
+2: from typing import Dict, Any, List
+3: from app.services.verification.evidence_service import evidence_service
+4: from app.services.verification.verification_service import verification_service
+5: from app.services.verification.traceability_service import traceability_service
+6: from app.services.fda_service import fda_service_instance
+7: 
+8: logger = logging.getLogger(__name__)
+9: 
+10: class SemanticRetrievalService:
+11:     def retrieve_evidence_context(self, primary_drug: str, symptoms: List[str], analysis_id: str) -> Dict[str, Any]:
+12:         """
+13:         Dynamically retrieves clinical signals and reference database evidence for a suspect drug.
+14:         """
+15:         logger.info(f"Dynamically retrieving semantic safety evidence for '{primary_drug}' (symptoms: {symptoms})...")
+16:         
+17:         # 1. Fetch live FDA openFDA summary stats
+18:         fda_ev = evidence_service.get_fda_evidence(primary_drug)
+19:         
+20:         # 2. Fetch local FAERS CSV counts
+21:         local_faers = evidence_service.get_local_faers_evidence(primary_drug)
+22:         
+23:         # 3. Fetch warning guideline chunks from Milvus collection 'knowledge_base'
+24:         kb_ev = evidence_service.get_knowledge_base_evidence(primary_drug)
+25:         
+26:         # 4. Run explainability verification claims
+27:         claims = verification_service.verify_case_claims(primary_drug, symptoms)
+28:         
+29:         # 5. Fetch semantic traceable chunks for the specific file analysis
+30:         chunks = traceability_service.get_traceable_chunks(primary_drug, analysis_id=analysis_id, limit=3)
+31:         
+32:         # 6. Fetch similar case IDs and outcomes from local FAERS
+33:         similar_cases = evidence_service.get_supporting_cases(primary_drug)
+34: 
+35:         return {
+36:             "fda_evidence": fda_ev,
+37:             "local_faers": local_faers,
+38:             "kb_evidence": kb_ev,
+39:             "verified_claims": claims,
+40:             "traceable_chunks": chunks,
+41:             "similar_cases": similar_cases
+42:         }
+43: 
+44: semantic_retrieval_service = SemanticRetrievalService()
+45: 
+The above content shows the entire, complete file contents of the requested file.
+
+
+================================================================================
+LINE 4686 | STEP 3788 | TYPE PLANNER_RESPONSE | TIME 2026-06-15T11:26:14Z
+================================================================================
+CONTENT:
+I will view the code in `semantic_retrieval_service.py` around lines 15-28 to make the edits precise.
+
+TOOL CALLS:
+[
+  {
+    "name": "view_file",
+    "args": {
+      "AbsolutePath": "\"/Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py\"",
+      "EndLine": "28",
+      "StartLine": "15",
+      "toolAction": "\"Viewing semantic_retrieval_service.py lines 15-28\"",
+      "toolSummary": "\"Read semantic retrieval lines\""
+    }
+  }
+]
+
+================================================================================
+LINE 4687 | STEP 3789 | TYPE VIEW_FILE | TIME 2026-06-15T11:26:16Z
+================================================================================
+CONTENT:
+Created At: 2026-06-15T11:26:16Z
+Completed At: 2026-06-15T11:26:17Z
+File Path: `file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py`
+Total Lines: 45
+Total Bytes: 1993
+Showing lines 15 to 28
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+15:         logger.info(f"Dynamically retrieving semantic safety evidence for '{primary_drug}' (symptoms: {symptoms})...")
+16:         
+17:         # 1. Fetch live FDA openFDA summary stats
+18:         fda_ev = evidence_service.get_fda_evidence(primary_drug)
+19:         
+20:         # 2. Fetch local FAERS CSV counts
+21:         local_faers = evidence_service.get_local_faers_evidence(primary_drug)
+22:         
+23:         # 3. Fetch warning guideline chunks from Milvus collection 'knowledge_base'
+24:         kb_ev = evidence_service.get_knowledge_base_evidence(primary_drug)
+25:         
+26:         # 4. Run explainability verification claims
+27:         claims = verification_service.verify_case_claims(primary_drug, symptoms)
+28:         
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+
+================================================================================
+LINE 4688 | STEP 3790 | TYPE PLANNER_RESPONSE | TIME 2026-06-15T11:26:17Z
+================================================================================
+CONTENT:
+I will replace the lines in `semantic_retrieval_service.py` to pass the contextual symptoms.
+
+TOOL CALLS:
+[
+  {
+    "name": "replace_file_content",
+    "args": {
+      "AllowMultiple": "false",
+      "Description": "\"Update retrieve_evidence_context to pass case_context to get_fda_evidence and get_local_faers_evidence.\"",
+      "EndLine": "22",
+      "Instruction": "\"Pass case_context containing symptoms list to get_fda_evidence and get_local_faers_evidence.\"",
+      "ReplacementContent": "\"        case_context = {\\\"symptoms\\\": symptoms}\\n        # 1. Fetch live FDA openFDA summary stats\\n        fda_ev = evidence_service.get_fda_evidence(primary_drug, case_context=case_context)\\n        \\n        # 2. Fetch local FAERS CSV counts\\n        local_faers = evidence_service.get_local_faers_evidence(primary_drug, case_context=case_context)\"",
+      "StartLine": "17",
+      "TargetContent": "\"        # 1. Fetch live FDA openFDA summary stats\\n        fda_ev = evidence_service.get_fda_evidence(primary_drug)\\n        \\n        # 2. Fetch local FAERS CSV counts\\n        local_faers = evidence_service.get_local_faers_evidence(primary_drug)\"",
+      "TargetFile": "\"/Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py\"",
+      "toolAction": "\"Modifying semantic_retrieval_service.py\"",
+      "toolSummary": "\"Update semantic retrieval context\""
+    }
+  }
+]
+
+================================================================================
+LINE 4689 | STEP 3791 | TYPE CODE_ACTION | TIME 2026-06-15T11:26:19Z
+================================================================================
+CONTENT:
+Created At: 2026-06-15T11:26:19Z
+Completed At: 2026-06-15T11:26:22Z
+The following changes were made by the replace_file_content tool to: /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -14,11 +14,12 @@
+         """
+         logger.info(f"Dynamically retrieving semantic safety evidence for '{primary_drug}' (symptoms: {symptoms})...")
+         
++        case_context = {"symptoms": symptoms}
+         # 1. Fetch live FDA openFDA summary stats
+-        fda_ev = evidence_service.get_fda_evidence(primary_drug)
++        fda_ev = evidence_service.get_fda_evidence(primary_drug, case_context=case_context)
+         
+         # 2. Fetch local FAERS CSV counts
+-        local_faers = evidence_service.get_local_faers_evidence(primary_drug)
++        local_faers = evidence_service.get_local_faers_evidence(primary_drug, case_context=case_context)
+         
+         # 3. Fetch warning guideline chunks from Milvus collection 'knowledge_base'
+         kb_ev = evidence_service.get_knowledge_base_evidence(primary_drug)
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+
+================================================================================
+LINE 5213 | STEP 3776 | TYPE RUN_COMMAND | TIME 2026-06-16T10:01:41Z
+================================================================================
+CONTENT:
+Created At: 2026-06-16T10:01:41Z
+Completed At: 2026-06-16T10:01:46Z
+
+				The command completed successfully.
+				Output:
+				<truncated 20 lines>
+-rw-r--r--@ 1 affu01  staff   2.9K Jun 14 15:40 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/followup_question_service.py
+-rw-r--r--@ 1 affu01  staff   7.2K Jun 14 17:09 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/question_aware_summary_service.py
+-rw-r--r--@ 1 affu01  staff   3.8K Jun 14 17:09 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/question_domain_classifier.py
+-rw-r--r--@ 1 affu01  staff   1.5K Jun 14 15:40 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/regulatory_chat_service.py
+-rw-r--r--@ 1 affu01  staff    12K Jun 15 19:47 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/response_formatter_service.py
+-rw-r--r--@ 1 affu01  staff   8.4K Jun 14 17:09 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/response_scope_controller.py
+-rw-r--r--@ 1 affu01  staff   3.3K Jun 14 15:39 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/response_type_classifier.py
+-rw-r--r--@ 1 affu01  staff   2.0K Jun 14 15:40 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/safety_recommendation_service.py
+-rw-r--r--@ 1 affu01  staff     0B Jun 16 15:25 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/semantic_retrieval_service.py
+-rw-r--r--@ 1 affu01  staff   2.5K Jun 14 15:40 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/seriousness_chat_service.py
+-rw-r--r--@ 1 affu01  staff   1.3K Jun 14 15:40 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat/timeline_chat_service.py
+-rw-r--r--@ 1 affu01  staff   3.2K Jun 14 15:43 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/chat_service.py
+-rw-r--r--@ 1 affu01  staff     0B Jun 16 15:25 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/database_service.py
+-rw-r--r--@ 1 affu01  staff   8.8K Jun 10 16:28 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/drug_validator_service.py
+-rw-r--r--@ 1 affu01  staff   951B May 30 18:09 /Users/affu01/GRAD_PROJ_NEW/backend/app/services/embeddi
+<truncated 4135 bytes>
+1  staff   897B Jun 14 17:40 /Users/affu01/GRAD_PROJ_NEW/backend/main.py
+-rw-r--r--@ 1 affu01  staff   3.6K Jun  7 14:52 /Users/affu01/GRAD_PROJ_NEW/backend/milvus.py
+-rw-r--r--@ 1 affu01  staff   591B Jun 14 17:39 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/check_users_table.py
+-rw-r--r--@ 1 affu01  staff   557B Jun 11 15:56 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/extract_fax_image.py
+-rw-r--r--@ 1 affu01  staff   1.5K Jun 11 15:57 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/inspect_colors.py
+-rw-r--r--@ 1 affu01  staff   428B Jun 11 15:56 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/inspect_pdf_images.py
+-rw-r--r--@ 1 affu01  staff   853B Jun 11 15:55 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/inspect_pdfs.py
+-rw-r--r--@ 1 affu01  staff   616B Jun 11 15:56 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/run_ocr_on_fax.py
+-rw-r--r--@ 1 affu01  staff   4.5K Jun 10 11:17 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/setup_milvus.py
+-rw-r--r--@ 1 affu01  staff   9.4K Jun 14 17:09 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_chat_e2e.py
+-rw-r--r--@ 1 affu01  staff   7.4K Jun 12 16:45 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_explainable_e2e.py
+-rw-r--r--@ 1 affu01  staff   3.2K Jun  8 13:05 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_fda_pipeline.py
+-rw-r--r--@ 1 affu01  staff   3.4K Jun  7 15:11 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_hybrid_search.py
+-rw-r--r--@ 1 affu01  staff   4.2K Jun 11 15:28 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_image_e2e.py
+-rw-r--r--@ 1 affu01  staff   1.7K Jun  8 13:11 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_in_process.py
+-rw-r--r--@ 1 affu01  staff   4.5K Jun  8 13:10 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_methotrexate_e2e.py
+-rw-r--r--@ 1 affu01  staff   7.8K Jun 12 13:10 /Users/affu01/GRAD_PROJ_NEW/backend/scripts/test_multicase_e2e.py
+-rw-r--r--@ 1 affu01  staff   1.2K Jun  7 14:28 /Users/affu01/GRAD_PROJ_NEW/backend/test_milvus.py
+-rw-r--r--@ 1 affu01  staff   420B May 30 21:02 /Users/affu01/GRAD_PROJ_NEW/backend/test_scispacy.py
+
+
+
+================================================================================
+LINE 5214 | STEP 3777 | TYPE PLANNER_RESPONSE | TIME 2026-06-16T10:01:46Z
+================================================================================
+TOOL CALLS:
+[
+  {
+    "name": "run_command",
+    "args": {
+      "CommandLine": "\"python3 -c \\\"\\nimport json\\ntargets = [\\n    'app/routes/report.py',\\n    'app/routes/verification.py',\\n    'app/services/chat/semantic_retrieval_service.py',\\n    'app/services/database_service.py',\\n    'app/services/fda_service.py',\\n    'app/services/rag_service.py',\\n    'app/services/report_service.py',\\n    'app/services/verification/evidence_service.py',\\n    'app/services/verification/verification_service.py'\\n]\\n\\nwith open('/Users/affu01/.gemini/antigravity-ide/brain/268c45e6-1c20-463b-b840-2ec2ac644add/.system_generated/logs/transcript.jsonl', 'r') as f:\\n    for idx, line in enumerate(f):\\n        for t in targets:\\n            if t in line:\\n                try:\\n                    data = json.loads(line)\\n                    # Check if it is a write_to_file call or a VIEW_FILE content\\n                    step_type = data.get('type')\\n                    if step_type == 'VIEW_FILE' and 'content' in data:\\n                        content_len = len(data['content'])\\n                        is_truncated = 'truncated' in data['content'].lower()\\n                        print(f'Line {idx+1}: {t} VIEW_FILE len={content_len} is_truncated={is_truncated}')\\n                    elif step_type == 'PLANNER_RESPONSE' and 'tool_calls' in data:\\n                        for tc in data['tool_calls']:\\n                            if tc['name'] in ['write_to_file', 'replace_file_content', 'multi_replace_file_content'] and t in str(tc):\\n                                print(f'Line {idx+1}: {t} TOOL_CALL {tc[\\\\\\\"name\\\\\\\"]}')\\n                except Exception as e:\\n                    pass\\n\\\"\"",
+      "Cwd": "\"/Users/affu01/GRAD_PROJ_NEW\"",
+      "WaitMsBeforeAsync": "5000",
+      "toolAction": "\"Scanning transcript for all 9 empty files\"",
+      "toolSummary": "\"Scan transcript for empty files\""
+    }
+  }
+]
+
+================================================================================
+LINE 5215 | STEP 3778 | TYPE RUN_COMMAND | TIME 2026-06-16T10:01:49Z
+================================================================================
+CONTENT:
+Created At: 2026-06-16T10:01:49Z
+Completed At: 2026-06-16T10:01:53Z
+
+				The command completed successfully.
+				Output:
+				<truncated 1 lines>
+Line 4399: app/services/chat/semantic_retrieval_service.py VIEW_FILE len=2717 is_truncated=False
+Line 4404: app/services/fda_service.py TOOL_CALL write_to_file
+Line 4408: app/routes/report.py TOOL_CALL write_to_file
+Line 4408: app/services/fda_service.py TOOL_CALL write_to_file
+Line 4408: app/services/verification/evidence_service.py TOOL_CALL write_to_file
+Line 4408: app/services/verification/verification_service.py TOOL_CALL write_to_file
+Line 4411: app/services/fda_service.py VIEW_FILE len=4120 is_truncated=True
+Line 4413: app/services/fda_service.py VIEW_FILE len=4120 is_truncated=True
+Line 4415: app/services/fda_service.py VIEW_FILE len=4120 is_truncated=True
+Line 4416: app/services/fda_service.py TOOL_CALL replace_file_content
+Line 4419: app/services/fda_service.py VIEW_FILE len=4121 is_truncated=True
+Line 4420: app/services/fda_service.py TOOL_CALL replace_file_content
+Line 4423: app/services/verification/evidence_service.py VIEW_FILE len=3670 is_truncated=False
+Line 4424: app/services/verification/evidence_service.py TOOL_CALL replace_file_content
+Line 4427: app/services/verification/verification_service.py VIEW_FILE len=1535 is_truncated=False
+Line 4428: app/services/verification/verification_service.py TOOL_CALL replace_file_content
+Line 4431: app/routes/report.py VIEW_FILE len=4120 is_truncated=True
+Line 4433: app/routes/report.py VIEW_FILE len=3311 is_truncated=False
+Line 4434: app/routes/report.py TOOL_CALL replace_file_content
+Line 4437: app/routes/report.py VIEW_FILE len=3299 is_truncated=False
+Line 4439: app/routes/report.py VIEW_FILE len=2179 is_truncated=False
+Line 4441: app/services/rag_service.py VIEW_FILE len=3375 is_truncated=False
+Line 4442: app/services/rag_service.py TOOL_CALL replace_file_content
+Line 4445: app/routes/report.py VIEW_FILE len=2166 is_truncated=False
+Line 4447: app/routes/report.py VIEW_FILE len=2401 is_truncated=False
+Line 4448: 
+<truncated 4240 bytes>
+cated=True
+Line 4896: app/routes/report.py VIEW_FILE len=4121 is_truncated=True
+Line 4935: app/routes/report.py VIEW_FILE len=2105 is_truncated=False
+Line 4937: app/routes/report.py VIEW_FILE len=2203 is_truncated=False
+Line 4939: app/routes/report.py VIEW_FILE len=2127 is_truncated=False
+Line 4941: app/routes/report.py VIEW_FILE len=1752 is_truncated=False
+Line 4942: app/routes/report.py TOOL_CALL multi_replace_file_content
+Line 4989: app/routes/report.py VIEW_FILE len=2497 is_truncated=False
+Line 4990: app/routes/report.py TOOL_CALL replace_file_content
+Line 5083: app/routes/report.py TOOL_CALL replace_file_content
+Line 5083: app/services/fda_service.py TOOL_CALL replace_file_content
+Line 5083: app/services/verification/evidence_service.py TOOL_CALL replace_file_content
+Line 5083: app/services/verification/verification_service.py TOOL_CALL replace_file_content
+Line 5085: app/routes/report.py TOOL_CALL replace_file_content
+Line 5085: app/services/fda_service.py TOOL_CALL replace_file_content
+Line 5085: app/services/verification/evidence_service.py TOOL_CALL replace_file_content
+Line 5085: app/services/verification/verification_service.py TOOL_CALL replace_file_content
+Line 5115: app/routes/report.py VIEW_FILE len=1725 is_truncated=False
+Line 5117: app/routes/report.py VIEW_FILE len=1899 is_truncated=False
+Line 5119: app/routes/report.py VIEW_FILE len=1786 is_truncated=False
+Line 5121: app/routes/report.py VIEW_FILE len=2389 is_truncated=False
+Line 5122: app/routes/report.py TOOL_CALL multi_replace_file_content
+Line 5137: app/routes/report.py TOOL_CALL replace_file_content
+Line 5149: app/services/fda_service.py VIEW_FILE len=531 is_truncated=False
+Line 5191: app/routes/report.py VIEW_FILE len=2919 is_truncated=False
+Line 5191: app/services/fda_service.py VIEW_FILE len=2919 is_truncated=False
+Line 5195: app/services/report_service.py VIEW_FILE len=4119 is_truncated=True
+Line 5207: app/services/fda_service.py VIEW_FILE len=531 is_truncated=False
+Line 5209: app/routes/report.py VIEW_FILE len=524 is_truncated=False
+
+
+
+================================================================================
+LINE 5220 | STEP 3783 | TYPE PLANNER_RESPONSE | TIME 2026-06-16T10:02:06Z
+================================================================================
+TOOL CALLS:
+[
+  {
+    "name": "run_command",
+    "args": {
+      "CommandLine": "\"python3 -c \\\"\\nimport json, re\\n\\ntargets = [\\n    'app/routes/report.py',\\n    'app/routes/verification.py',\\n    'app/services/chat/semantic_retrieval_service.py',\\n    'app/services/database_service.py',\\n    'app/services/fda_service.py',\\n    'app/services/rag_service.py',\\n    'app/services/report_service.py',\\n    'app/services/verification/evidence_service.py',\\n    'app/services/verification/verification_service.py'\\n]\\n\\nwith open('/Users/affu01/.gemini/antigravity-ide/brain/268c45e6-1c20-463b-b840-2ec2ac644add/.system_generated/logs/transcript.jsonl', 'r') as f:\\n    for idx, line in enumerate(f):\\n        for t in targets:\\n            if t in line:\\n                try:\\n                    data = json.loads(line)\\n                    if data.get('type') == 'PLANNER_RESPONSE' and 'tool_calls' in data:\\n                        for tc in data['tool_calls']:\\n                            if tc['name'] == 'write_to_file' and t in tc['args'].get('TargetFile', ''):\\n                                content = tc['args'].get('CodeContent', '')\\n                                is_truncated = 'truncated' in content.lower()\\n                                print(f'Line {idx+1}: {t} write_to_file len={len(content)} is_truncated={is_truncated}')\\n                except:\\n                    pass\\n\\\"\"",
+      "Cwd": "\"/Users/affu01/GRAD_PROJ_NEW\"",
+      "WaitMsBeforeAsync": "5000",
+      "toolAction": "\"Checking if write_to_file contents are truncated\"",
+      "toolSummary": "\"Check write_to_file truncation\""
+    }
+  }
+]
+
+================================================================================
+LINE 5221 | STEP 3784 | TYPE RUN_COMMAND | TIME 2026-06-16T10:02:11Z
+================================================================================
+CONTENT:
+Created At: 2026-06-16T10:02:11Z
+Completed At: 2026-06-16T10:02:14Z
+
+				The command completed successfully.
+				Output:
+				Line 494: app/services/database_service.py write_to_file len=2071 is_truncated=True
+Line 502: app/routes/report.py write_to_file len=2071 is_truncated=True
+Line 1096: app/services/rag_service.py write_to_file len=2070 is_truncated=True
+Line 1275: app/services/report_service.py write_to_file len=2071 is_truncated=True
+Line 1396: app/services/fda_service.py write_to_file len=2071 is_truncated=True
+Line 1501: app/services/fda_service.py write_to_file len=2072 is_truncated=True
+Line 1519: app/services/fda_service.py write_to_file len=2072 is_truncated=True
+Line 2983: app/services/verification/evidence_service.py write_to_file len=2071 is_truncated=True
+Line 2987: app/services/verification/verification_service.py write_to_file len=2071 is_truncated=True
+Line 3007: app/routes/verification.py write_to_file len=2071 is_truncated=True
+Line 3281: app/services/chat/semantic_retrieval_service.py write_to_file len=2069 is_truncated=True
+
+
+
+================================================================================
+LINE 5272 | STEP 3835 | TYPE PLANNER_RESPONSE | TIME 2026-06-16T10:05:54Z
+================================================================================
+TOOL CALLS:
+[
+  {
+    "name": "run_command",
+    "args": {
+      "CommandLine": "\"python3 -c \\\"\\nimport json\\ntargets = [\\n    'app/routes/report.py',\\n    'app/routes/verification.py',\\n    'app/services/chat/semantic_retrieval_service.py',\\n    'app/services/database_service.py',\\n    'app/services/fda_service.py',\\n    'app/services/rag_service.py',\\n    'app/services/report_service.py',\\n    'app/services/verification/evidence_service.py',\\n    'app/services/verification/verification_service.py'\\n]\\n\\nwith open('/Users/affu01/.gemini/antigravity-ide/brain/268c45e6-1c20-463b-b840-2ec2ac644add/.system_generated/logs/transcript.jsonl', 'r') as f:\\n    for idx, line in enumerate(f):\\n        for t in targets:\\n            if t in line:\\n                try:\\n                    data = json.loads(line)\\n                    if data.get('type') == 'VIEW_FILE' and 'content' in data:\\n                        is_truncated = 'truncated' in data['content'].lower()\\n                        if not is_truncated:\\n                            print(f'Line {idx+1}: {t} VIEW_FILE len={len(data[\\\\\\\"content\\\\\\\"])}')\\n                except Exception as e:\\n                    pass\\n\\\"\"",
+      "Cwd": "\"/Users/affu01/GRAD_PROJ_NEW/backend\"",
+      "WaitMsBeforeAsync": "5000",
+      "toolAction": "\"Listing non-truncated VIEW_FILE logs\"",
+      "toolSummary": "\"List non-truncated view logs\""
+    }
+  }
+]
+
+================================================================================
+LINE 5273 | STEP 3836 | TYPE RUN_COMMAND | TIME 2026-06-16T10:05:57Z
+================================================================================
+CONTENT:
+Created At: 2026-06-16T10:05:57Z
+Completed At: 2026-06-16T10:06:01Z
+
+				The command completed successfully.
+				Output:
+				Line 142: app/services/fda_service.py VIEW_FILE len=1159
+Line 144: app/services/fda_service.py VIEW_FILE len=1187
+Line 151: app/services/fda_service.py VIEW_FILE len=1729
+Line 162: app/services/rag_service.py VIEW_FILE len=1226
+Line 172: app/routes/report.py VIEW_FILE len=1268
+Line 174: app/routes/report.py VIEW_FILE len=1602
+Line 177: app/routes/report.py VIEW_FILE len=1914
+Line 434: app/routes/report.py VIEW_FILE len=2245
+Line 436: app/services/report_service.py VIEW_FILE len=2097
+Line 564: app/services/database_service.py VIEW_FILE len=1725
+Line 590: app/services/rag_service.py VIEW_FILE len=3031
+Line 694: app/services/rag_service.py VIEW_FILE len=1270
+Line 939: app/services/rag_service.py VIEW_FILE len=3031
+Line 1085: app/services/rag_service.py VIEW_FILE len=3031
+Line 1101: app/routes/report.py VIEW_FILE len=1321
+Line 1158: app/services/report_service.py VIEW_FILE len=2097
+Line 1246: app/routes/report.py VIEW_FILE len=1191
+Line 1246: app/services/rag_service.py VIEW_FILE len=1191
+Line 1266: app/routes/report.py VIEW_FILE len=3885
+Line 1272: app/routes/report.py VIEW_FILE len=3255
+Line 1310: app/routes/report.py VIEW_FILE len=965
+Line 1310: app/services/report_service.py VIEW_FILE len=965
+Line 1414: app/routes/report.py VIEW_FILE len=965
+Line 1414: app/services/report_service.py VIEW_FILE len=965
+Line 1518: app/services/fda_service.py VIEW_FILE len=1638
+Line 1522: app/routes/report.py VIEW_FILE len=2758
+Line 1539: app/routes/report.py VIEW_FILE len=1320
+Line 1539: app/services/report_service.py VIEW_FILE len=1320
+Line 1557: app/services/fda_service.py VIEW_FILE len=1990
+Line 1581: app/services/fda_service.py VIEW_FILE len=1495
+Line 1583: app/services/fda_service.py VIEW_FILE len=1301
+Line 1585: app/services/fda_service.py VIEW_FILE len=1938
+Line 1587: app/services/fda_service.py VIEW_FILE len=2403
+Line 1607: app/services/fda_service.py VIEW_FILE len=2289
+Line 1615: app/routes/report.py 
+<truncated 3025 bytes>
+VIEW_FILE len=3311
+Line 4437: app/routes/report.py VIEW_FILE len=3299
+Line 4439: app/routes/report.py VIEW_FILE len=2179
+Line 4441: app/services/rag_service.py VIEW_FILE len=3375
+Line 4445: app/routes/report.py VIEW_FILE len=2166
+Line 4447: app/routes/report.py VIEW_FILE len=2401
+Line 4451: app/routes/report.py VIEW_FILE len=3816
+Line 4459: app/services/chat/semantic_retrieval_service.py VIEW_FILE len=2717
+Line 4467: app/routes/verification.py VIEW_FILE len=1957
+Line 4469: app/routes/verification.py VIEW_FILE len=1722
+Line 4473: app/routes/verification.py VIEW_FILE len=1073
+Line 4523: app/services/verification/verification_service.py VIEW_FILE len=832
+Line 4558: app/routes/report.py VIEW_FILE len=1780
+Line 4656: app/services/chat/semantic_retrieval_service.py VIEW_FILE len=2717
+Line 4660: app/services/rag_service.py VIEW_FILE len=3375
+Line 4683: app/services/verification/evidence_service.py VIEW_FILE len=3784
+Line 4687: app/services/chat/semantic_retrieval_service.py VIEW_FILE len=1404
+Line 4691: app/routes/verification.py VIEW_FILE len=1591
+Line 4695: app/services/verification/verification_service.py VIEW_FILE len=1409
+Line 4705: app/services/database_service.py VIEW_FILE len=2257
+Line 4709: app/services/database_service.py VIEW_FILE len=2113
+Line 4717: app/routes/report.py VIEW_FILE len=3000
+Line 4935: app/routes/report.py VIEW_FILE len=2105
+Line 4937: app/routes/report.py VIEW_FILE len=2203
+Line 4939: app/routes/report.py VIEW_FILE len=2127
+Line 4941: app/routes/report.py VIEW_FILE len=1752
+Line 4989: app/routes/report.py VIEW_FILE len=2497
+Line 5115: app/routes/report.py VIEW_FILE len=1725
+Line 5117: app/routes/report.py VIEW_FILE len=1899
+Line 5119: app/routes/report.py VIEW_FILE len=1786
+Line 5121: app/routes/report.py VIEW_FILE len=2389
+Line 5149: app/services/fda_service.py VIEW_FILE len=531
+Line 5191: app/routes/report.py VIEW_FILE len=2919
+Line 5191: app/services/fda_service.py VIEW_FILE len=2919
+Line 5207: app/services/fda_service.py VIEW_FILE len=531
+Line 5209: app/routes/report.py VIEW_FILE len=524
+
+
+

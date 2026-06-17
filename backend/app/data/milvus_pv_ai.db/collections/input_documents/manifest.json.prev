@@ -1,0 +1,37 @@
+{
+  "active_wal_number": 19,
+  "current_seq": 93,
+  "index_specs": {
+    "embedding": {
+      "build_params": {},
+      "field_name": "embedding",
+      "index_type": "FLAT",
+      "metric_type": "L2",
+      "search_params": {}
+    }
+  },
+  "manifest_format_version": 2,
+  "partitions": {
+    "_default": {
+      "data_files": [
+        "data/data_000001_000001.parquet",
+        "data/data_000002_000010.parquet",
+        "data/data_000011_000015.parquet",
+        "data/data_000016_000020.parquet",
+        "data/data_000021_000025.parquet",
+        "data/data_000026_000030.parquet",
+        "data/data_000031_000051.parquet",
+        "data/data_000052_000059.parquet",
+        "data/data_000060_000060.parquet",
+        "data/data_000061_000061.parquet",
+        "data/data_000062_000062.parquet",
+        "data/data_000063_000063.parquet",
+        "data/data_000064_000064.parquet",
+        "data/data_000065_000093.parquet"
+      ],
+      "delta_files": []
+    }
+  },
+  "schema_version": 1,
+  "version": 15
+}

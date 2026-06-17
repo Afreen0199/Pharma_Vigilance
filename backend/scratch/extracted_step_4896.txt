@@ -1,0 +1,88 @@
+Created At: 2026-06-15T11:37:08Z
+Completed At: 2026-06-15T11:37:08Z
+File Path: `file:///Users/affu01/GRAD_PROJ_NEW/backend/app/routes/report.py`
+Total Lines: 616
+Total Bytes: 29453
+Showing lines 1 to 616
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: from fastapi import APIRouter, HTTPException
+2: from fastapi.responses import FileResponse
+3: from pydantic import BaseModel
+4: from app.services.report_service import report_service_instance
+5: from app.services.database_service import db_service
+6: from app.services.fda_service import fda_service_instance
+7: from app.services.regulatory_service import regulatory_service_instance
+8: from app.services.rag_service import rag_service_instance
+9: from app.services.llm_service import llm_service_instance
+10: from typing import Optional
+11: import os
+12: import json
+13: import logging
+14: 
+15: from app.services.verification.evidence_service import evidence_service
+16: from app.services.verification.reasoning_service import reasoning_service
+17: 
+18: logger = logging.getLogger(__name__)
+19: 
+20: def normalize_report_data(report_data: dict, ocr_metadata: Optional[dict] = None) -> dict:
+21:     # If it is a parent multi-case report, skip single-case schema normalization
+22:     if "cases" in report_data and isinstance(report_data["cases"], list):
+23:         return report_data
+24: 
+25:     # Ensure all required sections exist in the JSON
+26:     for section in [
+27:         "patient_demographic", "patient_information", "patient_details",
+28:         "drug_information", "adverse_events",
+29:         "drug_batch_details", "therapy_information", "reporter_information"
+30:     ]:
+31:         if section not in report_data or not isinstance(report_data[section], dict):
+32:             report_data[section] = {}
+33: 
+34:     p_demo = report_data["patient_demographic"]
+35:     p_info = rep
+<truncated 28858 bytes>
+(report_data, analysis_id)
+574:         report_service_instance.generate_excel_report(report_data, analysis_id)
+575:         report_service_instance.generate_pdf_report(report_data, analysis_id)
+576:         
+577:         # Format API response data
+578:         response_data = report_data.copy()
+579:         response_data["report_id"] = analysis_id
+580:         response_data["json_url"] = f"/report/download/{analysis_id}?format=json"
+581:         response_data["excel_url"] = f"/report/download/{analysis_id}?format=xlsx"
+582:         response_data["pdf_url"] = f"/report/download/{analysis_id}?format=pdf"
+583:         response_data["status"] = "success"
+584:         response_data["cached"] = False
+585:         
+586:         return response_data
+587:         
+588:     except Exception as e:
+589:         logger.error(f"Error during report generation: {e}")
+590:         raise HTTPException(status_code=500, detail=str(e))
+591: 
+592: @router.get("/status/{analysis_id}")
+593: async def get_report_status(analysis_id: str):
+594:     """
+595:     Checks the status of report generation for a given analysis_id.
+596:     """
+597:     case_data = db_service.get_case_analysis(analysis_id)
+598:     if not case_data:
+599:         raise HTTPException(status_code=404, detail="Analysis ID not found.")
+600:     
+601:     return {
+602:         "analysis_id": analysis_id,
+603:         "status": case_data.get("status"),
+604:         "created_at": case_data.get("created_at")
+605:     }
+606: 
+607: @router.get("/download/{report_id}")
+608: async def download_report(report_id: str, format: str = "json"):
+609:     from app.services.report_service import REPORTS_DIR
+610:     
+611:     filepath = os.path.join(REPORTS_DIR, f"{report_id}.{format}")
+612:     if not os.path.exists(filepath):
+613:         raise HTTPException(status_code=404, detail="Report file not found.")
+614:     
+615:     return FileResponse(filepath, filename=f"report_{report_id}.{format}")
+616: 
+The above content shows the entire, complete file contents of the requested file.

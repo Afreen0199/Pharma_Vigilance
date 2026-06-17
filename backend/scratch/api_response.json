@@ -1,0 +1,524 @@
+{
+  "case_information": {
+    "case_id": "PV-2026-81423",
+    "report_type": "Spontaneous Report",
+    "report_date": "2026-05-22",
+    "seriousness": "Serious",
+    "case_status": "Initial"
+  },
+  "patient_demographic": {
+    "age": "58 Years",
+    "gender": "Male",
+    "weight": "78 kg",
+    "medical_history": "Hypertension (5 years), Type 2 Diabetes, CKD Stage 1",
+    "age_group": {
+      "code": "A",
+      "meaning": "Adult"
+    },
+    "patient_weight": "78"
+  },
+  "drug_information": {
+    "product_active_ingredient": "Enalapril",
+    "drug_role": {
+      "code": "PS",
+      "meaning": "Primary Suspect Drug"
+    }
+  },
+  "suspected_drug_information": {
+    "drug_name": "Enalapril",
+    "dosage": "5 mg",
+    "route": "Oral",
+    "therapy_start_date": "2026-05-05",
+    "therapy_end_date": "2026-05-19",
+    "indication": "Hypertension \u2014 first-line ACE inhibitor therapy"
+  },
+  "adverse_events": {
+    "event_date": "20260513",
+    "drug_recur_action": "Not performed \u2014 patient switched to ARB (Losartan)"
+  },
+  "adverse_event_details": {
+    "adverse_event": "Persistent dry cough AND mild lip/tongue swelling (angioedema)",
+    "event_start_date": "2026-05-13",
+    "outcome": "Resolved within 5 days of drug discontinuation",
+    "severity": "Moderate",
+    "action_taken": "Drug discontinued on 19-May-2026"
+  },
+  "drug_batch_details": {
+    "lot_number": "Not Specified",
+    "batch_number": "Not Specified",
+    "expiry_date": "Not Specified",
+    "manufacturer": "Not Specified"
+  },
+  "therapy_information": {
+    "dose_form": "Not Specified",
+    "dose_amount": "5",
+    "dose_unit": "mg",
+    "dose_frequency": "once daily",
+    "route": "Oral",
+    "therapy_duration": "14 days"
+  },
+  "reporter_information": {
+    "occupation": {
+      "code": "MD",
+      "meaning": "Physician"
+    }
+  },
+  "ai_generated_narrative_summary": "A 58-year-old male patient with a medical history of hypertension, type 2 diabetes, and CKD stage 1, experienced a persistent dry cough and mild lip/tongue swelling (angioedema) after taking Enalapril 5 mg once daily for 8 days. The patient was hospitalized for 1 day for angioedema monitoring and the drug was discontinued. The adverse events resolved within 5 days of drug discontinuation.",
+  "ai_generated_summary": "A 58-year-old male patient experienced a persistent dry cough and mild lip/tongue swelling (angioedema) after taking Enalapril 5 mg once daily for 8 days.",
+  "seriousness_assessment": {
+    "death": "No",
+    "disability": "No",
+    "hospitalization": "Yes",
+    "life_threatening": "No"
+  },
+  "causality_assessment": {
+    "confidence_score": 0.9,
+    "suspected_relationship": "Certain"
+  },
+  "key_entities_extracted": {
+    "drug": "Enalapril",
+    "reaction": "Persistent dry cough and mild lip/tongue swelling (angioedema)",
+    "symptom": "Cough and swelling",
+    "outcome": "Resolved within 5 days of drug discontinuation"
+  },
+  "ai_safety_insights": [
+    "The patient experienced a known adverse reaction to Enalapril, which is a common side effect of ACE inhibitors.",
+    "The patient's medical history of hypertension, type 2 diabetes, and CKD stage 1 may have contributed to the severity of the adverse reaction.",
+    "The patient's age and gender may have also played a role in the development of the adverse reaction.",
+    "The use of Enalapril in patients with a history of angioedema or cough may require close monitoring and careful consideration of alternative therapies."
+  ],
+  "medical_insights": [
+    "The patient's symptoms of persistent dry cough and mild lip/tongue swelling (angioedema) are consistent with a known adverse reaction to Enalapril.",
+    "The patient's medical history and current medications may have contributed to the development of the adverse reaction.",
+    "The patient's response to discontinuation of Enalapril and switch to an alternative therapy (ARB) suggests a possible causal relationship between the drug and the adverse reaction.",
+    "The patient's outcome of resolution of symptoms within 5 days of drug discontinuation is consistent with a reversible adverse reaction."
+  ],
+  "safety_observations": [
+    "The patient was hospitalized for 1 day for angioedema monitoring, which suggests a serious adverse reaction.",
+    "The patient's symptoms resolved within 5 days of drug discontinuation, which suggests a reversible adverse reaction.",
+    "The use of Enalapril in patients with a history of angioedema or cough may require close monitoring and careful consideration of alternative therapies.",
+    "The patient's medical history and current medications should be carefully evaluated to minimize the risk of adverse reactions."
+  ],
+  "regulatory_alerts": [
+    "The FDA has issued warnings regarding the risk of angioedema and cough associated with the use of ACE inhibitors, including Enalapril.",
+    "The FDA recommends close monitoring of patients with a history of angioedema or cough who are taking ACE inhibitors, including Enalapril.",
+    "The FDA has not issued any specific warnings or restrictions on the use of Enalapril in patients with a history of hypertension, type 2 diabetes, or CKD stage 1."
+  ],
+  "highlighted_critical_fields": [],
+  "timeline": [
+    {
+      "event": "Patient started taking Enalapril 5 mg once daily",
+      "timestamp": "2026-05-05"
+    },
+    {
+      "event": "Patient experienced persistent dry cough",
+      "timestamp": "2026-05-13"
+    },
+    {
+      "event": "Patient experienced mild lip/tongue swelling (angioedema)",
+      "timestamp": "2026-05-15"
+    },
+    {
+      "event": "Patient was hospitalized for 1 day for angioedema monitoring",
+      "timestamp": "2026-05-19"
+    },
+    {
+      "event": "Patient's symptoms resolved within 5 days of drug discontinuation",
+      "timestamp": "2026-05-24"
+    }
+  ],
+  "missing_information": [
+    "LOT_NUM missing",
+    "DOSE_FORM missing",
+    "BATCH_NUM missing",
+    "EXPIRY_DATE missing",
+    "MANUFACTURER missing"
+  ],
+  "final_case_classification": "Serious Adverse Drug Reaction (ADR) \u2014 Requires Medical Review",
+  "summary": "A 58-year-old male patient with a medical history of hypertension, type 2 diabetes, and CKD stage 1, experienced a persistent dry cough and mild lip/tongue swelling (angioedema) after taking Enalapril 5 mg once daily for 8 days. The patient was hospitalized for 1 day for angioedema monitoring and the drug was discontinued. The adverse events resolved within 5 days of drug discontinuation.",
+  "ocr_metadata": {
+    "source_type": "pdf",
+    "ocr_used": false,
+    "blur_score": 0.0,
+    "ocr_confidence": 1.0
+  },
+  "patient_information": {
+    "age": "58 Years",
+    "gender": "Male",
+    "weight": "78 kg",
+    "medical_history": "Hypertension (5 years), Type 2 Diabetes, CKD Stage 1"
+  },
+  "patient_details": {
+    "age_group": {
+      "code": "A",
+      "meaning": "Adult"
+    },
+    "patient_weight": "78"
+  },
+  "missing_data": [
+    "LOT_NUM missing",
+    "DOSE_FORM missing",
+    "BATCH_NUM missing",
+    "EXPIRY_DATE missing",
+    "MANUFACTURER missing"
+  ],
+  "evidence_sources": [
+    {
+      "source_type": "FDA_API",
+      "evidence": "60774 FDA reported cases found"
+    },
+    {
+      "source_type": "FAERS_LOCAL",
+      "evidence": "64 off label use reports found in local dataset"
+    }
+  ],
+  "symptoms": [
+    "Anxiety",
+    "Mild Lip/Tongue Swelling",
+    "Swelling",
+    "Swelling Day"
+  ],
+  "drug_entities": [
+    "Arb",
+    "Enalapril",
+    "Losartan"
+  ],
+  "reasoning_explanations": {
+    "causality": [
+      "Temporal association present",
+      "Temporal relationship exists",
+      "Strong suspect relationship strength"
+    ],
+    "seriousness": [
+      "Hospitalization occurred",
+      "Assessed as clinically serious"
+    ]
+  },
+  "report_id": "1ac7daee-2367-4f5e-92ed-cd1e44ded218",
+  "analysis_id": "1ac7daee-2367-4f5e-92ed-cd1e44ded218",
+  "json_url": "/report/download/1ac7daee-2367-4f5e-92ed-cd1e44ded218?format=json",
+  "excel_url": "/report/download/1ac7daee-2367-4f5e-92ed-cd1e44ded218?format=xlsx",
+  "pdf_url": "/report/download/1ac7daee-2367-4f5e-92ed-cd1e44ded218?format=pdf",
+  "status": "success",
+  "cached": true,
+  "fda_signal": {
+    "drug_name": "Enalapril",
+    "total_cases": 61097,
+    "recent_cases": [
+      "26556025",
+      "26556422",
+      "26556926",
+      "26556970",
+      "26559224"
+    ],
+    "serious_cases": 51652,
+    "top_reactions": [
+      "Eye Swelling",
+      "Swelling Face",
+      "Hyponatraemia",
+      "Rash",
+      "Unresponsive To Stimuli",
+      "Gastrointestinal Haemorrhage",
+      "Pyrexia",
+      "Blood Pressure Increased",
+      "Circulatory Collapse",
+      "Liver Function Test Abnormal"
+    ],
+    "visualizations": {
+      "organ_system_chart": {
+        "data": [
+          {
+            "count": 14663,
+            "system": "Hepatic"
+          },
+          {
+            "count": 10997,
+            "system": "Gastrointestinal"
+          },
+          {
+            "count": 5498,
+            "system": "Neurological"
+          },
+          {
+            "count": 6720,
+            "system": "Cardiovascular"
+          },
+          {
+            "count": 9164,
+            "system": "Renal"
+          },
+          {
+            "count": 9164,
+            "system": "Hematologic"
+          }
+        ],
+        "title": "Organ System Impact",
+        "chart_type": "pie"
+      },
+      "signal_trend_chart": {
+        "data": [
+          {
+            "year": "2021",
+            "count": 11974
+          },
+          {
+            "year": "2022",
+            "count": 12952
+          },
+          {
+            "year": "2023",
+            "count": 12096
+          },
+          {
+            "year": "2024",
+            "count": 13074
+          },
+          {
+            "year": "2025",
+            "count": 12219
+          }
+        ],
+        "title": "FDA Reporting Trend over Time",
+        "x_axis": "Year",
+        "y_axis": "Case Count",
+        "chart_type": "line"
+      },
+      "top_reactions_chart": {
+        "data": [
+          {
+            "count": 610,
+            "reaction": "Eye Swelling"
+          },
+          {
+            "count": 610,
+            "reaction": "Swelling Face"
+          },
+          {
+            "count": 4276,
+            "reaction": "Hyponatraemia"
+          },
+          {
+            "count": 4276,
+            "reaction": "Rash"
+          },
+          {
+            "count": 3665,
+            "reaction": "Unresponsive To Stimuli"
+          },
+          {
+            "count": 3665,
+            "reaction": "Gastrointestinal Haemorrhage"
+          },
+          {
+            "count": 3054,
+            "reaction": "Pyrexia"
+          },
+          {
+            "count": 3054,
+            "reaction": "Blood Pressure Increased"
+          },
+          {
+            "count": 3054,
+            "reaction": "Circulatory Collapse"
+          },
+          {
+            "count": 3054,
+            "reaction": "Liver Function Test Abnormal"
+          }
+        ],
+        "title": "Top FDA Adverse Reactions",
+        "x_axis": "Reaction",
+        "y_axis": "Case Count",
+        "chart_type": "bar"
+      },
+      "outcome_distribution_chart": {
+        "data": [
+          {
+            "count": 29912,
+            "outcome": "Hospitalization"
+          },
+          {
+            "count": 2838,
+            "outcome": "Life-Threatening"
+          },
+          {
+            "count": 3615,
+            "outcome": "Disability"
+          },
+          {
+            "count": 5108,
+            "outcome": "Death"
+          }
+        ],
+        "title": "Serious Cases Outcome Distribution",
+        "x_axis": "Outcome",
+        "y_axis": "Case Count",
+        "chart_type": "bar"
+      },
+      "seriousness_distribution_chart": {
+        "data": [
+          {
+            "name": "Serious",
+            "value": 51652
+          },
+          {
+            "name": "Non-Serious",
+            "value": 9445
+          }
+        ],
+        "title": "Case Seriousness Distribution",
+        "chart_type": "pie"
+      }
+    },
+    "api_total_cases": 60774,
+    "fda_signal_score": "High",
+    "hospitalizations": 29912,
+    "local_total_cases": 323
+  },
+  "visualizations": {
+    "organ_system_chart": {
+      "data": [
+        {
+          "count": 14663,
+          "system": "Hepatic"
+        },
+        {
+          "count": 10997,
+          "system": "Gastrointestinal"
+        },
+        {
+          "count": 5498,
+          "system": "Neurological"
+        },
+        {
+          "count": 6720,
+          "system": "Cardiovascular"
+        },
+        {
+          "count": 9164,
+          "system": "Renal"
+        },
+        {
+          "count": 9164,
+          "system": "Hematologic"
+        }
+      ],
+      "title": "Organ System Impact",
+      "chart_type": "pie"
+    },
+    "signal_trend_chart": {
+      "data": [
+        {
+          "year": "2021",
+          "count": 11974
+        },
+        {
+          "year": "2022",
+          "count": 12952
+        },
+        {
+          "year": "2023",
+          "count": 12096
+        },
+        {
+          "year": "2024",
+          "count": 13074
+        },
+        {
+          "year": "2025",
+          "count": 12219
+        }
+      ],
+      "title": "FDA Reporting Trend over Time",
+      "x_axis": "Year",
+      "y_axis": "Case Count",
+      "chart_type": "line"
+    },
+    "top_reactions_chart": {
+      "data": [
+        {
+          "count": 610,
+          "reaction": "Eye Swelling"
+        },
+        {
+          "count": 610,
+          "reaction": "Swelling Face"
+        },
+        {
+          "count": 4276,
+          "reaction": "Hyponatraemia"
+        },
+        {
+          "count": 4276,
+          "reaction": "Rash"
+        },
+        {
+          "count": 3665,
+          "reaction": "Unresponsive To Stimuli"
+        },
+        {
+          "count": 3665,
+          "reaction": "Gastrointestinal Haemorrhage"
+        },
+        {
+          "count": 3054,
+          "reaction": "Pyrexia"
+        },
+        {
+          "count": 3054,
+          "reaction": "Blood Pressure Increased"
+        },
+        {
+          "count": 3054,
+          "reaction": "Circulatory Collapse"
+        },
+        {
+          "count": 3054,
+          "reaction": "Liver Function Test Abnormal"
+        }
+      ],
+      "title": "Top FDA Adverse Reactions",
+      "x_axis": "Reaction",
+      "y_axis": "Case Count",
+      "chart_type": "bar"
+    },
+    "outcome_distribution_chart": {
+      "data": [
+        {
+          "count": 29912,
+          "outcome": "Hospitalization"
+        },
+        {
+          "count": 2838,
+          "outcome": "Life-Threatening"
+        },
+        {
+          "count": 3615,
+          "outcome": "Disability"
+        },
+        {
+          "count": 5108,
+          "outcome": "Death"
+        }
+      ],
+      "title": "Serious Cases Outcome Distribution",
+      "x_axis": "Outcome",
+      "y_axis": "Case Count",
+      "chart_type": "bar"
+    },
+    "seriousness_distribution_chart": {
+      "data": [
+        {
+          "name": "Serious",
+          "value": 51652
+        },
+        {
+          "name": "Non-Serious",
+          "value": 9445
+        }
+      ],
+      "title": "Case Seriousness Distribution",
+      "chart_type": "pie"
+    }
+  }
+}

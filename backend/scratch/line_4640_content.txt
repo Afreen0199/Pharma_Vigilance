@@ -1,0 +1,84 @@
+Created At: 2026-06-15T11:24:26Z
+Completed At: 2026-06-15T11:24:26Z
+File Path: `file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/fda_service.py`
+Total Lines: 435
+Total Bytes: 21771
+Showing lines 1 to 435
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: import os
+2: import requests
+3: import re
+4: import pandas as pd
+5: from typing import Dict, List, Optional
+6: import logging
+7: 
+8: logger = logging.getLogger(__name__)
+9: 
+10: # Constants
+11: FDA_API_BASE_URL = "https://api.fda.gov/drug/event.json"
+12: DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
+13: FAERS_CSV_PATH = "/Users/affu01/GRAD_PROJ_NEW/faers_master.csv"
+14: 
+15: UNRELATED_REACTIONS_BLACKLIST = {
+16:     "product quality issue", "drug dependence", "product label issue", 
+17:     "product design issue", "device malfunction", "underdose", 
+18:     "intentional product misuse", "overdose", "off label use", 
+19:     "drug abuse", "incorrect dose administered", "product use issue", 
+20:     "therapy interruption", "accidental overdose", "intentional overdose",
+21:     "misplaced product", "product conversion issue", "wrong drug",
+22:     "incorrect product storage", "exposure to product", "product container issue",
+23:     "no adverse event", "drug interaction", "condition aggravated", "off-label use", 
+24:     "product packaging issue", "product administration error", "wrong product administered",
+25:     "device use issue", "therapeutic product effect decreased", "treatment noncompliance"
+26: }
+27: 
+28: def normalize_drug_name(drug_name: str) -> str:
+29:     """
+30:     Cleans and normalizes raw drug name input.
+31:     Removes:
+32:       - Parenthesized text (e.g. (MTX) or (Simvastatin))
+33:       - Dosage text (e.g. 20 mg/week, 500mg, 10 mg once weekly)
+34:       - Routes, forms, and frequency keywords
+35:       - Trailing pu
+<truncated 20278 bytes>
+  # Rule-based Signal Scoring considering contextual ADR match strength
+397:         signal_score = "Low"
+398:         if serious_pct > 50 or hosp_pct > 20 or (has_severe_adr and contextual_match_strength >= 1):
+399:             signal_score = "High"
+400:         elif serious_pct > 20 or hosp_pct > 5 or contextual_match_strength >= 1:
+401:             signal_score = "Moderate"
+402: 
+403:         # 2. Add local CSV data processing if available
+404:         local_total_cases = 0
+405:         if self.faers_df is not None:
+406:              local_total_cases = len(self.faers_df[self.faers_df['drugname'].str.contains(validated_drug, case=False, na=False)])
+407: 
+408:         # 3. Retrieve recent cases
+409:         recent_cases_list = []
+410:         recent_cases_raw = self.get_recent_cases(validated_drug)
+411:         if recent_cases_raw:
+412:             recent_cases_list = [c.get("safetyreportid") or c.get("caseid") for c in recent_cases_raw[:5] if c.get("safetyreportid") or c.get("caseid")]
+413: 
+414:         fda_signal = {
+415:             "drug_name": validated_drug,
+416:             "total_cases": total_api_cases + local_total_cases,
+417:             "api_total_cases": total_api_cases,
+418:             "local_total_cases": local_total_cases,
+419:             "serious_cases": serious_total,
+420:             "hospitalizations": hosp_total,
+421:             "top_reactions": top_reactions_list,
+422:             "fda_signal_score": signal_score,
+423:             "recent_cases": [c for c in recent_cases_list if c]
+424:         }
+425: 
+426:         # Generate visual analytics payloads
+427:         from app.services.chart_service import chart_service_instance
+428:         visualizations = chart_service_instance.generate_charts(validated_drug, fda_signal, api_results)
+429:         fda_signal["visualizations"] = visualizations
+430: 
+431:         return fda_signal
+432: 
+433: # Singleton instance
+434: fda_service_instance = FDAService()
+435: 
+The above content shows the entire, complete file contents of the requested file.

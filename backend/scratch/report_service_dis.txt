@@ -1,0 +1,2279 @@
+  0           0 RESUME                   0
+
+  1           2 LOAD_CONST               0 (0)
+              4 LOAD_CONST               1 (None)
+              6 IMPORT_NAME              0 (json)
+              8 STORE_NAME               0 (json)
+
+  2          10 LOAD_CONST               0 (0)
+             12 LOAD_CONST               1 (None)
+             14 IMPORT_NAME              1 (pandas)
+             16 STORE_NAME               2 (pd)
+
+  3          18 LOAD_CONST               0 (0)
+             20 LOAD_CONST               1 (None)
+             22 IMPORT_NAME              3 (os)
+             24 STORE_NAME               3 (os)
+
+  5          26 LOAD_NAME                3 (os)
+             28 LOAD_ATTR                8 (path)
+             48 LOAD_ATTR               11 (NULL|self + join)
+             68 LOAD_NAME                3 (os)
+             70 LOAD_ATTR                8 (path)
+             90 LOAD_ATTR               13 (NULL|self + dirname)
+            110 LOAD_NAME                3 (os)
+            112 LOAD_ATTR                8 (path)
+            132 LOAD_ATTR               13 (NULL|self + dirname)
+            152 LOAD_NAME                7 (__file__)
+            154 CALL                     1
+            162 CALL                     1
+            170 LOAD_CONST               2 ('reports')
+            172 CALL                     2
+            180 STORE_NAME               8 (REPORTS_DIR)
+
+  6         182 PUSH_NULL
+            184 LOAD_NAME                3 (os)
+            186 LOAD_ATTR               18 (makedirs)
+            206 LOAD_NAME                8 (REPORTS_DIR)
+            208 LOAD_CONST               3 (True)
+            210 KW_NAMES                 4 (('exist_ok',))
+            212 CALL                     2
+            220 POP_TOP
+
+  8         222 PUSH_NULL
+            224 LOAD_BUILD_CLASS
+            226 LOAD_CONST               5 (<code object ReportService at 0x102ba9470, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/report_service.py", line 8>)
+            228 MAKE_FUNCTION            0
+            230 LOAD_CONST               6 ('ReportService')
+            232 CALL                     2
+            240 STORE_NAME              10 (ReportService)
+
+264         242 PUSH_NULL
+            244 LOAD_NAME               10 (ReportService)
+            246 CALL                     0
+            254 STORE_NAME              11 (report_service_instance)
+            256 RETURN_CONST             1 (None)
+
+Disassembly of <code object ReportService at 0x102ba9470, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/report_service.py", line 8>:
+  8           0 RESUME                   0
+              2 LOAD_NAME                0 (__name__)
+              4 STORE_NAME               1 (__module__)
+              6 LOAD_CONST               0 ('ReportService')
+              8 STORE_NAME               2 (__qualname__)
+
+  9          10 LOAD_CONST               1 ('data')
+             12 LOAD_NAME                3 (dict)
+             14 LOAD_CONST               2 ('report_id')
+             16 LOAD_NAME                4 (str)
+             18 LOAD_CONST               3 ('return')
+             20 LOAD_NAME                4 (str)
+             22 BUILD_TUPLE              6
+             24 LOAD_CONST               4 (<code object generate_json_report at 0x102c56740, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/report_service.py", line 9>)
+             26 MAKE_FUNCTION            4 (annotations)
+             28 STORE_NAME               5 (generate_json_report)
+
+ 15          30 LOAD_CONST               1 ('data')
+             32 LOAD_NAME                3 (dict)
+             34 LOAD_CONST               3 ('return')
+             36 LOAD_NAME                3 (dict)
+             38 BUILD_TUPLE              4
+             40 LOAD_CONST               5 (<code object _flatten_single_case at 0x12602f000, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/report_service.py", line 15>)
+             42 MAKE_FUNCTION            4 (annotations)
+             44 STORE_NAME               6 (_flatten_single_case)
+
+ 83          46 LOAD_CONST               1 ('data')
+             48 LOAD_NAME                3 (dict)
+             50 LOAD_CONST               2 ('report_id')
+             52 LOAD_NAME                4 (str)
+             54 LOAD_CONST               3 ('return')
+             56 LOAD_NAME                4 (str)
+             58 BUILD_TUPLE              6
+             60 LOAD_CONST               6 (<code object generate_excel_report at 0x12602fe00, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/report_service.py", line 83>)
+             62 MAKE_FUNCTION            4 (annotations)
+             64 STORE_NAME               7 (generate_excel_report)
+
+108          66 LOAD_CONST               1 ('data')
+             68 LOAD_NAME                3 (dict)
+             70 LOAD_CONST               2 ('report_id')
+             72 LOAD_NAME                4 (str)
+             74 LOAD_CONST               3 ('return')
+             76 LOAD_NAME                4 (str)
+             78 BUILD_TUPLE              6
+             80 LOAD_CONST               7 (<code object generate_pdf_report at 0x126035800, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/report_service.py", line 108>)
+             82 MAKE_FUNCTION            4 (annotations)
+             84 STORE_NAME               8 (generate_pdf_report)
+             86 RETURN_CONST             8 (None)
+
+Disassembly of <code object generate_json_report at 0x102c56740, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/report_service.py", line 9>:
+  9           0 RESUME                   0
+
+ 10           2 LOAD_GLOBAL              0 (os)
+             12 LOAD_ATTR                2 (path)
+             32 LOAD_ATTR                5 (NULL|self + join)
+             52 LOAD_GLOBAL              6 (REPORTS_DIR)
+             62 LOAD_FAST                2 (report_id)
+             64 FORMAT_VALUE             0
+             66 LOAD_CONST               1 ('.json')
+             68 BUILD_STRING             2
+             70 CALL                     2
+             78 STORE_FAST               3 (filepath)
+
+ 11          80 LOAD_GLOBAL              9 (NULL + open)
+             90 LOAD_FAST                3 (filepath)
+             92 LOAD_CONST               2 ('w')
+             94 CALL                     2
+            102 BEFORE_WITH
+            104 STORE_FAST               4 (f)
+
+ 12         106 LOAD_GLOBAL             11 (NULL + json)
+            116 LOAD_ATTR               12 (dump)
+            136 LOAD_FAST                1 (data)
+            138 LOAD_FAST                4 (f)
+            140 LOAD_CONST               3 (4)
+            142 KW_NAMES                 4 (('indent',))
+            144 CALL                     3
+            152 POP_TOP
+
+ 11         154 LOAD_CONST               0 (None)
+            156 LOAD_CONST               0 (None)
+            158 LOAD_CONST               0 (None)
+            160 CALL                     2
+            168 POP_TOP
+
+ 13         170 LOAD_FAST                3 (filepath)
+            172 RETURN_VALUE
+
+ 11     >>  174 PUSH_EXC_INFO
+            176 WITH_EXCEPT_START
+            178 POP_JUMP_IF_TRUE         1 (to 182)
+            180 RERAISE                  2
+        >>  182 POP_TOP
+            184 POP_EXCEPT
+            186 POP_TOP
+            188 POP_TOP
+
+ 13         190 LOAD_FAST                3 (filepath)
+            192 RETURN_VALUE
+        >>  194 COPY                     3
+            196 POP_EXCEPT
+            198 RERAISE                  1
+ExceptionTable:
+  104 to 152 -> 174 [1] lasti
+  174 to 182 -> 194 [3] lasti
+
+Disassembly of <code object _flatten_single_case at 0x12602f000, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/report_service.py", line 15>:
+ 15           0 RESUME                   0
+
+ 16           2 LOAD_FAST                1 (data)
+              4 LOAD_ATTR                1 (NULL|self + get)
+             24 LOAD_CONST               1 ('case_information')
+             26 BUILD_MAP                0
+             28 CALL                     2
+             36 COPY                     1
+             38 POP_JUMP_IF_TRUE         2 (to 44)
+             40 POP_TOP
+             42 BUILD_MAP                0
+        >>   44 STORE_FAST               2 (case_info)
+
+ 17          46 LOAD_FAST                1 (data)
+             48 LOAD_ATTR                1 (NULL|self + get)
+             68 LOAD_CONST               2 ('patient_information')
+             70 BUILD_MAP                0
+             72 CALL                     2
+             80 COPY                     1
+             82 POP_JUMP_IF_TRUE         2 (to 88)
+             84 POP_TOP
+             86 BUILD_MAP                0
+        >>   88 STORE_FAST               3 (pat_info)
+
+ 18          90 LOAD_FAST                1 (data)
+             92 LOAD_ATTR                1 (NULL|self + get)
+            112 LOAD_CONST               3 ('suspected_drug_information')
+            114 BUILD_MAP                0
+            116 CALL                     2
+            124 COPY                     1
+            126 POP_JUMP_IF_TRUE         2 (to 132)
+            128 POP_TOP
+            130 BUILD_MAP                0
+        >>  132 STORE_FAST               4 (drug_info)
+
+ 19         134 LOAD_FAST                1 (data)
+            136 LOAD_ATTR                1 (NULL|self + get)
+            156 LOAD_CONST               4 ('adverse_event_details')
+            158 BUILD_MAP                0
+            160 CALL                     2
+            168 COPY                     1
+            170 POP_JUMP_IF_TRUE         2 (to 176)
+            172 POP_TOP
+            174 BUILD_MAP                0
+        >>  176 STORE_FAST               5 (event_info)
+
+ 20         178 LOAD_FAST                1 (data)
+            180 LOAD_ATTR                1 (NULL|self + get)
+            200 LOAD_CONST               5 ('causality_assessment')
+            202 BUILD_MAP                0
+            204 CALL                     2
+            212 COPY                     1
+            214 POP_JUMP_IF_TRUE         2 (to 220)
+            216 POP_TOP
+            218 BUILD_MAP                0
+        >>  220 STORE_FAST               6 (causality)
+
+ 21         222 LOAD_FAST                1 (data)
+            224 LOAD_ATTR                1 (NULL|self + get)
+            244 LOAD_CONST               6 ('key_entities_extracted')
+            246 BUILD_MAP                0
+            248 CALL                     2
+            256 COPY                     1
+            258 POP_JUMP_IF_TRUE         2 (to 264)
+            260 POP_TOP
+            262 BUILD_MAP                0
+        >>  264 STORE_FAST               7 (entities)
+
+ 24         266 LOAD_FAST                1 (data)
+            268 LOAD_ATTR                1 (NULL|self + get)
+            288 LOAD_CONST               7 ('patient_details')
+            290 BUILD_MAP                0
+            292 CALL                     2
+            300 COPY                     1
+            302 POP_JUMP_IF_TRUE         2 (to 308)
+            304 POP_TOP
+            306 BUILD_MAP                0
+        >>  308 STORE_FAST               8 (pat_details)
+
+ 25         310 LOAD_FAST                1 (data)
+            312 LOAD_ATTR                1 (NULL|self + get)
+            332 LOAD_CONST               8 ('patient_demographic')
+            334 BUILD_MAP                0
+            336 CALL                     2
+            344 COPY                     1
+            346 POP_JUMP_IF_TRUE         2 (to 352)
+            348 POP_TOP
+            350 BUILD_MAP                0
+        >>  352 STORE_FAST               9 (p_demo)
+
+ 26         354 LOAD_FAST                1 (data)
+            356 LOAD_ATTR                1 (NULL|self + get)
+            376 LOAD_CONST               9 ('drug_information')
+            378 BUILD_MAP                0
+            380 CALL                     2
+            388 COPY                     1
+            390 POP_JUMP_IF_TRUE         2 (to 396)
+            392 POP_TOP
+            394 BUILD_MAP                0
+        >>  396 STORE_FAST              10 (drug_details)
+
+ 27         398 LOAD_FAST                1 (data)
+            400 LOAD_ATTR                1 (NULL|self + get)
+            420 LOAD_CONST              10 ('adverse_events')
+            422 BUILD_MAP                0
+            424 CALL                     2
+            432 COPY                     1
+            434 POP_JUMP_IF_TRUE         2 (to 440)
+            436 POP_TOP
+            438 BUILD_MAP                0
+        >>  440 STORE_FAST              11 (events_details)
+
+ 28         442 LOAD_FAST                1 (data)
+            444 LOAD_ATTR                1 (NULL|self + get)
+            464 LOAD_CONST              11 ('drug_batch_details')
+            466 BUILD_MAP                0
+            468 CALL                     2
+            476 COPY                     1
+            478 POP_JUMP_IF_TRUE         2 (to 484)
+            480 POP_TOP
+            482 BUILD_MAP                0
+        >>  484 STORE_FAST              12 (batch_details)
+
+ 29         486 LOAD_FAST                1 (data)
+            488 LOAD_ATTR                1 (NULL|self + get)
+            508 LOAD_CONST              12 ('therapy_information')
+            510 BUILD_MAP                0
+            512 CALL                     2
+            520 COPY                     1
+            522 POP_JUMP_IF_TRUE         2 (to 528)
+            524 POP_TOP
+            526 BUILD_MAP                0
+        >>  528 STORE_FAST              13 (therapy_details)
+
+ 30         530 LOAD_FAST                1 (data)
+            532 LOAD_ATTR                1 (NULL|self + get)
+            552 LOAD_CONST              13 ('reporter_information')
+            554 BUILD_MAP                0
+            556 CALL                     2
+            564 COPY                     1
+            566 POP_JUMP_IF_TRUE         2 (to 572)
+            568 POP_TOP
+            570 BUILD_MAP                0
+        >>  572 STORE_FAST              14 (reporter_details)
+
+ 32         574 BUILD_MAP                0
+
+ 33         576 LOAD_CONST              14 ('Case ID')
+            578 LOAD_FAST                2 (case_info)
+            580 LOAD_ATTR                1 (NULL|self + get)
+            600 LOAD_CONST              15 ('case_id')
+            602 LOAD_CONST              16 ('Unknown')
+            604 CALL                     2
+
+ 32         612 MAP_ADD                  1
+
+ 34         614 LOAD_CONST              17 ('Report Type')
+            616 LOAD_FAST                2 (case_info)
+            618 LOAD_ATTR                1 (NULL|self + get)
+            638 LOAD_CONST              18 ('report_type')
+            640 LOAD_CONST              19 ('Spontaneous Report')
+            642 CALL                     2
+
+ 32         650 MAP_ADD                  1
+
+ 35         652 LOAD_CONST              20 ('Report Date')
+            654 LOAD_FAST                2 (case_info)
+            656 LOAD_ATTR                1 (NULL|self + get)
+            676 LOAD_CONST              21 ('report_date')
+            678 LOAD_CONST              16 ('Unknown')
+            680 CALL                     2
+
+ 32         688 MAP_ADD                  1
+
+ 36         690 LOAD_CONST              22 ('Seriousness')
+            692 LOAD_FAST                2 (case_info)
+            694 LOAD_ATTR                1 (NULL|self + get)
+            714 LOAD_CONST              23 ('seriousness')
+            716 LOAD_CONST              16 ('Unknown')
+            718 CALL                     2
+
+ 32         726 MAP_ADD                  1
+
+ 37         728 LOAD_CONST              24 ('Case Status')
+            730 LOAD_FAST                2 (case_info)
+            732 LOAD_ATTR                1 (NULL|self + get)
+            752 LOAD_CONST              25 ('case_status')
+            754 LOAD_CONST              26 ('Initial')
+            756 CALL                     2
+
+ 32         764 MAP_ADD                  1
+
+ 38         766 LOAD_CONST              27 ('Patient Age')
+            768 LOAD_FAST                9 (p_demo)
+            770 LOAD_ATTR                1 (NULL|self + get)
+            790 LOAD_CONST              28 ('age')
+            792 CALL                     1
+            800 COPY                     1
+            802 POP_JUMP_IF_TRUE        18 (to 840)
+            804 POP_TOP
+            806 LOAD_FAST                3 (pat_info)
+            808 LOAD_ATTR                1 (NULL|self + get)
+            828 LOAD_CONST              28 ('age')
+            830 LOAD_CONST              16 ('Unknown')
+            832 CALL                     2
+
+ 32     >>  840 MAP_ADD                  1
+
+ 39         842 LOAD_CONST              29 ('Patient Gender')
+            844 LOAD_FAST                9 (p_demo)
+            846 LOAD_ATTR                1 (NULL|self + get)
+            866 LOAD_CONST              30 ('gender')
+            868 CALL                     1
+            876 COPY                     1
+            878 POP_JUMP_IF_TRUE        18 (to 916)
+            880 POP_TOP
+            882 LOAD_FAST                3 (pat_info)
+            884 LOAD_ATTR                1 (NULL|self + get)
+            904 LOAD_CONST              30 ('gender')
+            906 LOAD_CONST              16 ('Unknown')
+            908 CALL                     2
+
+ 32     >>  916 MAP_ADD                  1
+
+ 40         918 LOAD_CONST              31 ('Patient Weight (Standard)')
+            920 LOAD_FAST                9 (p_demo)
+            922 LOAD_ATTR                1 (NULL|self + get)
+            942 LOAD_CONST              32 ('weight')
+            944 CALL                     1
+            952 COPY                     1
+            954 POP_JUMP_IF_TRUE        18 (to 992)
+            956 POP_TOP
+            958 LOAD_FAST                3 (pat_info)
+            960 LOAD_ATTR                1 (NULL|self + get)
+            980 LOAD_CONST              32 ('weight')
+            982 LOAD_CONST              16 ('Unknown')
+            984 CALL                     2
+
+ 32     >>  992 MAP_ADD                  1
+
+ 41         994 LOAD_CONST              33 ('Patient Weight (PV value)')
+            996 LOAD_FAST                9 (p_demo)
+            998 LOAD_ATTR                1 (NULL|self + get)
+           1018 LOAD_CONST              34 ('patient_weight')
+           1020 CALL                     1
+           1028 COPY                     1
+           1030 POP_JUMP_IF_TRUE        18 (to 1068)
+           1032 POP_TOP
+           1034 LOAD_FAST                8 (pat_details)
+           1036 LOAD_ATTR                1 (NULL|self + get)
+           1056 LOAD_CONST              34 ('patient_weight')
+           1058 LOAD_CONST              16 ('Unknown')
+           1060 CALL                     2
+
+ 32     >> 1068 MAP_ADD                  1
+
+ 42        1070 LOAD_CONST              35 ('Patient Age Group Code')
+           1072 LOAD_GLOBAL              3 (NULL + isinstance)
+           1082 LOAD_FAST                9 (p_demo)
+           1084 LOAD_ATTR                1 (NULL|self + get)
+           1104 LOAD_CONST              36 ('age_group')
+           1106 CALL                     1
+           1114 LOAD_GLOBAL              4 (dict)
+           1124 CALL                     2
+           1132 POP_JUMP_IF_FALSE       33 (to 1200)
+           1134 LOAD_FAST                9 (p_demo)
+           1136 LOAD_ATTR                1 (NULL|self + get)
+           1156 LOAD_CONST              36 ('age_group')
+           1158 BUILD_MAP                0
+           1160 CALL                     2
+           1168 LOAD_ATTR                1 (NULL|self + get)
+           1188 LOAD_CONST              37 ('code')
+           1190 CALL                     1
+           1198 JUMP_FORWARD            33 (to 1266)
+        >> 1200 LOAD_FAST                8 (pat_details)
+           1202 LOAD_ATTR                1 (NULL|self + get)
+           1222 LOAD_CONST              36 ('age_group')
+           1224 BUILD_MAP                0
+           1226 CALL                     2
+           1234 LOAD_ATTR                1 (NULL|self + get)
+           1254 LOAD_CONST              37 ('code')
+           1256 LOAD_CONST              38 ('')
+           1258 CALL                     2
+
+ 32     >> 1266 MAP_ADD                  1
+
+ 43        1268 LOAD_CONST              39 ('Patient Age Group Meaning')
+           1270 LOAD_GLOBAL              3 (NULL + isinstance)
+           1280 LOAD_FAST                9 (p_demo)
+           1282 LOAD_ATTR                1 (NULL|self + get)
+           1302 LOAD_CONST              36 ('age_group')
+           1304 CALL                     1
+           1312 LOAD_GLOBAL              4 (dict)
+           1322 CALL                     2
+           1330 POP_JUMP_IF_FALSE       33 (to 1398)
+           1332 LOAD_FAST                9 (p_demo)
+           1334 LOAD_ATTR                1 (NULL|self + get)
+           1354 LOAD_CONST              36 ('age_group')
+           1356 BUILD_MAP                0
+           1358 CALL                     2
+           1366 LOAD_ATTR                1 (NULL|self + get)
+           1386 LOAD_CONST              40 ('meaning')
+           1388 CALL                     1
+           1396 JUMP_FORWARD            33 (to 1464)
+        >> 1398 LOAD_FAST                8 (pat_details)
+           1400 LOAD_ATTR                1 (NULL|self + get)
+           1420 LOAD_CONST              36 ('age_group')
+           1422 BUILD_MAP                0
+           1424 CALL                     2
+           1432 LOAD_ATTR                1 (NULL|self + get)
+           1452 LOAD_CONST              40 ('meaning')
+           1454 LOAD_CONST              38 ('')
+           1456 CALL                     2
+
+ 32     >> 1464 MAP_ADD                  1
+
+ 44        1466 LOAD_CONST              41 ('Suspected Drug')
+           1468 LOAD_FAST                4 (drug_info)
+           1470 LOAD_ATTR                1 (NULL|self + get)
+           1490 LOAD_CONST              42 ('drug_name')
+           1492 LOAD_CONST              16 ('Unknown')
+           1494 CALL                     2
+
+ 32        1502 MAP_ADD                  1
+
+ 45        1504 LOAD_CONST              43 ('Active Ingredient')
+           1506 LOAD_FAST               10 (drug_details)
+           1508 LOAD_ATTR                1 (NULL|self + get)
+           1528 LOAD_CONST              44 ('product_active_ingredient')
+           1530 LOAD_CONST              16 ('Unknown')
+           1532 CALL                     2
+
+ 32        1540 MAP_ADD                  1
+
+ 46        1542 LOAD_CONST              45 ('Drug Role Code')
+           1544 LOAD_FAST               10 (drug_details)
+           1546 LOAD_ATTR                1 (NULL|self + get)
+           1566 LOAD_CONST              46 ('drug_role')
+           1568 BUILD_MAP                0
+           1570 CALL                     2
+           1578 LOAD_ATTR                1 (NULL|self + get)
+           1598 LOAD_CONST              37 ('code')
+           1600 LOAD_CONST              38 ('')
+           1602 CALL                     2
+
+ 32        1610 MAP_ADD                  1
+
+ 47        1612 LOAD_CONST              47 ('Drug Role Meaning')
+           1614 LOAD_FAST               10 (drug_details)
+           1616 LOAD_ATTR                1 (NULL|self + get)
+           1636 LOAD_CONST              46 ('drug_role')
+           1638 BUILD_MAP                0
+           1640 CALL                     2
+           1648 LOAD_ATTR                1 (NULL|self + get)
+           1668 LOAD_CONST              40 ('meaning')
+           1670 LOAD_CONST              38 ('')
+           1672 CALL                     2
+
+ 32        1680 MAP_ADD                  1
+
+ 48        1682 LOAD_CONST              48 ('Dosage')
+           1684 LOAD_FAST                4 (drug_info)
+           1686 LOAD_ATTR                1 (NULL|self + get)
+           1706 LOAD_CONST              49 ('dosage')
+           1708 LOAD_CONST              16 ('Unknown')
+           1710 CALL                     2
+
+ 32        1718 MAP_ADD                  1
+
+ 49        1720 LOAD_CONST              50 ('Route')
+           1722 LOAD_FAST                4 (drug_info)
+           1724 LOAD_ATTR                1 (NULL|self + get)
+           1744 LOAD_CONST              51 ('route')
+           1746 LOAD_CONST              16 ('Unknown')
+           1748 CALL                     2
+
+ 32        1756 MAP_ADD                  1
+           1758 BUILD_MAP                0
+
+ 50        1760 LOAD_CONST              52 ('Therapy Start Date')
+           1762 LOAD_FAST                4 (drug_info)
+           1764 LOAD_ATTR                1 (NULL|self + get)
+           1784 LOAD_CONST              53 ('therapy_start_date')
+           1786 LOAD_CONST              16 ('Unknown')
+           1788 CALL                     2
+
+ 32        1796 MAP_ADD                  1
+
+ 51        1798 LOAD_CONST              54 ('Therapy End Date')
+           1800 LOAD_FAST                4 (drug_info)
+           1802 LOAD_ATTR                1 (NULL|self + get)
+           1822 LOAD_CONST              55 ('therapy_end_date')
+           1824 LOAD_CONST              16 ('Unknown')
+           1826 CALL                     2
+
+ 32        1834 MAP_ADD                  1
+
+ 52        1836 LOAD_CONST              56 ('Indication')
+           1838 LOAD_FAST                4 (drug_info)
+           1840 LOAD_ATTR                1 (NULL|self + get)
+           1860 LOAD_CONST              57 ('indication')
+           1862 LOAD_CONST              16 ('Unknown')
+           1864 CALL                     2
+
+ 32        1872 MAP_ADD                  1
+
+ 53        1874 LOAD_CONST              58 ('Adverse Event')
+           1876 LOAD_FAST                5 (event_info)
+           1878 LOAD_ATTR                1 (NULL|self + get)
+           1898 LOAD_CONST              59 ('adverse_event')
+           1900 LOAD_CONST              16 ('Unknown')
+           1902 CALL                     2
+
+ 32        1910 MAP_ADD                  1
+
+ 54        1912 LOAD_CONST              60 ('Event Onset Date')
+           1914 LOAD_FAST                5 (event_info)
+           1916 LOAD_ATTR                1 (NULL|self + get)
+           1936 LOAD_CONST              61 ('event_start_date')
+           1938 LOAD_CONST              16 ('Unknown')
+           1940 CALL                     2
+
+ 32        1948 MAP_ADD                  1
+
+ 55        1950 LOAD_CONST              62 ('Adverse Event Date (PV)')
+           1952 LOAD_FAST               11 (events_details)
+           1954 LOAD_ATTR                1 (NULL|self + get)
+           1974 LOAD_CONST              63 ('event_date')
+           1976 LOAD_CONST              38 ('')
+           1978 CALL                     2
+
+ 32        1986 MAP_ADD                  1
+
+ 56        1988 LOAD_CONST              64 ('Drug Recur Action (PV)')
+           1990 LOAD_FAST               11 (events_details)
+           1992 LOAD_ATTR                1 (NULL|self + get)
+           2012 LOAD_CONST              65 ('drug_recur_action')
+           2014 LOAD_CONST              38 ('')
+           2016 CALL                     2
+
+ 32        2024 MAP_ADD                  1
+
+ 57        2026 LOAD_CONST              66 ('Lot Number')
+           2028 LOAD_FAST               12 (batch_details)
+           2030 LOAD_ATTR                1 (NULL|self + get)
+           2050 LOAD_CONST              67 ('lot_number')
+           2052 LOAD_CONST              38 ('')
+           2054 CALL                     2
+
+ 32        2062 MAP_ADD                  1
+
+ 58        2064 LOAD_CONST              68 ('Batch Number')
+           2066 LOAD_FAST               12 (batch_details)
+           2068 LOAD_ATTR                1 (NULL|self + get)
+           2088 LOAD_CONST              69 ('batch_number')
+           2090 LOAD_CONST              38 ('')
+           2092 CALL                     2
+
+ 32        2100 MAP_ADD                  1
+
+ 59        2102 LOAD_CONST              70 ('Expiry Date')
+           2104 LOAD_FAST               12 (batch_details)
+           2106 LOAD_ATTR                1 (NULL|self + get)
+           2126 LOAD_CONST              71 ('expiry_date')
+           2128 LOAD_CONST              38 ('')
+           2130 CALL                     2
+
+ 32        2138 MAP_ADD                  1
+
+ 60        2140 LOAD_CONST              72 ('Manufacturer')
+           2142 LOAD_FAST               12 (batch_details)
+           2144 LOAD_ATTR                1 (NULL|self + get)
+           2164 LOAD_CONST              73 ('manufacturer')
+           2166 LOAD_CONST              38 ('')
+           2168 CALL                     2
+
+ 32        2176 MAP_ADD                  1
+
+ 61        2178 LOAD_CONST              74 ('Dose Form')
+           2180 LOAD_FAST               13 (therapy_details)
+           2182 LOAD_ATTR                1 (NULL|self + get)
+           2202 LOAD_CONST              75 ('dose_form')
+           2204 LOAD_CONST              38 ('')
+           2206 CALL                     2
+
+ 32        2214 MAP_ADD                  1
+
+ 62        2216 LOAD_CONST              76 ('Dose Amount')
+           2218 LOAD_FAST               13 (therapy_details)
+           2220 LOAD_ATTR                1 (NULL|self + get)
+           2240 LOAD_CONST              77 ('dose_amount')
+           2242 LOAD_CONST              38 ('')
+           2244 CALL                     2
+
+ 32        2252 MAP_ADD                  1
+
+ 63        2254 LOAD_CONST              78 ('Dose Unit')
+           2256 LOAD_FAST               13 (therapy_details)
+           2258 LOAD_ATTR                1 (NULL|self + get)
+           2278 LOAD_CONST              79 ('dose_unit')
+           2280 LOAD_CONST              38 ('')
+           2282 CALL                     2
+
+ 32        2290 MAP_ADD                  1
+
+ 64        2292 LOAD_CONST              80 ('Dose Frequency')
+           2294 LOAD_FAST               13 (therapy_details)
+           2296 LOAD_ATTR                1 (NULL|self + get)
+           2316 LOAD_CONST              81 ('dose_frequency')
+           2318 LOAD_CONST              38 ('')
+           2320 CALL                     2
+
+ 32        2328 MAP_ADD                  1
+
+ 65        2330 LOAD_CONST              82 ('Therapy Duration')
+           2332 LOAD_FAST               13 (therapy_details)
+           2334 LOAD_ATTR                1 (NULL|self + get)
+           2354 LOAD_CONST              83 ('therapy_duration')
+           2356 LOAD_CONST              38 ('')
+           2358 CALL                     2
+
+ 32        2366 MAP_ADD                  1
+
+ 66        2368 LOAD_CONST              84 ('Reporter Occupation Code')
+           2370 LOAD_FAST               14 (reporter_details)
+           2372 LOAD_ATTR                1 (NULL|self + get)
+           2392 LOAD_CONST              85 ('occupation')
+           2394 BUILD_MAP                0
+           2396 CALL                     2
+           2404 LOAD_ATTR                1 (NULL|self + get)
+           2424 LOAD_CONST              37 ('code')
+           2426 LOAD_CONST              38 ('')
+           2428 CALL                     2
+
+ 32        2436 MAP_ADD                  1
+           2438 DICT_UPDATE              1
+
+ 67        2440 LOAD_FAST               14 (reporter_details)
+           2442 LOAD_ATTR                1 (NULL|self + get)
+           2462 LOAD_CONST              85 ('occupation')
+           2464 BUILD_MAP                0
+           2466 CALL                     2
+           2474 LOAD_ATTR                1 (NULL|self + get)
+           2494 LOAD_CONST              40 ('meaning')
+           2496 LOAD_CONST              38 ('')
+           2498 CALL                     2
+
+ 68        2506 LOAD_FAST                5 (event_info)
+           2508 LOAD_ATTR                1 (NULL|self + get)
+           2528 LOAD_CONST              86 ('outcome')
+           2530 LOAD_CONST              16 ('Unknown')
+           2532 CALL                     2
+
+ 69        2540 LOAD_FAST                5 (event_info)
+           2542 LOAD_ATTR                1 (NULL|self + get)
+           2562 LOAD_CONST              87 ('severity')
+           2564 LOAD_CONST              16 ('Unknown')
+           2566 CALL                     2
+
+ 70        2574 LOAD_FAST                5 (event_info)
+           2576 LOAD_ATTR                1 (NULL|self + get)
+           2596 LOAD_CONST              88 ('action_taken')
+           2598 LOAD_CONST              16 ('Unknown')
+           2600 CALL                     2
+
+ 71        2608 LOAD_FAST                1 (data)
+           2610 LOAD_ATTR                1 (NULL|self + get)
+           2630 LOAD_CONST              89 ('ai_generated_narrative_summary')
+           2632 LOAD_CONST              38 ('')
+           2634 CALL                     2
+
+ 72        2642 LOAD_FAST                6 (causality)
+           2644 LOAD_ATTR                1 (NULL|self + get)
+           2664 LOAD_CONST              90 ('suspected_relationship')
+           2666 LOAD_CONST              16 ('Unknown')
+           2668 CALL                     2
+
+ 73        2676 LOAD_FAST                6 (causality)
+           2678 LOAD_ATTR                1 (NULL|self + get)
+           2698 LOAD_CONST              91 ('confidence_score')
+           2700 LOAD_CONST              92 (0.0)
+           2702 CALL                     2
+
+ 74        2710 LOAD_FAST                7 (entities)
+           2712 LOAD_ATTR                1 (NULL|self + get)
+           2732 LOAD_CONST              93 ('drug')
+           2734 LOAD_CONST              16 ('Unknown')
+           2736 CALL                     2
+
+ 75        2744 LOAD_FAST                7 (entities)
+           2746 LOAD_ATTR                1 (NULL|self + get)
+           2766 LOAD_CONST              94 ('reaction')
+           2768 LOAD_CONST              16 ('Unknown')
+           2770 CALL                     2
+
+ 76        2778 LOAD_FAST                7 (entities)
+           2780 LOAD_ATTR                1 (NULL|self + get)
+           2800 LOAD_CONST              95 ('symptom')
+           2802 LOAD_CONST              16 ('Unknown')
+           2804 CALL                     2
+
+ 77        2812 LOAD_FAST                7 (entities)
+           2814 LOAD_ATTR                1 (NULL|self + get)
+           2834 LOAD_CONST              86 ('outcome')
+           2836 LOAD_CONST              16 ('Unknown')
+           2838 CALL                     2
+
+ 78        2846 LOAD_CONST              96 ('; ')
+           2848 LOAD_ATTR                7 (NULL|self + join)
+           2868 LOAD_FAST                1 (data)
+           2870 LOAD_ATTR                1 (NULL|self + get)
+           2890 LOAD_CONST              97 ('ai_safety_insights')
+           2892 BUILD_LIST               0
+           2894 CALL                     2
+           2902 CALL                     1
+
+ 79        2910 LOAD_CONST              96 ('; ')
+           2912 LOAD_ATTR                7 (NULL|self + join)
+           2932 LOAD_FAST                1 (data)
+           2934 LOAD_ATTR                1 (NULL|self + get)
+           2954 LOAD_CONST              98 ('highlighted_critical_fields')
+           2956 BUILD_LIST               0
+           2958 CALL                     2
+           2966 CALL                     1
+
+ 80        2974 LOAD_FAST                1 (data)
+           2976 LOAD_ATTR                1 (NULL|self + get)
+           2996 LOAD_CONST              99 ('final_case_classification')
+           2998 LOAD_CONST              16 ('Unknown')
+           3000 CALL                     2
+
+ 32        3008 LOAD_CONST             100 (('Reporter Occupation Meaning', 'Outcome', 'Severity', 'Action Taken', 'AI Narrative Summary', 'Suspected Relationship', 'Causality Confidence Score', 'Key Drug Extracted', 'Key Reaction Extracted', 'Key Symptom Extracted', 'Key Outcome Extracted', 'AI Safety Insights', 'Highlighted Fields', 'Final Classification'))
+           3010 BUILD_CONST_KEY_MAP     14
+           3012 DICT_UPDATE              1
+           3014 RETURN_VALUE
+
+Disassembly of <code object generate_excel_report at 0x12602fe00, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/report_service.py", line 83>:
+ 83           0 RESUME                   0
+
+ 84           2 LOAD_GLOBAL              0 (os)
+             12 LOAD_ATTR                2 (path)
+             32 LOAD_ATTR                5 (NULL|self + join)
+             52 LOAD_GLOBAL              6 (REPORTS_DIR)
+             62 LOAD_FAST                2 (report_id)
+             64 FORMAT_VALUE             0
+             66 LOAD_CONST               1 ('.xlsx')
+             68 BUILD_STRING             2
+             70 CALL                     2
+             78 STORE_FAST               3 (filepath)
+
+ 87          80 LOAD_CONST               2 ('cases')
+             82 LOAD_FAST                1 (data)
+             84 CONTAINS_OP              0
+             86 EXTENDED_ARG             1
+             88 POP_JUMP_IF_FALSE      319 (to 728)
+             90 LOAD_GLOBAL              9 (NULL + isinstance)
+            100 LOAD_FAST                1 (data)
+            102 LOAD_CONST               2 ('cases')
+            104 BINARY_SUBSCR
+            108 LOAD_GLOBAL             10 (list)
+            118 CALL                     2
+            126 EXTENDED_ARG             1
+            128 POP_JUMP_IF_FALSE      299 (to 728)
+
+ 88         130 BUILD_LIST               0
+            132 STORE_FAST               4 (rows)
+
+ 89         134 LOAD_FAST                1 (data)
+            136 LOAD_CONST               2 ('cases')
+            138 BINARY_SUBSCR
+            142 GET_ITER
+        >>  144 FOR_ITER               245 (to 638)
+            148 STORE_FAST               5 (child_case)
+
+ 90         150 LOAD_FAST                5 (child_case)
+            152 LOAD_ATTR               13 (NULL|self + get)
+            172 LOAD_CONST               3 ('analysis_id')
+            174 CALL                     1
+            182 COPY                     1
+            184 POP_JUMP_IF_TRUE        76 (to 338)
+            186 POP_TOP
+            188 LOAD_CONST               4 ('/')
+            190 LOAD_FAST                5 (child_case)
+            192 LOAD_ATTR               13 (NULL|self + get)
+            212 LOAD_CONST               5 ('report_file')
+            214 LOAD_CONST               6 ('')
+            216 CALL                     2
+            224 CONTAINS_OP              0
+            226 POP_JUMP_IF_FALSE       54 (to 336)
+            228 LOAD_FAST                5 (child_case)
+            230 LOAD_ATTR               13 (NULL|self + get)
+            250 LOAD_CONST               5 ('report_file')
+            252 LOAD_CONST               6 ('')
+            254 CALL                     2
+            262 LOAD_ATTR               15 (NULL|self + split)
+            282 LOAD_CONST               4 ('/')
+            284 CALL                     1
+            292 LOAD_CONST               7 (-1)
+            294 BINARY_SUBSCR
+            298 LOAD_ATTR               15 (NULL|self + split)
+            318 LOAD_CONST               8 ('?')
+            320 CALL                     1
+            328 LOAD_CONST               9 (0)
+            330 BINARY_SUBSCR
+            334 JUMP_FORWARD             1 (to 338)
+        >>  336 LOAD_CONST               6 ('')
+        >>  338 STORE_FAST               6 (child_id)
+
+ 91         340 LOAD_FAST                6 (child_id)
+            342 POP_JUMP_IF_TRUE         1 (to 346)
+            344 JUMP_BACKWARD          101 (to 144)
+
+ 92     >>  346 LOAD_GLOBAL              0 (os)
+            356 LOAD_ATTR                2 (path)
+            376 LOAD_ATTR                5 (NULL|self + join)
+            396 LOAD_GLOBAL              6 (REPORTS_DIR)
+            406 LOAD_FAST                6 (child_id)
+            408 FORMAT_VALUE             0
+            410 LOAD_CONST              10 ('.json')
+            412 BUILD_STRING             2
+            414 CALL                     2
+            422 STORE_FAST               7 (child_json_path)
+
+ 93         424 LOAD_GLOBAL              0 (os)
+            434 LOAD_ATTR                2 (path)
+            454 LOAD_ATTR               17 (NULL|self + exists)
+            474 LOAD_FAST                7 (child_json_path)
+            476 CALL                     1
+            484 POP_JUMP_IF_TRUE         1 (to 488)
+            486 JUMP_BACKWARD          172 (to 144)
+
+ 94     >>  488 LOAD_GLOBAL             19 (NULL + open)
+            498 LOAD_FAST                7 (child_json_path)
+            500 LOAD_CONST              11 ('r')
+            502 CALL                     2
+            510 BEFORE_WITH
+            512 STORE_FAST               8 (f)
+
+ 95         514 LOAD_GLOBAL             21 (NULL + json)
+            524 LOAD_ATTR               22 (load)
+            544 LOAD_FAST                8 (f)
+            546 CALL                     1
+            554 STORE_FAST               9 (child_data)
+
+ 96         556 LOAD_FAST                4 (rows)
+            558 LOAD_ATTR               25 (NULL|self + append)
+            578 LOAD_FAST                0 (self)
+            580 LOAD_ATTR               27 (NULL|self + _flatten_single_case)
+            600 LOAD_FAST                9 (child_data)
+            602 CALL                     1
+            610 CALL                     1
+            618 POP_TOP
+
+ 94         620 LOAD_CONST               0 (None)
+            622 LOAD_CONST               0 (None)
+            624 LOAD_CONST               0 (None)
+            626 CALL                     2
+            634 POP_TOP
+            636 JUMP_BACKWARD          247 (to 144)
+
+ 89     >>  638 END_FOR
+
+ 97         640 LOAD_FAST                4 (rows)
+            642 POP_JUMP_IF_FALSE       42 (to 728)
+
+ 98         644 LOAD_GLOBAL             29 (NULL + pd)
+            654 LOAD_ATTR               30 (DataFrame)
+            674 LOAD_FAST                4 (rows)
+            676 CALL                     1
+            684 STORE_FAST              10 (df)
+
+ 99         686 LOAD_FAST               10 (df)
+            688 LOAD_ATTR               33 (NULL|self + to_excel)
+            708 LOAD_FAST                3 (filepath)
+            710 LOAD_CONST              12 (False)
+            712 KW_NAMES                13 (('index',))
+            714 CALL                     2
+            722 POP_TOP
+
+100         724 LOAD_FAST                3 (filepath)
+            726 RETURN_VALUE
+
+103     >>  728 LOAD_FAST                0 (self)
+            730 LOAD_ATTR               27 (NULL|self + _flatten_single_case)
+            750 LOAD_FAST                1 (data)
+            752 CALL                     1
+            760 STORE_FAST              11 (row)
+
+104         762 LOAD_GLOBAL             29 (NULL + pd)
+            772 LOAD_ATTR               30 (DataFrame)
+            792 LOAD_FAST               11 (row)
+            794 BUILD_LIST               1
+            796 CALL                     1
+            804 STORE_FAST              10 (df)
+
+105         806 LOAD_FAST               10 (df)
+            808 LOAD_ATTR               33 (NULL|self + to_excel)
+            828 LOAD_FAST                3 (filepath)
+            830 LOAD_CONST              12 (False)
+            832 KW_NAMES                13 (('index',))
+            834 CALL                     2
+            842 POP_TOP
+
+106         844 LOAD_FAST                3 (filepath)
+            846 RETURN_VALUE
+
+ 94     >>  848 PUSH_EXC_INFO
+            850 WITH_EXCEPT_START
+            852 POP_JUMP_IF_TRUE         1 (to 856)
+            854 RERAISE                  2
+        >>  856 POP_TOP
+            858 POP_EXCEPT
+            860 POP_TOP
+            862 POP_TOP
+            864 EXTENDED_ARG             1
+            866 JUMP_BACKWARD          362 (to 144)
+        >>  868 COPY                     3
+            870 POP_EXCEPT
+            872 RERAISE                  1
+ExceptionTable:
+  512 to 618 -> 848 [2] lasti
+  848 to 856 -> 868 [4] lasti
+
+Disassembly of <code object generate_pdf_report at 0x126035800, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/report_service.py", line 108>:
+108           0 RESUME                   0
+
+109           2 LOAD_GLOBAL              0 (os)
+             12 LOAD_ATTR                2 (path)
+             32 LOAD_ATTR                5 (NULL|self + join)
+             52 LOAD_GLOBAL              6 (REPORTS_DIR)
+             62 LOAD_FAST                2 (report_id)
+             64 FORMAT_VALUE             0
+             66 LOAD_CONST               1 ('.pdf')
+             68 BUILD_STRING             2
+             70 CALL                     2
+             78 STORE_FAST               3 (filepath)
+
+111          80 LOAD_FAST                1 (data)
+             82 LOAD_ATTR                9 (NULL|self + get)
+            102 LOAD_CONST               2 ('case_information')
+            104 BUILD_MAP                0
+            106 CALL                     2
+            114 STORE_FAST               4 (case_info)
+
+112         116 LOAD_FAST                1 (data)
+            118 LOAD_ATTR                9 (NULL|self + get)
+            138 LOAD_CONST               3 ('patient_information')
+            140 BUILD_MAP                0
+            142 CALL                     2
+            150 STORE_FAST               5 (pat_info)
+
+113         152 LOAD_FAST                1 (data)
+            154 LOAD_ATTR                9 (NULL|self + get)
+            174 LOAD_CONST               4 ('suspected_drug_information')
+            176 BUILD_MAP                0
+            178 CALL                     2
+            186 STORE_FAST               6 (drug_info)
+
+114         188 LOAD_FAST                1 (data)
+            190 LOAD_ATTR                9 (NULL|self + get)
+            210 LOAD_CONST               5 ('adverse_event_details')
+            212 BUILD_MAP                0
+            214 CALL                     2
+            222 STORE_FAST               7 (event_info)
+
+115         224 LOAD_FAST                1 (data)
+            226 LOAD_ATTR                9 (NULL|self + get)
+            246 LOAD_CONST               6 ('seriousness_assessment')
+            248 BUILD_MAP                0
+            250 CALL                     2
+            258 STORE_FAST               8 (seriousness_ass)
+
+116         260 LOAD_FAST                1 (data)
+            262 LOAD_ATTR                9 (NULL|self + get)
+            282 LOAD_CONST               7 ('causality_assessment')
+            284 BUILD_MAP                0
+            286 CALL                     2
+            294 STORE_FAST               9 (causality)
+
+117         296 LOAD_FAST                1 (data)
+            298 LOAD_ATTR                9 (NULL|self + get)
+            318 LOAD_CONST               8 ('key_entities_extracted')
+            320 BUILD_MAP                0
+            322 CALL                     2
+            330 STORE_FAST              10 (entities)
+
+118         332 LOAD_FAST                1 (data)
+            334 LOAD_ATTR                9 (NULL|self + get)
+            354 LOAD_CONST               9 ('ai_safety_insights')
+            356 BUILD_LIST               0
+            358 CALL                     2
+            366 STORE_FAST              11 (insights)
+
+119         368 LOAD_FAST                1 (data)
+            370 LOAD_ATTR                9 (NULL|self + get)
+            390 LOAD_CONST              10 ('timeline')
+            392 BUILD_LIST               0
+            394 CALL                     2
+            402 STORE_FAST              12 (timeline)
+
+120         404 LOAD_FAST                1 (data)
+            406 LOAD_ATTR                9 (NULL|self + get)
+            426 LOAD_CONST              11 ('missing_information')
+            428 BUILD_LIST               0
+            430 CALL                     2
+            438 STORE_FAST              13 (missing)
+
+121         440 LOAD_FAST                1 (data)
+            442 LOAD_ATTR                9 (NULL|self + get)
+            462 LOAD_CONST              12 ('fda_signal')
+            464 BUILD_MAP                0
+            466 CALL                     2
+            474 STORE_FAST              14 (fda_sig)
+
+122         476 LOAD_FAST                1 (data)
+            478 LOAD_ATTR                9 (NULL|self + get)
+            498 LOAD_CONST              13 ('regulatory_alerts')
+            500 BUILD_LIST               0
+            502 CALL                     2
+            510 STORE_FAST              15 (reg_alerts)
+
+125         512 LOAD_FAST                1 (data)
+            514 LOAD_ATTR                9 (NULL|self + get)
+            534 LOAD_CONST              14 ('patient_details')
+            536 BUILD_MAP                0
+            538 CALL                     2
+            546 COPY                     1
+            548 POP_JUMP_IF_TRUE         2 (to 554)
+            550 POP_TOP
+            552 BUILD_MAP                0
+        >>  554 STORE_FAST              16 (pat_details)
+
+126         556 LOAD_FAST                1 (data)
+            558 LOAD_ATTR                9 (NULL|self + get)
+            578 LOAD_CONST              15 ('patient_demographic')
+            580 BUILD_MAP                0
+            582 CALL                     2
+            590 COPY                     1
+            592 POP_JUMP_IF_TRUE         2 (to 598)
+            594 POP_TOP
+            596 BUILD_MAP                0
+        >>  598 STORE_FAST              17 (p_demo)
+
+127         600 LOAD_FAST                1 (data)
+            602 LOAD_ATTR                9 (NULL|self + get)
+            622 LOAD_CONST              16 ('drug_information')
+            624 BUILD_MAP                0
+            626 CALL                     2
+            634 COPY                     1
+            636 POP_JUMP_IF_TRUE         2 (to 642)
+            638 POP_TOP
+            640 BUILD_MAP                0
+        >>  642 STORE_FAST              18 (drug_details)
+
+128         644 LOAD_FAST                1 (data)
+            646 LOAD_ATTR                9 (NULL|self + get)
+            666 LOAD_CONST              17 ('adverse_events')
+            668 BUILD_MAP                0
+            670 CALL                     2
+            678 COPY                     1
+            680 POP_JUMP_IF_TRUE         2 (to 686)
+            682 POP_TOP
+            684 BUILD_MAP                0
+        >>  686 STORE_FAST              19 (events_details)
+
+129         688 LOAD_FAST                1 (data)
+            690 LOAD_ATTR                9 (NULL|self + get)
+            710 LOAD_CONST              18 ('drug_batch_details')
+            712 BUILD_MAP                0
+            714 CALL                     2
+            722 COPY                     1
+            724 POP_JUMP_IF_TRUE         2 (to 730)
+            726 POP_TOP
+            728 BUILD_MAP                0
+        >>  730 STORE_FAST              20 (batch_details)
+
+130         732 LOAD_FAST                1 (data)
+            734 LOAD_ATTR                9 (NULL|self + get)
+            754 LOAD_CONST              19 ('therapy_information')
+            756 BUILD_MAP                0
+            758 CALL                     2
+            766 COPY                     1
+            768 POP_JUMP_IF_TRUE         2 (to 774)
+            770 POP_TOP
+            772 BUILD_MAP                0
+        >>  774 STORE_FAST              21 (therapy_details)
+
+131         776 LOAD_FAST                1 (data)
+            778 LOAD_ATTR                9 (NULL|self + get)
+            798 LOAD_CONST              20 ('reporter_information')
+            800 BUILD_MAP                0
+            802 CALL                     2
+            810 COPY                     1
+            812 POP_JUMP_IF_TRUE         2 (to 818)
+            814 POP_TOP
+            816 BUILD_MAP                0
+        >>  818 STORE_FAST              22 (reporter_details)
+
+132         820 LOAD_FAST                1 (data)
+            822 LOAD_ATTR                9 (NULL|self + get)
+            842 LOAD_CONST              21 ('highlighted_critical_fields')
+            844 BUILD_LIST               0
+            846 CALL                     2
+            854 STORE_FAST              23 (highlights)
+
+133         856 LOAD_FAST                1 (data)
+            858 LOAD_ATTR                9 (NULL|self + get)
+            878 LOAD_CONST              22 ('medical_insights')
+            880 BUILD_LIST               0
+            882 CALL                     2
+            890 STORE_FAST              24 (med_insights)
+
+134         892 LOAD_FAST                1 (data)
+            894 LOAD_ATTR                9 (NULL|self + get)
+            914 LOAD_CONST              23 ('safety_observations')
+            916 BUILD_LIST               0
+            918 CALL                     2
+            926 STORE_FAST              25 (safety_obs)
+
+137         928 BUILD_LIST               0
+            930 STORE_FAST              26 (content)
+
+138         932 LOAD_FAST               26 (content)
+            934 LOAD_ATTR               11 (NULL|self + append)
+            954 LOAD_CONST              24 ('================================================================================')
+            956 CALL                     1
+            964 POP_TOP
+
+139         966 LOAD_FAST               26 (content)
+            968 LOAD_ATTR               11 (NULL|self + append)
+            988 LOAD_CONST              25 ('            PHARMACOVIGILANCE AI COPILOT - CASE SAFETY REPORT')
+            990 CALL                     1
+            998 POP_TOP
+
+140        1000 LOAD_FAST               26 (content)
+           1002 LOAD_ATTR               11 (NULL|self + append)
+           1022 LOAD_CONST              24 ('================================================================================')
+           1024 CALL                     1
+           1032 POP_TOP
+
+141        1034 LOAD_FAST               26 (content)
+           1036 LOAD_ATTR               11 (NULL|self + append)
+           1056 LOAD_CONST              26 ('')
+           1058 CALL                     1
+           1066 POP_TOP
+
+143        1068 LOAD_FAST               26 (content)
+           1070 LOAD_ATTR               11 (NULL|self + append)
+           1090 LOAD_CONST              27 ('--- CASE INFORMATION ---')
+           1092 CALL                     1
+           1100 POP_TOP
+
+144        1102 LOAD_FAST               26 (content)
+           1104 LOAD_ATTR               11 (NULL|self + append)
+           1124 LOAD_CONST              28 ('Case ID:        ')
+           1126 LOAD_FAST                4 (case_info)
+           1128 LOAD_ATTR                9 (NULL|self + get)
+           1148 LOAD_CONST              29 ('case_id')
+           1150 LOAD_CONST              30 ('Unknown')
+           1152 CALL                     2
+           1160 FORMAT_VALUE             0
+           1162 BUILD_STRING             2
+           1164 CALL                     1
+           1172 POP_TOP
+
+145        1174 LOAD_FAST               26 (content)
+           1176 LOAD_ATTR               11 (NULL|self + append)
+           1196 LOAD_CONST              31 ('Report Type:    ')
+           1198 LOAD_FAST                4 (case_info)
+           1200 LOAD_ATTR                9 (NULL|self + get)
+           1220 LOAD_CONST              32 ('report_type')
+           1222 LOAD_CONST              33 ('Spontaneous Report')
+           1224 CALL                     2
+           1232 FORMAT_VALUE             0
+           1234 BUILD_STRING             2
+           1236 CALL                     1
+           1244 POP_TOP
+
+146        1246 LOAD_FAST               26 (content)
+           1248 LOAD_ATTR               11 (NULL|self + append)
+           1268 LOAD_CONST              34 ('Report Date:    ')
+           1270 LOAD_FAST                4 (case_info)
+           1272 LOAD_ATTR                9 (NULL|self + get)
+           1292 LOAD_CONST              35 ('report_date')
+           1294 LOAD_CONST              30 ('Unknown')
+           1296 CALL                     2
+           1304 FORMAT_VALUE             0
+           1306 BUILD_STRING             2
+           1308 CALL                     1
+           1316 POP_TOP
+
+147        1318 LOAD_FAST               26 (content)
+           1320 LOAD_ATTR               11 (NULL|self + append)
+           1340 LOAD_CONST              36 ('Seriousness:    ')
+           1342 LOAD_FAST                4 (case_info)
+           1344 LOAD_ATTR                9 (NULL|self + get)
+           1364 LOAD_CONST              37 ('seriousness')
+           1366 LOAD_CONST              30 ('Unknown')
+           1368 CALL                     2
+           1376 FORMAT_VALUE             0
+           1378 BUILD_STRING             2
+           1380 CALL                     1
+           1388 POP_TOP
+
+148        1390 LOAD_FAST               26 (content)
+           1392 LOAD_ATTR               11 (NULL|self + append)
+           1412 LOAD_CONST              38 ('Case Status:    ')
+           1414 LOAD_FAST                4 (case_info)
+           1416 LOAD_ATTR                9 (NULL|self + get)
+           1436 LOAD_CONST              39 ('case_status')
+           1438 LOAD_CONST              40 ('Initial')
+           1440 CALL                     2
+           1448 FORMAT_VALUE             0
+           1450 BUILD_STRING             2
+           1452 CALL                     1
+           1460 POP_TOP
+
+149        1462 LOAD_FAST               26 (content)
+           1464 LOAD_ATTR               11 (NULL|self + append)
+           1484 LOAD_CONST              26 ('')
+           1486 CALL                     1
+           1494 POP_TOP
+
+151        1496 LOAD_FAST               26 (content)
+           1498 LOAD_ATTR               11 (NULL|self + append)
+           1518 LOAD_CONST              41 ('--- PATIENT INFORMATION ---')
+           1520 CALL                     1
+           1528 POP_TOP
+
+152        1530 LOAD_FAST               26 (content)
+           1532 LOAD_ATTR               11 (NULL|self + append)
+           1552 LOAD_CONST              42 ('Age:            ')
+           1554 LOAD_FAST               17 (p_demo)
+           1556 LOAD_ATTR                9 (NULL|self + get)
+           1576 LOAD_CONST              43 ('age')
+           1578 CALL                     1
+           1586 COPY                     1
+           1588 POP_JUMP_IF_TRUE        18 (to 1626)
+           1590 POP_TOP
+           1592 LOAD_FAST                5 (pat_info)
+           1594 LOAD_ATTR                9 (NULL|self + get)
+           1614 LOAD_CONST              43 ('age')
+           1616 LOAD_CONST              30 ('Unknown')
+           1618 CALL                     2
+        >> 1626 FORMAT_VALUE             0
+           1628 BUILD_STRING             2
+           1630 CALL                     1
+           1638 POP_TOP
+
+153        1640 LOAD_FAST               26 (content)
+           1642 LOAD_ATTR               11 (NULL|self + append)
+           1662 LOAD_CONST              44 ('Gender:         ')
+           1664 LOAD_FAST               17 (p_demo)
+           1666 LOAD_ATTR                9 (NULL|self + get)
+           1686 LOAD_CONST              45 ('gender')
+           1688 CALL                     1
+           1696 COPY                     1
+           1698 POP_JUMP_IF_TRUE        18 (to 1736)
+           1700 POP_TOP
+           1702 LOAD_FAST                5 (pat_info)
+           1704 LOAD_ATTR                9 (NULL|self + get)
+           1724 LOAD_CONST              45 ('gender')
+           1726 LOAD_CONST              30 ('Unknown')
+           1728 CALL                     2
+        >> 1736 FORMAT_VALUE             0
+           1738 BUILD_STRING             2
+           1740 CALL                     1
+           1748 POP_TOP
+
+154        1750 LOAD_FAST               26 (content)
+           1752 LOAD_ATTR               11 (NULL|self + append)
+           1772 LOAD_CONST              46 ('Weight:         ')
+           1774 LOAD_FAST               17 (p_demo)
+           1776 LOAD_ATTR                9 (NULL|self + get)
+           1796 LOAD_CONST              47 ('weight')
+           1798 CALL                     1
+           1806 COPY                     1
+           1808 POP_JUMP_IF_TRUE        18 (to 1846)
+           1810 POP_TOP
+           1812 LOAD_FAST                5 (pat_info)
+           1814 LOAD_ATTR                9 (NULL|self + get)
+           1834 LOAD_CONST              47 ('weight')
+           1836 LOAD_CONST              30 ('Unknown')
+           1838 CALL                     2
+        >> 1846 FORMAT_VALUE             0
+           1848 BUILD_STRING             2
+           1850 CALL                     1
+           1858 POP_TOP
+
+155        1860 LOAD_FAST               26 (content)
+           1862 LOAD_ATTR               11 (NULL|self + append)
+           1882 LOAD_CONST              48 ('Medical History:')
+           1884 LOAD_FAST               17 (p_demo)
+           1886 LOAD_ATTR                9 (NULL|self + get)
+           1906 LOAD_CONST              49 ('medical_history')
+           1908 CALL                     1
+           1916 COPY                     1
+           1918 POP_JUMP_IF_TRUE        18 (to 1956)
+           1920 POP_TOP
+           1922 LOAD_FAST                5 (pat_info)
+           1924 LOAD_ATTR                9 (NULL|self + get)
+           1944 LOAD_CONST              49 ('medical_history')
+           1946 LOAD_CONST              30 ('Unknown')
+           1948 CALL                     2
+        >> 1956 FORMAT_VALUE             0
+           1958 BUILD_STRING             2
+           1960 CALL                     1
+           1968 POP_TOP
+
+156        1970 LOAD_FAST               26 (content)
+           1972 LOAD_ATTR               11 (NULL|self + append)
+           1992 LOAD_CONST              26 ('')
+           1994 CALL                     1
+           2002 POP_TOP
+
+158        2004 LOAD_FAST               26 (content)
+           2006 LOAD_ATTR               11 (NULL|self + append)
+           2026 LOAD_CONST              50 ('--- ENHANCED PV & FAERS DETAILS ---')
+           2028 CALL                     1
+           2036 POP_TOP
+
+159        2038 LOAD_GLOBAL             13 (NULL + isinstance)
+           2048 LOAD_FAST               17 (p_demo)
+           2050 LOAD_ATTR                9 (NULL|self + get)
+           2070 LOAD_CONST              51 ('age_group')
+           2072 CALL                     1
+           2080 LOAD_GLOBAL             14 (dict)
+           2090 CALL                     2
+           2098 POP_JUMP_IF_FALSE       17 (to 2134)
+           2100 LOAD_FAST               17 (p_demo)
+           2102 LOAD_ATTR                9 (NULL|self + get)
+           2122 LOAD_CONST              51 ('age_group')
+           2124 CALL                     1
+           2132 JUMP_FORWARD            17 (to 2168)
+        >> 2134 LOAD_FAST               16 (pat_details)
+           2136 LOAD_ATTR                9 (NULL|self + get)
+           2156 LOAD_CONST              51 ('age_group')
+           2158 BUILD_MAP                0
+           2160 CALL                     2
+        >> 2168 STORE_FAST              27 (age_group_dict)
+
+160        2170 LOAD_FAST               26 (content)
+           2172 LOAD_ATTR               11 (NULL|self + append)
+           2192 LOAD_CONST              52 ('Age Group:      ')
+           2194 LOAD_FAST               27 (age_group_dict)
+           2196 LOAD_ATTR                9 (NULL|self + get)
+           2216 LOAD_CONST              53 ('code')
+           2218 LOAD_CONST              54 ('N/A')
+           2220 CALL                     2
+           2228 FORMAT_VALUE             0
+           2230 LOAD_CONST              55 (' - ')
+           2232 LOAD_FAST               27 (age_group_dict)
+           2234 LOAD_ATTR                9 (NULL|self + get)
+           2254 LOAD_CONST              56 ('meaning')
+           2256 LOAD_CONST              30 ('Unknown')
+           2258 CALL                     2
+           2266 FORMAT_VALUE             0
+           2268 BUILD_STRING             4
+           2270 CALL                     1
+           2278 POP_TOP
+
+161        2280 LOAD_FAST               26 (content)
+           2282 LOAD_ATTR               11 (NULL|self + append)
+           2302 LOAD_CONST              57 ('Patient Weight: ')
+           2304 LOAD_FAST               17 (p_demo)
+           2306 LOAD_ATTR                9 (NULL|self + get)
+           2326 LOAD_CONST              58 ('patient_weight')
+           2328 CALL                     1
+           2336 COPY                     1
+           2338 POP_JUMP_IF_TRUE        18 (to 2376)
+           2340 POP_TOP
+           2342 LOAD_FAST               16 (pat_details)
+           2344 LOAD_ATTR                9 (NULL|self + get)
+           2364 LOAD_CONST              58 ('patient_weight')
+           2366 LOAD_CONST              30 ('Unknown')
+           2368 CALL                     2
+        >> 2376 FORMAT_VALUE             0
+           2378 LOAD_CONST              59 (' kg')
+           2380 BUILD_STRING             3
+           2382 CALL                     1
+           2390 POP_TOP
+
+162        2392 LOAD_FAST               26 (content)
+           2394 LOAD_ATTR               11 (NULL|self + append)
+           2414 LOAD_CONST              60 ('Active Ingredient: ')
+           2416 LOAD_FAST               18 (drug_details)
+           2418 LOAD_ATTR                9 (NULL|self + get)
+           2438 LOAD_CONST              61 ('product_active_ingredient')
+           2440 LOAD_CONST              30 ('Unknown')
+           2442 CALL                     2
+           2450 FORMAT_VALUE             0
+           2452 BUILD_STRING             2
+           2454 CALL                     1
+           2462 POP_TOP
+
+163        2464 LOAD_FAST               26 (content)
+           2466 LOAD_ATTR               11 (NULL|self + append)
+           2486 LOAD_CONST              62 ('Drug Role:      ')
+           2488 LOAD_FAST               18 (drug_details)
+           2490 LOAD_ATTR                9 (NULL|self + get)
+           2510 LOAD_CONST              63 ('drug_role')
+           2512 BUILD_MAP                0
+           2514 CALL                     2
+           2522 LOAD_ATTR                9 (NULL|self + get)
+           2542 LOAD_CONST              53 ('code')
+           2544 LOAD_CONST              54 ('N/A')
+           2546 CALL                     2
+           2554 FORMAT_VALUE             0
+           2556 LOAD_CONST              55 (' - ')
+           2558 LOAD_FAST               18 (drug_details)
+           2560 LOAD_ATTR                9 (NULL|self + get)
+           2580 LOAD_CONST              63 ('drug_role')
+           2582 BUILD_MAP                0
+           2584 CALL                     2
+           2592 LOAD_ATTR                9 (NULL|self + get)
+           2612 LOAD_CONST              56 ('meaning')
+           2614 LOAD_CONST              30 ('Unknown')
+           2616 CALL                     2
+           2624 FORMAT_VALUE             0
+           2626 BUILD_STRING             4
+           2628 CALL                     1
+           2636 POP_TOP
+
+164        2638 LOAD_FAST               26 (content)
+           2640 LOAD_ATTR               11 (NULL|self + append)
+           2660 LOAD_CONST              64 ('Event Date:     ')
+           2662 LOAD_FAST               19 (events_details)
+           2664 LOAD_ATTR                9 (NULL|self + get)
+           2684 LOAD_CONST              65 ('event_date')
+           2686 LOAD_CONST              30 ('Unknown')
+           2688 CALL                     2
+           2696 FORMAT_VALUE             0
+           2698 BUILD_STRING             2
+           2700 CALL                     1
+           2708 POP_TOP
+
+165        2710 LOAD_FAST               26 (content)
+           2712 LOAD_ATTR               11 (NULL|self + append)
+           2732 LOAD_CONST              66 ('Drug Recur Action: ')
+           2734 LOAD_FAST               19 (events_details)
+           2736 LOAD_ATTR                9 (NULL|self + get)
+           2756 LOAD_CONST              67 ('drug_recur_action')
+           2758 LOAD_CONST              68 ('None')
+           2760 CALL                     2
+           2768 FORMAT_VALUE             0
+           2770 BUILD_STRING             2
+           2772 CALL                     1
+           2780 POP_TOP
+
+166        2782 LOAD_FAST               26 (content)
+           2784 LOAD_ATTR               11 (NULL|self + append)
+           2804 LOAD_CONST              69 ('Lot Number:     ')
+           2806 LOAD_FAST               20 (batch_details)
+           2808 LOAD_ATTR                9 (NULL|self + get)
+           2828 LOAD_CONST              70 ('lot_number')
+           2830 LOAD_CONST              30 ('Unknown')
+           2832 CALL                     2
+           2840 FORMAT_VALUE             0
+           2842 BUILD_STRING             2
+           2844 CALL                     1
+           2852 POP_TOP
+
+167        2854 LOAD_FAST               26 (content)
+           2856 LOAD_ATTR               11 (NULL|self + append)
+           2876 LOAD_CONST              71 ('Batch Number:   ')
+           2878 LOAD_FAST               20 (batch_details)
+           2880 LOAD_ATTR                9 (NULL|self + get)
+           2900 LOAD_CONST              72 ('batch_number')
+           2902 LOAD_CONST              30 ('Unknown')
+           2904 CALL                     2
+           2912 FORMAT_VALUE             0
+           2914 BUILD_STRING             2
+           2916 CALL                     1
+           2924 POP_TOP
+
+168        2926 LOAD_FAST               26 (content)
+           2928 LOAD_ATTR               11 (NULL|self + append)
+           2948 LOAD_CONST              73 ('Dose Form:      ')
+           2950 LOAD_FAST               21 (therapy_details)
+           2952 LOAD_ATTR                9 (NULL|self + get)
+           2972 LOAD_CONST              74 ('dose_form')
+           2974 LOAD_CONST              30 ('Unknown')
+           2976 CALL                     2
+           2984 FORMAT_VALUE             0
+           2986 BUILD_STRING             2
+           2988 CALL                     1
+           2996 POP_TOP
+
+169        2998 LOAD_FAST               26 (content)
+           3000 LOAD_ATTR               11 (NULL|self + append)
+           3020 LOAD_CONST              75 ('Reporter Occp:  ')
+           3022 LOAD_FAST               22 (reporter_details)
+           3024 LOAD_ATTR                9 (NULL|self + get)
+           3044 LOAD_CONST              76 ('occupation')
+           3046 BUILD_MAP                0
+           3048 CALL                     2
+           3056 LOAD_ATTR                9 (NULL|self + get)
+           3076 LOAD_CONST              53 ('code')
+           3078 LOAD_CONST              54 ('N/A')
+           3080 CALL                     2
+           3088 FORMAT_VALUE             0
+           3090 LOAD_CONST              55 (' - ')
+           3092 LOAD_FAST               22 (reporter_details)
+           3094 LOAD_ATTR                9 (NULL|self + get)
+           3114 LOAD_CONST              76 ('occupation')
+           3116 BUILD_MAP                0
+           3118 CALL                     2
+           3126 LOAD_ATTR                9 (NULL|self + get)
+           3146 LOAD_CONST              56 ('meaning')
+           3148 LOAD_CONST              30 ('Unknown')
+           3150 CALL                     2
+           3158 FORMAT_VALUE             0
+           3160 BUILD_STRING             4
+           3162 CALL                     1
+           3170 POP_TOP
+
+170        3172 LOAD_FAST               26 (content)
+           3174 LOAD_ATTR               11 (NULL|self + append)
+           3194 LOAD_CONST              26 ('')
+           3196 CALL                     1
+           3204 POP_TOP
+
+172        3206 LOAD_FAST               26 (content)
+           3208 LOAD_ATTR               11 (NULL|self + append)
+           3228 LOAD_CONST              77 ('--- SUSPECTED DRUG INFORMATION ---')
+           3230 CALL                     1
+           3238 POP_TOP
+
+173        3240 LOAD_FAST               26 (content)
+           3242 LOAD_ATTR               11 (NULL|self + append)
+           3262 LOAD_CONST              78 ('Drug Name:      ')
+           3264 LOAD_FAST                6 (drug_info)
+           3266 LOAD_ATTR                9 (NULL|self + get)
+           3286 LOAD_CONST              79 ('drug_name')
+           3288 LOAD_CONST              30 ('Unknown')
+           3290 CALL                     2
+           3298 FORMAT_VALUE             0
+           3300 BUILD_STRING             2
+           3302 CALL                     1
+           3310 POP_TOP
+
+174        3312 LOAD_FAST               26 (content)
+           3314 LOAD_ATTR               11 (NULL|self + append)
+           3334 LOAD_CONST              80 ('Dosage:         ')
+           3336 LOAD_FAST                6 (drug_info)
+           3338 LOAD_ATTR                9 (NULL|self + get)
+           3358 LOAD_CONST              81 ('dosage')
+           3360 LOAD_CONST              30 ('Unknown')
+           3362 CALL                     2
+           3370 FORMAT_VALUE             0
+           3372 BUILD_STRING             2
+           3374 CALL                     1
+           3382 POP_TOP
+
+175        3384 LOAD_FAST               26 (content)
+           3386 LOAD_ATTR               11 (NULL|self + append)
+           3406 LOAD_CONST              82 ('Route:          ')
+           3408 LOAD_FAST                6 (drug_info)
+           3410 LOAD_ATTR                9 (NULL|self + get)
+           3430 LOAD_CONST              83 ('route')
+           3432 LOAD_CONST              30 ('Unknown')
+           3434 CALL                     2
+           3442 FORMAT_VALUE             0
+           3444 BUILD_STRING             2
+           3446 CALL                     1
+           3454 POP_TOP
+
+176        3456 LOAD_FAST               26 (content)
+           3458 LOAD_ATTR               11 (NULL|self + append)
+           3478 LOAD_CONST              84 ('Therapy Start:  ')
+           3480 LOAD_FAST                6 (drug_info)
+           3482 LOAD_ATTR                9 (NULL|self + get)
+           3502 LOAD_CONST              85 ('therapy_start_date')
+           3504 LOAD_CONST              30 ('Unknown')
+           3506 CALL                     2
+           3514 FORMAT_VALUE             0
+           3516 BUILD_STRING             2
+           3518 CALL                     1
+           3526 POP_TOP
+
+177        3528 LOAD_FAST               26 (content)
+           3530 LOAD_ATTR               11 (NULL|self + append)
+           3550 LOAD_CONST              86 ('Therapy End:    ')
+           3552 LOAD_FAST                6 (drug_info)
+           3554 LOAD_ATTR                9 (NULL|self + get)
+           3574 LOAD_CONST              87 ('therapy_end_date')
+           3576 LOAD_CONST              30 ('Unknown')
+           3578 CALL                     2
+           3586 FORMAT_VALUE             0
+           3588 BUILD_STRING             2
+           3590 CALL                     1
+           3598 POP_TOP
+
+178        3600 LOAD_FAST               26 (content)
+           3602 LOAD_ATTR               11 (NULL|self + append)
+           3622 LOAD_CONST              88 ('Indication:     ')
+           3624 LOAD_FAST                6 (drug_info)
+           3626 LOAD_ATTR                9 (NULL|self + get)
+           3646 LOAD_CONST              89 ('indication')
+           3648 LOAD_CONST              30 ('Unknown')
+           3650 CALL                     2
+           3658 FORMAT_VALUE             0
+           3660 BUILD_STRING             2
+           3662 CALL                     1
+           3670 POP_TOP
+
+179        3672 LOAD_FAST               26 (content)
+           3674 LOAD_ATTR               11 (NULL|self + append)
+           3694 LOAD_CONST              26 ('')
+           3696 CALL                     1
+           3704 POP_TOP
+
+181        3706 LOAD_FAST               26 (content)
+           3708 LOAD_ATTR               11 (NULL|self + append)
+           3728 LOAD_CONST              90 ('--- ADVERSE EVENT DETAILS ---')
+           3730 CALL                     1
+           3738 POP_TOP
+
+182        3740 LOAD_FAST               26 (content)
+           3742 LOAD_ATTR               11 (NULL|self + append)
+           3762 LOAD_CONST              91 ('Adverse Event:  ')
+           3764 LOAD_FAST                7 (event_info)
+           3766 LOAD_ATTR                9 (NULL|self + get)
+           3786 LOAD_CONST              92 ('adverse_event')
+           3788 LOAD_CONST              30 ('Unknown')
+           3790 CALL                     2
+           3798 FORMAT_VALUE             0
+           3800 BUILD_STRING             2
+           3802 CALL                     1
+           3810 POP_TOP
+
+183        3812 LOAD_FAST               26 (content)
+           3814 LOAD_ATTR               11 (NULL|self + append)
+           3834 LOAD_CONST              93 ('Event Start:    ')
+           3836 LOAD_FAST                7 (event_info)
+           3838 LOAD_ATTR                9 (NULL|self + get)
+           3858 LOAD_CONST              94 ('event_start_date')
+           3860 LOAD_CONST              30 ('Unknown')
+           3862 CALL                     2
+           3870 FORMAT_VALUE             0
+           3872 BUILD_STRING             2
+           3874 CALL                     1
+           3882 POP_TOP
+
+184        3884 LOAD_FAST               26 (content)
+           3886 LOAD_ATTR               11 (NULL|self + append)
+           3906 LOAD_CONST              95 ('Outcome:        ')
+           3908 LOAD_FAST                7 (event_info)
+           3910 LOAD_ATTR                9 (NULL|self + get)
+           3930 LOAD_CONST              96 ('outcome')
+           3932 LOAD_CONST              30 ('Unknown')
+           3934 CALL                     2
+           3942 FORMAT_VALUE             0
+           3944 BUILD_STRING             2
+           3946 CALL                     1
+           3954 POP_TOP
+
+185        3956 LOAD_FAST               26 (content)
+           3958 LOAD_ATTR               11 (NULL|self + append)
+           3978 LOAD_CONST              97 ('Severity:       ')
+           3980 LOAD_FAST                7 (event_info)
+           3982 LOAD_ATTR                9 (NULL|self + get)
+           4002 LOAD_CONST              98 ('severity')
+           4004 LOAD_CONST              30 ('Unknown')
+           4006 CALL                     2
+           4014 FORMAT_VALUE             0
+           4016 BUILD_STRING             2
+           4018 CALL                     1
+           4026 POP_TOP
+
+186        4028 LOAD_FAST               26 (content)
+           4030 LOAD_ATTR               11 (NULL|self + append)
+           4050 LOAD_CONST              99 ('Action Taken:   ')
+           4052 LOAD_FAST                7 (event_info)
+           4054 LOAD_ATTR                9 (NULL|self + get)
+           4074 LOAD_CONST             100 ('action_taken')
+           4076 LOAD_CONST              30 ('Unknown')
+           4078 CALL                     2
+           4086 FORMAT_VALUE             0
+           4088 BUILD_STRING             2
+           4090 CALL                     1
+           4098 POP_TOP
+
+187        4100 LOAD_FAST               26 (content)
+           4102 LOAD_ATTR               11 (NULL|self + append)
+           4122 LOAD_CONST              26 ('')
+           4124 CALL                     1
+           4132 POP_TOP
+
+189        4134 LOAD_FAST               23 (highlights)
+           4136 POP_JUMP_IF_FALSE       61 (to 4260)
+
+190        4138 LOAD_FAST               26 (content)
+           4140 LOAD_ATTR               11 (NULL|self + append)
+           4160 LOAD_CONST             101 ('--- DETECTED HIGHLIGHTED SAFETY FIELDS ---')
+           4162 CALL                     1
+           4170 POP_TOP
+
+191        4172 LOAD_FAST               23 (highlights)
+           4174 GET_ITER
+        >> 4176 FOR_ITER                22 (to 4224)
+           4180 STORE_FAST              28 (h)
+
+192        4182 LOAD_FAST               26 (content)
+           4184 LOAD_ATTR               11 (NULL|self + append)
+           4204 LOAD_CONST             102 ('- ')
+           4206 LOAD_FAST               28 (h)
+           4208 FORMAT_VALUE             0
+           4210 BUILD_STRING             2
+           4212 CALL                     1
+           4220 POP_TOP
+           4222 JUMP_BACKWARD           24 (to 4176)
+
+191     >> 4224 END_FOR
+
+193        4226 LOAD_FAST               26 (content)
+           4228 LOAD_ATTR               11 (NULL|self + append)
+           4248 LOAD_CONST              26 ('')
+           4250 CALL                     1
+           4258 POP_TOP
+
+195     >> 4260 LOAD_FAST               26 (content)
+           4262 LOAD_ATTR               11 (NULL|self + append)
+           4282 LOAD_CONST             103 ('--- AI-GENERATED NARRATIVE SUMMARY ---')
+           4284 CALL                     1
+           4292 POP_TOP
+
+196        4294 LOAD_FAST               26 (content)
+           4296 LOAD_ATTR               11 (NULL|self + append)
+           4316 LOAD_FAST                1 (data)
+           4318 LOAD_ATTR                9 (NULL|self + get)
+           4338 LOAD_CONST             104 ('ai_generated_narrative_summary')
+           4340 LOAD_FAST                1 (data)
+           4342 LOAD_ATTR                9 (NULL|self + get)
+           4362 LOAD_CONST             105 ('ai_generated_summary')
+           4364 LOAD_CONST              30 ('Unknown')
+           4366 CALL                     2
+           4374 CALL                     2
+           4382 CALL                     1
+           4390 POP_TOP
+
+197        4392 LOAD_FAST               26 (content)
+           4394 LOAD_ATTR               11 (NULL|self + append)
+           4414 LOAD_CONST              26 ('')
+           4416 CALL                     1
+           4424 POP_TOP
+
+199        4426 LOAD_FAST               26 (content)
+           4428 LOAD_ATTR               11 (NULL|self + append)
+           4448 LOAD_CONST             106 ('--- SERIOUSNESS ASSESSMENT ---')
+           4450 CALL                     1
+           4458 POP_TOP
+
+200        4460 LOAD_FAST                8 (seriousness_ass)
+           4462 LOAD_ATTR               17 (NULL|self + items)
+           4482 CALL                     0
+           4490 GET_ITER
+        >> 4492 FOR_ITER                57 (to 4610)
+           4496 UNPACK_SEQUENCE          2
+           4500 STORE_FAST              29 (k)
+           4502 STORE_FAST              30 (v)
+
+201        4504 LOAD_FAST               26 (content)
+           4506 LOAD_ATTR               11 (NULL|self + append)
+           4526 LOAD_FAST               29 (k)
+           4528 LOAD_ATTR               19 (NULL|self + replace)
+           4548 LOAD_CONST             107 ('_')
+           4550 LOAD_CONST             108 (' ')
+           4552 CALL                     2
+           4560 LOAD_ATTR               21 (NULL|self + title)
+           4580 CALL                     0
+           4588 FORMAT_VALUE             0
+           4590 LOAD_CONST             109 (': ')
+           4592 LOAD_FAST               30 (v)
+           4594 FORMAT_VALUE             0
+           4596 BUILD_STRING             3
+           4598 CALL                     1
+           4606 POP_TOP
+           4608 JUMP_BACKWARD           59 (to 4492)
+
+200     >> 4610 END_FOR
+
+202        4612 LOAD_FAST               26 (content)
+           4614 LOAD_ATTR               11 (NULL|self + append)
+           4634 LOAD_CONST              26 ('')
+           4636 CALL                     1
+           4644 POP_TOP
+
+204        4646 LOAD_FAST               26 (content)
+           4648 LOAD_ATTR               11 (NULL|self + append)
+           4668 LOAD_CONST             110 ('--- CAUSALITY ASSESSMENT (AI-ASSISTED) ---')
+           4670 CALL                     1
+           4678 POP_TOP
+
+205        4680 LOAD_FAST               26 (content)
+           4682 LOAD_ATTR               11 (NULL|self + append)
+           4702 LOAD_CONST             111 ('Suspected Relationship:  ')
+           4704 LOAD_FAST                9 (causality)
+           4706 LOAD_ATTR                9 (NULL|self + get)
+           4726 LOAD_CONST             112 ('suspected_relationship')
+           4728 LOAD_CONST              30 ('Unknown')
+           4730 CALL                     2
+           4738 FORMAT_VALUE             0
+           4740 BUILD_STRING             2
+           4742 CALL                     1
+           4750 POP_TOP
+
+206        4752 LOAD_FAST               26 (content)
+           4754 LOAD_ATTR               11 (NULL|self + append)
+           4774 LOAD_CONST             113 ('Confidence Score:        ')
+           4776 LOAD_FAST                9 (causality)
+           4778 LOAD_ATTR                9 (NULL|self + get)
+           4798 LOAD_CONST             114 ('confidence_score')
+           4800 LOAD_CONST             115 (0.0)
+           4802 CALL                     2
+           4810 FORMAT_VALUE             0
+           4812 BUILD_STRING             2
+           4814 CALL                     1
+           4822 POP_TOP
+
+207        4824 LOAD_FAST               26 (content)
+           4826 LOAD_ATTR               11 (NULL|self + append)
+           4846 LOAD_CONST              26 ('')
+           4848 CALL                     1
+           4856 POP_TOP
+
+209        4858 LOAD_FAST               26 (content)
+           4860 LOAD_ATTR               11 (NULL|self + append)
+           4880 LOAD_CONST             116 ('--- KEY ENTITIES EXTRACTED ---')
+           4882 CALL                     1
+           4890 POP_TOP
+
+210        4892 LOAD_FAST               10 (entities)
+           4894 LOAD_ATTR               17 (NULL|self + items)
+           4914 CALL                     0
+           4922 GET_ITER
+        >> 4924 FOR_ITER                41 (to 5010)
+           4928 UNPACK_SEQUENCE          2
+           4932 STORE_FAST              29 (k)
+           4934 STORE_FAST              30 (v)
+
+211        4936 LOAD_FAST               26 (content)
+           4938 LOAD_ATTR               11 (NULL|self + append)
+           4958 LOAD_FAST               29 (k)
+           4960 LOAD_ATTR               21 (NULL|self + title)
+           4980 CALL                     0
+           4988 FORMAT_VALUE             0
+           4990 LOAD_CONST             109 (': ')
+           4992 LOAD_FAST               30 (v)
+           4994 FORMAT_VALUE             0
+           4996 BUILD_STRING             3
+           4998 CALL                     1
+           5006 POP_TOP
+           5008 JUMP_BACKWARD           43 (to 4924)
+
+210     >> 5010 END_FOR
+
+212        5012 LOAD_FAST               26 (content)
+           5014 LOAD_ATTR               11 (NULL|self + append)
+           5034 LOAD_CONST              26 ('')
+           5036 CALL                     1
+           5044 POP_TOP
+
+214        5046 LOAD_FAST               15 (reg_alerts)
+           5048 POP_JUMP_IF_FALSE      112 (to 5274)
+
+215        5050 LOAD_FAST               26 (content)
+           5052 LOAD_ATTR               11 (NULL|self + append)
+           5072 LOAD_CONST             117 ('--- REGULATORY ALERTS (BANNED/RESTRICTED DRUGS) ---')
+           5074 CALL                     1
+           5082 POP_TOP
+
+216        5084 LOAD_FAST               15 (reg_alerts)
+           5086 GET_ITER
+        >> 5088 FOR_ITER                73 (to 5238)
+           5092 STORE_FAST              31 (alert)
+
+217        5094 LOAD_FAST               26 (content)
+           5096 LOAD_ATTR               11 (NULL|self + append)
+           5116 LOAD_CONST             118 ('- Drug: ')
+           5118 LOAD_FAST               31 (alert)
+           5120 LOAD_ATTR                9 (NULL|self + get)
+           5140 LOAD_CONST              79 ('drug_name')
+           5142 CALL                     1
+           5150 FORMAT_VALUE             0
+           5152 LOAD_CONST             119 (' | Reason: ')
+           5154 LOAD_FAST               31 (alert)
+           5156 LOAD_ATTR                9 (NULL|self + get)
+           5176 LOAD_CONST             120 ('ban_reason')
+           5178 CALL                     1
+           5186 FORMAT_VALUE             0
+           5188 LOAD_CONST             121 (' | Country: ')
+           5190 LOAD_FAST               31 (alert)
+           5192 LOAD_ATTR                9 (NULL|self + get)
+           5212 LOAD_CONST             122 ('ban_country')
+           5214 CALL                     1
+           5222 FORMAT_VALUE             0
+           5224 BUILD_STRING             6
+           5226 CALL                     1
+           5234 POP_TOP
+           5236 JUMP_BACKWARD           75 (to 5088)
+
+216     >> 5238 END_FOR
+
+218        5240 LOAD_FAST               26 (content)
+           5242 LOAD_ATTR               11 (NULL|self + append)
+           5262 LOAD_CONST              26 ('')
+           5264 CALL                     1
+           5272 POP_TOP
+
+220     >> 5274 LOAD_FAST               14 (fda_sig)
+           5276 POP_JUMP_IF_FALSE      245 (to 5768)
+
+221        5278 LOAD_FAST               26 (content)
+           5280 LOAD_ATTR               11 (NULL|self + append)
+           5300 LOAD_CONST             123 ('--- FDA SIGNAL SUMMARY ---')
+           5302 CALL                     1
+           5310 POP_TOP
+
+222        5312 LOAD_FAST               26 (content)
+           5314 LOAD_ATTR               11 (NULL|self + append)
+           5334 LOAD_CONST             124 ('Total FAERS Cases:     ')
+           5336 LOAD_FAST               14 (fda_sig)
+           5338 LOAD_ATTR                9 (NULL|self + get)
+           5358 LOAD_CONST             125 ('total_cases')
+           5360 LOAD_CONST             126 (0)
+           5362 CALL                     2
+           5370 FORMAT_VALUE             0
+           5372 BUILD_STRING             2
+           5374 CALL                     1
+           5382 POP_TOP
+
+223        5384 LOAD_FAST               26 (content)
+           5386 LOAD_ATTR               11 (NULL|self + append)
+           5406 LOAD_CONST             127 ('Serious Case Count:     ')
+           5408 LOAD_FAST               14 (fda_sig)
+           5410 LOAD_ATTR                9 (NULL|self + get)
+           5430 LOAD_CONST             128 ('serious_cases')
+           5432 LOAD_CONST             126 (0)
+           5434 CALL                     2
+           5442 FORMAT_VALUE             0
+           5444 BUILD_STRING             2
+           5446 CALL                     1
+           5454 POP_TOP
+
+224        5456 LOAD_FAST               26 (content)
+           5458 LOAD_ATTR               11 (NULL|self + append)
+           5478 LOAD_CONST             129 ('Hospitalization Count:  ')
+           5480 LOAD_FAST               14 (fda_sig)
+           5482 LOAD_ATTR                9 (NULL|self + get)
+           5502 LOAD_CONST             130 ('hospitalizations')
+           5504 LOAD_CONST             126 (0)
+           5506 CALL                     2
+           5514 FORMAT_VALUE             0
+           5516 BUILD_STRING             2
+           5518 CALL                     1
+           5526 POP_TOP
+
+225        5528 LOAD_FAST               26 (content)
+           5530 LOAD_ATTR               11 (NULL|self + append)
+           5550 LOAD_CONST             131 ('FDA Signal Score:       ')
+           5552 LOAD_FAST               14 (fda_sig)
+           5554 LOAD_ATTR                9 (NULL|self + get)
+           5574 LOAD_CONST             132 ('fda_signal_score')
+           5576 LOAD_CONST             133 ('Low')
+           5578 CALL                     2
+           5586 FORMAT_VALUE             0
+           5588 BUILD_STRING             2
+           5590 CALL                     1
+           5598 POP_TOP
+
+226        5600 LOAD_FAST               14 (fda_sig)
+           5602 LOAD_ATTR                9 (NULL|self + get)
+           5622 LOAD_CONST             134 ('top_reactions')
+           5624 CALL                     1
+           5632 POP_JUMP_IF_FALSE       50 (to 5734)
+
+227        5634 LOAD_FAST               26 (content)
+           5636 LOAD_ATTR               11 (NULL|self + append)
+           5656 LOAD_CONST             135 ('Top 10 Reactions:       ')
+           5658 LOAD_CONST             136 (', ')
+           5660 LOAD_ATTR                5 (NULL|self + join)
+           5680 LOAD_FAST               14 (fda_sig)
+           5682 LOAD_ATTR                9 (NULL|self + get)
+           5702 LOAD_CONST             134 ('top_reactions')
+           5704 CALL                     1
+           5712 CALL                     1
+           5720 FORMAT_VALUE             0
+           5722 BUILD_STRING             2
+           5724 CALL                     1
+           5732 POP_TOP
+
+228     >> 5734 LOAD_FAST               26 (content)
+           5736 LOAD_ATTR               11 (NULL|self + append)
+           5756 LOAD_CONST              26 ('')
+           5758 CALL                     1
+           5766 POP_TOP
+
+230     >> 5768 LOAD_FAST               11 (insights)
+           5770 POP_JUMP_IF_TRUE         2 (to 5776)
+           5772 LOAD_FAST               24 (med_insights)
+           5774 POP_JUMP_IF_FALSE       65 (to 5906)
+
+231     >> 5776 LOAD_FAST               26 (content)
+           5778 LOAD_ATTR               11 (NULL|self + append)
+           5798 LOAD_CONST             137 ('--- AI SAFETY & CLINICAL INSIGHTS ---')
+           5800 CALL                     1
+           5808 POP_TOP
+
+232        5810 LOAD_FAST               11 (insights)
+           5812 POP_JUMP_IF_FALSE        2 (to 5818)
+           5814 LOAD_FAST               11 (insights)
+           5816 JUMP_FORWARD             1 (to 5820)
+        >> 5818 LOAD_FAST               24 (med_insights)
+        >> 5820 GET_ITER
+        >> 5822 FOR_ITER                22 (to 5870)
+           5826 STORE_FAST              32 (insight)
+
+233        5828 LOAD_FAST               26 (content)
+           5830 LOAD_ATTR               11 (NULL|self + append)
+           5850 LOAD_CONST             102 ('- ')
+           5852 LOAD_FAST               32 (insight)
+           5854 FORMAT_VALUE             0
+           5856 BUILD_STRING             2
+           5858 CALL                     1
+           5866 POP_TOP
+           5868 JUMP_BACKWARD           24 (to 5822)
+
+232     >> 5870 END_FOR
+
+234        5872 LOAD_FAST               26 (content)
+           5874 LOAD_ATTR               11 (NULL|self + append)
+           5894 LOAD_CONST              26 ('')
+           5896 CALL                     1
+           5904 POP_TOP
+
+236     >> 5906 LOAD_FAST               25 (safety_obs)
+           5908 POP_JUMP_IF_FALSE       61 (to 6032)
+
+237        5910 LOAD_FAST               26 (content)
+           5912 LOAD_ATTR               11 (NULL|self + append)
+           5932 LOAD_CONST             138 ('--- SAFETY OBSERVATIONS ---')
+           5934 CALL                     1
+           5942 POP_TOP
+
+238        5944 LOAD_FAST               25 (safety_obs)
+           5946 GET_ITER
+        >> 5948 FOR_ITER                22 (to 5996)
+           5952 STORE_FAST              33 (obs)
+
+239        5954 LOAD_FAST               26 (content)
+           5956 LOAD_ATTR               11 (NULL|self + append)
+           5976 LOAD_CONST             102 ('- ')
+           5978 LOAD_FAST               33 (obs)
+           5980 FORMAT_VALUE             0
+           5982 BUILD_STRING             2
+           5984 CALL                     1
+           5992 POP_TOP
+           5994 JUMP_BACKWARD           24 (to 5948)
+
+238     >> 5996 END_FOR
+
+240        5998 LOAD_FAST               26 (content)
+           6000 LOAD_ATTR               11 (NULL|self + append)
+           6020 LOAD_CONST              26 ('')
+           6022 CALL                     1
+           6030 POP_TOP
+
+242     >> 6032 LOAD_FAST               12 (timeline)
+           6034 POP_JUMP_IF_FALSE       95 (to 6226)
+
+243        6036 LOAD_FAST               26 (content)
+           6038 LOAD_ATTR               11 (NULL|self + append)
+           6058 LOAD_CONST             139 ('--- CASE TIMELINE ---')
+           6060 CALL                     1
+           6068 POP_TOP
+
+244        6070 LOAD_FAST               12 (timeline)
+           6072 GET_ITER
+        >> 6074 FOR_ITER                56 (to 6190)
+           6078 STORE_FAST              34 (t)
+
+245        6080 LOAD_FAST               26 (content)
+           6082 LOAD_ATTR               11 (NULL|self + append)
+           6102 LOAD_CONST             140 ('- [')
+           6104 LOAD_FAST               34 (t)
+           6106 LOAD_ATTR                9 (NULL|self + get)
+           6126 LOAD_CONST             141 ('timestamp')
+           6128 LOAD_CONST              30 ('Unknown')
+           6130 CALL                     2
+           6138 FORMAT_VALUE             0
+           6140 LOAD_CONST             142 (']: ')
+           6142 LOAD_FAST               34 (t)
+           6144 LOAD_ATTR                9 (NULL|self + get)
+           6164 LOAD_CONST             143 ('event')
+           6166 CALL                     1
+           6174 FORMAT_VALUE             0
+           6176 BUILD_STRING             4
+           6178 CALL                     1
+           6186 POP_TOP
+           6188 JUMP_BACKWARD           58 (to 6074)
+
+244     >> 6190 END_FOR
+
+246        6192 LOAD_FAST               26 (content)
+           6194 LOAD_ATTR               11 (NULL|self + append)
+           6214 LOAD_CONST              26 ('')
+           6216 CALL                     1
+           6224 POP_TOP
+
+248     >> 6226 LOAD_FAST               13 (missing)
+           6228 POP_JUMP_IF_FALSE       61 (to 6352)
+
+249        6230 LOAD_FAST               26 (content)
+           6232 LOAD_ATTR               11 (NULL|self + append)
+           6252 LOAD_CONST             144 ('--- MISSING CLINICAL INFORMATION ---')
+           6254 CALL                     1
+           6262 POP_TOP
+
+250        6264 LOAD_FAST               13 (missing)
+           6266 GET_ITER
+        >> 6268 FOR_ITER                22 (to 6316)
+           6272 STORE_FAST              35 (item)
+
+251        6274 LOAD_FAST               26 (content)
+           6276 LOAD_ATTR               11 (NULL|self + append)
+           6296 LOAD_CONST             102 ('- ')
+           6298 LOAD_FAST               35 (item)
+           6300 FORMAT_VALUE             0
+           6302 BUILD_STRING             2
+           6304 CALL                     1
+           6312 POP_TOP
+           6314 JUMP_BACKWARD           24 (to 6268)
+
+250     >> 6316 END_FOR
+
+252        6318 LOAD_FAST               26 (content)
+           6320 LOAD_ATTR               11 (NULL|self + append)
+           6340 LOAD_CONST              26 ('')
+           6342 CALL                     1
+           6350 POP_TOP
+
+254     >> 6352 LOAD_FAST               26 (content)
+           6354 LOAD_ATTR               11 (NULL|self + append)
+           6374 LOAD_CONST              24 ('================================================================================')
+           6376 CALL                     1
+           6384 POP_TOP
+
+255        6386 LOAD_FAST               26 (content)
+           6388 LOAD_ATTR               11 (NULL|self + append)
+           6408 LOAD_CONST             145 ('FINAL CASE CLASSIFICATION: ')
+           6410 LOAD_FAST                1 (data)
+           6412 LOAD_ATTR                9 (NULL|self + get)
+           6432 LOAD_CONST             146 ('final_case_classification')
+           6434 LOAD_CONST             147 ('Serious ADR - Requires Medical Review')
+           6436 CALL                     2
+           6444 FORMAT_VALUE             0
+           6446 BUILD_STRING             2
+           6448 CALL                     1
+           6456 POP_TOP
+
+256        6458 LOAD_FAST               26 (content)
+           6460 LOAD_ATTR               11 (NULL|self + append)
+           6480 LOAD_CONST              24 ('================================================================================')
+           6482 CALL                     1
+           6490 POP_TOP
+
+257        6492 LOAD_FAST               26 (content)
+           6494 LOAD_ATTR               11 (NULL|self + append)
+           6514 LOAD_CONST             148 ('Generated by Pharmacovigilance AI Copilot')
+           6516 CALL                     1
+           6524 POP_TOP
+
+259        6526 LOAD_GLOBAL             23 (NULL + open)
+           6536 LOAD_FAST                3 (filepath)
+           6538 LOAD_CONST             149 ('w')
+           6540 CALL                     2
+           6548 BEFORE_WITH
+           6550 STORE_FAST              36 (f)
+
+260        6552 LOAD_FAST               36 (f)
+           6554 LOAD_ATTR               25 (NULL|self + write)
+           6574 LOAD_CONST             150 ('\n')
+           6576 LOAD_ATTR                5 (NULL|self + join)
+           6596 LOAD_FAST               26 (content)
+           6598 CALL                     1
+           6606 CALL                     1
+           6614 POP_TOP
+
+259        6616 LOAD_CONST               0 (None)
+           6618 LOAD_CONST               0 (None)
+           6620 LOAD_CONST               0 (None)
+           6622 CALL                     2
+           6630 POP_TOP
+
+262        6632 LOAD_FAST                3 (filepath)
+           6634 RETURN_VALUE
+
+259     >> 6636 PUSH_EXC_INFO
+           6638 WITH_EXCEPT_START
+           6640 POP_JUMP_IF_TRUE         1 (to 6644)
+           6642 RERAISE                  2
+        >> 6644 POP_TOP
+           6646 POP_EXCEPT
+           6648 POP_TOP
+           6650 POP_TOP
+
+262        6652 LOAD_FAST                3 (filepath)
+           6654 RETURN_VALUE
+        >> 6656 COPY                     3
+           6658 POP_EXCEPT
+           6660 RERAISE                  1
+ExceptionTable:
+  6550 to 6614 -> 6636 [1] lasti
+  6636 to 6644 -> 6656 [3] lasti

@@ -1,0 +1,368 @@
+{
+  "case_information": {
+    "case_id": "PV-2026-81423",
+    "report_type": "Spontaneous Report",
+    "report_date": "2026-06-15",
+    "seriousness": "Serious",
+    "case_status": "Initial"
+  },
+  "patient_demographic": {
+    "age": "47 Years",
+    "gender": "Male",
+    "weight": "Not Specified",
+    "medical_history": "Staphylococcal wound infection, Post CABG",
+    "age_group": {
+      "code": "A",
+      "meaning": "Adult"
+    },
+    "patient_weight": "Not Specified"
+  },
+  "drug_information": {
+    "product_active_ingredient": "Vancomycin",
+    "drug_role": {
+      "code": "PS",
+      "meaning": "Primary Suspect"
+    }
+  },
+  "suspected_drug_information": {
+    "drug_name": "Vancomycin",
+    "dosage": "1g",
+    "route": "Intravenous",
+    "therapy_start_date": "Not Specified",
+    "therapy_end_date": "Not Specified",
+    "indication": "Staphylococcal wound infection"
+  },
+  "adverse_events": {
+    "event_date": "Not Specified",
+    "drug_recur_action": "Symptoms resolved after stopping the infusion and restarting Vancomycin at a slower infusion rate"
+  },
+  "adverse_event_details": {
+    "adverse_event": "Infusion-related reaction",
+    "event_start_date": "Within 15 minutes of initiating the infusion",
+    "outcome": "Recovered",
+    "severity": "Severe",
+    "action_taken": "Infusion stopped, treated with intravenous Diphenhydramine"
+  },
+  "drug_batch_details": {
+    "lot_number": "Not Specified",
+    "batch_number": "Not Specified",
+    "expiry_date": "Not Specified",
+    "manufacturer": "Not Specified"
+  },
+  "therapy_information": {
+    "dose_form": "Intravenous",
+    "dose_amount": "1",
+    "dose_unit": "g",
+    "dose_frequency": "Not Specified",
+    "route": "Intravenous",
+    "therapy_duration": "Not Specified"
+  },
+  "reporter_information": {
+    "occupation": {
+      "code": "MD",
+      "meaning": "Physician"
+    }
+  },
+  "ai_generated_narrative_summary": "A 47-year-old male developed an infusion-related reaction during rapid Vancomycin administration. Clinical findings including flushing, pruritus, erythema, and hypotension occurred within 15 minutes of infusion initiation, supporting a definite infusion-rate-related adverse reaction. Symptoms resolved after stopping the infusion, administering Diphenhydramine, and restarting Vancomycin at a slower infusion rate.",
+  "ai_generated_summary": "A 47-year-old male developed an infusion-related reaction during rapid Vancomycin administration. Clinical findings including flushing, pruritus, erythema, and hypotension occurred within 15 minutes of infusion initiation, supporting a definite infusion-rate-related adverse reaction. Symptoms resolved after stopping the infusion, administering Diphenhydramine, and restarting Vancomycin at a slower infusion rate.",
+  "seriousness_assessment": {
+    "hospitalization": "Yes",
+    "life_threatening": "No",
+    "disability": "No",
+    "death": "No"
+  },
+  "causality_assessment": {
+    "suspected_relationship": "Certain",
+    "confidence_score": 0.95
+  },
+  "key_entities_extracted": {
+    "drug": "Vancomycin",
+    "reaction": "Infusion-related reaction",
+    "symptom": "Flushing, pruritus, erythema, hypotension",
+    "outcome": "Recovered"
+  },
+  "symptoms": [
+    "Flushing",
+    "Pruritus",
+    "Erythema",
+    "Hypotension"
+  ],
+  "conditions": [
+    "Staphylococcal wound infection",
+    "Post CABG"
+  ],
+  "ai_safety_insights": [
+    "Rapid infusion of Vancomycin can cause infusion-related reactions.",
+    "Monitoring of infusion rate is crucial to prevent adverse reactions.",
+    "Tryptase levels can help differentiate between IgE-mediated and non-IgE-mediated reactions.",
+    "Diphenhydramine can be effective in treating infusion-related reactions."
+  ],
+  "medical_insights": [
+    "The patient's symptoms were consistent with an infusion-related reaction.",
+    "The reaction was likely caused by the rapid infusion of Vancomycin.",
+    "The patient's tryptase levels were normal, suggesting a non-IgE-mediated reaction.",
+    "Insufficient evidence available in the provided sources to determine the patient's weight and other demographic information."
+  ],
+  "safety_observations": [
+    "The reaction was infusion-rate dependent, highlighting the importance of monitoring infusion rates.",
+    "The patient's symptoms resolved after stopping the infusion and administering Diphenhydramine.",
+    "The reaction was consistent with a non-IgE-mediated mechanism, as suggested by normal tryptase levels.",
+    "The patient's outcome was favorable after the infusion was restarted at a slower rate."
+  ],
+  "regulatory_alerts": [],
+  "highlighted_critical_fields": [
+    "None"
+  ],
+  "timeline": [
+    {
+      "event": "Infusion of Vancomycin started",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "event": "Patient developed infusion-related reaction",
+      "timestamp": "Within 15 minutes of infusion initiation"
+    },
+    {
+      "event": "Infusion stopped and Diphenhydramine administered",
+      "timestamp": "After reaction onset"
+    },
+    {
+      "event": "Symptoms resolved",
+      "timestamp": "Within 2 hours of stopping infusion"
+    }
+  ],
+  "missing_information": [
+    "EVENT_DT missing",
+    "WT missing",
+    "LOT_NUM missing"
+  ],
+  "final_case_classification": "Serious Adverse Drug Reaction (ADR) \u2014 Requires Medical Review",
+  "fda_signal": {
+    "drug_name": "Vancomycin",
+    "total_cases": 3212,
+    "api_total_cases": 3196,
+    "local_total_cases": 16,
+    "serious_cases": 2669,
+    "hospitalizations": 1576,
+    "top_reactions": [
+      "Pruritus",
+      "Erythema",
+      "Hypotension",
+      "Rash",
+      "Rash Maculo-Papular",
+      "Urticaria",
+      "Wound Infection",
+      "Arrhythmia",
+      "Rash Generalised",
+      "Infusion Site Erythema"
+    ],
+    "fda_signal_score": "High",
+    "recent_cases": [
+      "26555506",
+      "26555773",
+      "26556267",
+      "26556696",
+      "26556731"
+    ]
+  },
+  "visualizations": {
+    "top_reactions_chart": {
+      "chart_type": "bar",
+      "title": "Top FDA Adverse Reactions",
+      "x_axis": "Reaction",
+      "y_axis": "Case Count",
+      "data": [
+        {
+          "reaction": "Pruritus",
+          "count": 1862
+        },
+        {
+          "reaction": "Erythema",
+          "count": 1188
+        },
+        {
+          "reaction": "Hypotension",
+          "count": 224
+        },
+        {
+          "reaction": "Rash",
+          "count": 513
+        },
+        {
+          "reaction": "Rash Maculo-Papular",
+          "count": 289
+        },
+        {
+          "reaction": "Urticaria",
+          "count": 289
+        },
+        {
+          "reaction": "Wound Infection",
+          "count": 64
+        },
+        {
+          "reaction": "Arrhythmia",
+          "count": 256
+        },
+        {
+          "reaction": "Rash Generalised",
+          "count": 224
+        },
+        {
+          "reaction": "Infusion Site Erythema",
+          "count": 96
+        }
+      ]
+    },
+    "seriousness_distribution_chart": {
+      "chart_type": "pie",
+      "title": "Case Seriousness Distribution",
+      "data": [
+        {
+          "name": "Serious",
+          "value": 2669
+        },
+        {
+          "name": "Non-Serious",
+          "value": 543
+        }
+      ]
+    },
+    "outcome_distribution_chart": {
+      "chart_type": "bar",
+      "title": "Serious Cases Outcome Distribution",
+      "x_axis": "Outcome",
+      "y_axis": "Case Count",
+      "data": [
+        {
+          "outcome": "Hospitalization",
+          "count": 1576
+        },
+        {
+          "outcome": "Life-Threatening",
+          "count": 465
+        },
+        {
+          "outcome": "Disability",
+          "count": 186
+        },
+        {
+          "outcome": "Death",
+          "count": 310
+        }
+      ]
+    },
+    "organ_system_chart": {
+      "chart_type": "pie",
+      "title": "Organ System Impact",
+      "data": [
+        {
+          "system": "Hepatic",
+          "count": 738
+        },
+        {
+          "system": "Gastrointestinal",
+          "count": 738
+        },
+        {
+          "system": "Neurological",
+          "count": 770
+        },
+        {
+          "system": "Cardiovascular",
+          "count": 770
+        },
+        {
+          "system": "Renal",
+          "count": 353
+        },
+        {
+          "system": "Hematologic",
+          "count": 835
+        }
+      ]
+    },
+    "signal_trend_chart": {
+      "chart_type": "line",
+      "title": "FDA Reporting Trend over Time",
+      "x_axis": "Year",
+      "y_axis": "Case Count",
+      "data": [
+        {
+          "year": "2021",
+          "count": 629
+        },
+        {
+          "year": "2022",
+          "count": 680
+        },
+        {
+          "year": "2023",
+          "count": 635
+        },
+        {
+          "year": "2024",
+          "count": 686
+        },
+        {
+          "year": "2025",
+          "count": 642
+        }
+      ]
+    }
+  },
+  "ocr_metadata": {
+    "source_type": "pdf",
+    "ocr_used": false,
+    "blur_score": 0.0,
+    "ocr_confidence": 1.0
+  },
+  "patient_information": {
+    "age": "47 Years",
+    "gender": "Male",
+    "weight": "Not Specified",
+    "medical_history": "Staphylococcal wound infection, Post CABG"
+  },
+  "patient_details": {
+    "age_group": {
+      "code": "A",
+      "meaning": "Adult"
+    },
+    "patient_weight": "Not Specified"
+  },
+  "missing_data": [
+    "EVENT_DT missing",
+    "WT missing",
+    "LOT_NUM missing"
+  ],
+  "evidence_sources": [
+    {
+      "source_type": "FDA_API",
+      "evidence": "3196 FDA reported cases found"
+    },
+    {
+      "source_type": "FAERS_LOCAL",
+      "evidence": "16 reports found in local dataset"
+    }
+  ],
+  "drug_entities": [
+    "Vancomycin"
+  ],
+  "reasoning_explanations": {
+    "causality": [
+      "Known FDA adverse reaction",
+      "Temporal relationship exists",
+      "Strong suspect relationship strength"
+    ],
+    "seriousness": [
+      "Hospitalization occurred",
+      "Assessed as clinically serious"
+    ]
+  },
+  "report_id": "5e124fa5-58b6-45cb-9571-8686e3977e99",
+  "json_url": "/report/download/5e124fa5-58b6-45cb-9571-8686e3977e99?format=json",
+  "excel_url": "/report/download/5e124fa5-58b6-45cb-9571-8686e3977e99?format=xlsx",
+  "pdf_url": "/report/download/5e124fa5-58b6-45cb-9571-8686e3977e99?format=pdf",
+  "status": "success",
+  "cached": false
+}

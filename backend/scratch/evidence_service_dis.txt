@@ -1,0 +1,1227 @@
+# pydisasm version 6.1.8
+# Python bytecode 3.12.0 (3531)
+# Disassembled from Python 3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 10:07:17) [Clang 14.0.6 ]
+# Timestamp in code: 1781533053 (2026-06-15 19:47:33)
+# Source code size mod 2**32: 6972 bytes
+# Method Name:       <module>
+# Filename:          /Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        4
+# Flags:             0x00000000 (0x0)
+# First Line:        1
+# Constants:
+#    0: 0
+#    1: None
+#    2: ('Dict', 'Any', 'List', 'Optional')
+#    3: ('fda_service_instance', 'normalize_drug_name')
+#    4: ('hybrid_search_service',)
+#    5: <code object EvidenceService at 0x10370b730, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py", line 10>
+#    6: 'EvidenceService'
+# Names:
+#    0: os
+#    1: ast
+#    2: logging
+#    3: typing
+#    4: Dict
+#    5: Any
+#    6: List
+#    7: Optional
+#    8: app.services.fda_service
+#    9: fda_service_instance
+#   10: normalize_drug_name
+#   11: app.services.hybrid_search_service
+#   12: hybrid_search_service
+#   13: getLogger
+#   14: __name__
+#   15: logger
+#   16: EvidenceService
+#   17: evidence_service
+  0:           0 RESUME               0
+
+  1:           2 LOAD_CONST           (0)
+               4 LOAD_CONST           (None)
+               6 IMPORT_NAME          (os)
+               8 STORE_NAME           (os)
+
+  2:          10 LOAD_CONST           (0)
+              12 LOAD_CONST           (None)
+              14 IMPORT_NAME          (ast)
+              16 STORE_NAME           (ast)
+
+  3:          18 LOAD_CONST           (0)
+              20 LOAD_CONST           (None)
+              22 IMPORT_NAME          (logging)
+              24 STORE_NAME           (logging)
+
+  4:          26 LOAD_CONST           (0)
+              28 LOAD_CONST           (('Dict', 'Any', 'List', 'Optional'))
+              30 IMPORT_NAME          (typing)
+              32 IMPORT_FROM          (Dict)
+              34 STORE_NAME           (Dict)
+              36 IMPORT_FROM          (Any)
+              38 STORE_NAME           (Any)
+              40 IMPORT_FROM          (List)
+              42 STORE_NAME           (List)
+              44 IMPORT_FROM          (Optional)
+              46 STORE_NAME           (Optional)
+              48 POP_TOP
+
+  5:          50 LOAD_CONST           (0)
+              52 LOAD_CONST           (('fda_service_instance', 'normalize_drug_name'))
+              54 IMPORT_NAME          (app.services.fda_service)
+              56 IMPORT_FROM          (fda_service_instance)
+              58 STORE_NAME           (fda_service_instance)
+              60 IMPORT_FROM          (normalize_drug_name)
+              62 STORE_NAME           (normalize_drug_name)
+              64 POP_TOP
+
+  6:          66 LOAD_CONST           (0)
+              68 LOAD_CONST           (('hybrid_search_service',))
+              70 IMPORT_NAME          (app.services.hybrid_search_service)
+              72 IMPORT_FROM          (hybrid_search_service)
+              74 STORE_NAME           (hybrid_search_service)
+              76 POP_TOP
+
+  8:          78 PUSH_NULL
+              80 LOAD_NAME            (logging)
+              82 LOAD_ATTR            (getLogger)
+             102 LOAD_NAME            (__name__)
+             104 CALL                 1
+             112 STORE_NAME           (logger)
+
+ 10:         114 PUSH_NULL
+             116 LOAD_BUILD_CLASS
+             118 LOAD_CONST           (<code object EvidenceService at 0x10370b730, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py", line 10>)
+             120 MAKE_FUNCTION        (No arguments)
+             122 LOAD_CONST           ("EvidenceService")
+             124 CALL                 2
+             132 STORE_NAME           (EvidenceService)
+
+164:         134 PUSH_NULL
+             136 LOAD_NAME            (EvidenceService)
+             138 CALL                 0
+             146 STORE_NAME           (evidence_service)
+             148 RETURN_CONST         (None)
+
+
+# Method Name:       EvidenceService
+# Filename:          /Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        10
+# Flags:             0x00000000 (0x0)
+# First Line:        10
+# Constants:
+#    0: 'EvidenceService'
+#    1: 'drug_name'
+#    2: 'return'
+#    3: <code object get_fda_evidence at 0x157695140, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py", line 11>
+#    4: <code object get_local_faers_evidence at 0x157985600, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py", line 32>
+#    5: <code object get_knowledge_base_evidence at 0x12761ad90, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py", line 74>
+#    6: None
+#    7: 'reaction'
+#    8: <code object get_supporting_cases at 0x157999c00, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py", line 106>
+#    9: (None,)
+# Names:
+#    0: __name__
+#    1: __module__
+#    2: __qualname__
+#    3: str
+#    4: Dict
+#    5: Any
+#    6: get_fda_evidence
+#    7: List
+#    8: get_local_faers_evidence
+#    9: get_knowledge_base_evidence
+#   10: Optional
+#   11: get_supporting_cases
+ 10:           0 RESUME               0
+               2 LOAD_NAME            (__name__)
+               4 STORE_NAME           (__module__)
+               6 LOAD_CONST           ("EvidenceService")
+               8 STORE_NAME           (__qualname__)
+
+ 11:          10 LOAD_CONST           ("drug_name")
+              12 LOAD_NAME            (str)
+              14 LOAD_CONST           ("return")
+              16 LOAD_NAME            (Dict)
+              18 LOAD_NAME            (str)
+              20 LOAD_NAME            (Any)
+              22 BUILD_TUPLE          2
+              24 BINARY_SUBSCR
+              28 BUILD_TUPLE          4
+              30 LOAD_CONST           (<code object get_fda_evidence at 0x157695140, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py", line 11>)
+              32 MAKE_FUNCTION        (annotation)
+              34 STORE_NAME           (get_fda_evidence)
+
+ 32:          36 LOAD_CONST           ("drug_name")
+              38 LOAD_NAME            (str)
+              40 LOAD_CONST           ("return")
+              42 LOAD_NAME            (List)
+              44 LOAD_NAME            (Dict)
+              46 LOAD_NAME            (str)
+              48 LOAD_NAME            (Any)
+              50 BUILD_TUPLE          2
+              52 BINARY_SUBSCR
+              56 BINARY_SUBSCR
+              60 BUILD_TUPLE          4
+              62 LOAD_CONST           (<code object get_local_faers_evidence at 0x157985600, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py", line 32>)
+              64 MAKE_FUNCTION        (annotation)
+              66 STORE_NAME           (get_local_faers_evidence)
+
+ 74:          68 LOAD_CONST           ("drug_name")
+              70 LOAD_NAME            (str)
+              72 LOAD_CONST           ("return")
+              74 LOAD_NAME            (List)
+              76 LOAD_NAME            (Dict)
+              78 LOAD_NAME            (str)
+              80 LOAD_NAME            (Any)
+              82 BUILD_TUPLE          2
+              84 BINARY_SUBSCR
+              88 BINARY_SUBSCR
+              92 BUILD_TUPLE          4
+              94 LOAD_CONST           (<code object get_knowledge_base_evidence at 0x12761ad90, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py", line 74>)
+              96 MAKE_FUNCTION        (annotation)
+              98 STORE_NAME           (get_knowledge_base_evidence)
+
+106:         100 LOAD_CONST           ((None,))
+             102 LOAD_CONST           ("drug_name")
+             104 LOAD_NAME            (str)
+             106 LOAD_CONST           ("reaction")
+             108 LOAD_NAME            (Optional)
+             110 LOAD_NAME            (str)
+             112 BINARY_SUBSCR
+             116 LOAD_CONST           ("return")
+             118 LOAD_NAME            (List)
+             120 LOAD_NAME            (Dict)
+             122 LOAD_NAME            (str)
+             124 LOAD_NAME            (Any)
+             126 BUILD_TUPLE          2
+             128 BINARY_SUBSCR
+             132 BINARY_SUBSCR
+             136 BUILD_TUPLE          6
+             138 LOAD_CONST           (<code object get_supporting_cases at 0x157999c00, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py", line 106>)
+             140 MAKE_FUNCTION        (default, annotation)
+             142 STORE_NAME           (get_supporting_cases)
+             144 RETURN_CONST         (None)
+
+
+# Method Name:       get_fda_evidence
+# Filename:          /Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  4
+# Stack size:        7
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        11
+# Constants:
+#    0: '\n        Fetches signal data from the FDA API using the FDAService.\n        '
+#    1: 'api_total_cases'
+#    2: 0
+#    3: 'total_cases'
+#    4: 'serious_cases'
+#    5: 'hospitalizations'
+#    6: 'top_reactions'
+#    7: ('total_cases', 'serious_cases', 'hospitalizations', 'top_reactions')
+#    8: "Error getting FDA evidence for '"
+#    9: "': "
+#   10: None
+# Names:
+#    0: fda_service_instance
+#    1: get_fda_signal_summary
+#    2: get
+#    3: Exception
+#    4: logger
+#    5: error
+# Varnames:
+#	self, drug_name, summary, e
+# Positional arguments:
+#	self, drug_name
+# Local variables:
+#    2: summary
+#    3: e
+ 11:           0 RESUME               0
+
+ 15:           2 NOP
+
+ 16:           4 LOAD_GLOBAL          (NULL + fda_service_instance)
+              14 LOAD_ATTR            (get_fda_signal_summary)
+              34 LOAD_FAST            (drug_name)
+              36 CALL                 1
+              44 STORE_FAST           (summary)
+
+ 18:          46 LOAD_FAST            (summary)
+              48 LOAD_ATTR            (NULL|self + get)
+              68 LOAD_CONST           ("api_total_cases")
+              70 LOAD_CONST           (0)
+              72 CALL                 2
+              80 COPY                 1
+              82 POP_JUMP_IF_TRUE     (to 120)
+              84 POP_TOP
+              86 LOAD_FAST            (summary)
+              88 LOAD_ATTR            (NULL|self + get)
+             108 LOAD_CONST           ("total_cases")
+             110 LOAD_CONST           (0)
+             112 CALL                 2
+
+ 19:     >>  120 LOAD_FAST            (summary)
+             122 LOAD_ATTR            (NULL|self + get)
+             142 LOAD_CONST           ("serious_cases")
+             144 LOAD_CONST           (0)
+             146 CALL                 2
+
+ 20:         154 LOAD_FAST            (summary)
+             156 LOAD_ATTR            (NULL|self + get)
+             176 LOAD_CONST           ("hospitalizations")
+             178 LOAD_CONST           (0)
+             180 CALL                 2
+
+ 21:         188 LOAD_FAST            (summary)
+             190 LOAD_ATTR            (NULL|self + get)
+             210 LOAD_CONST           ("top_reactions")
+             212 BUILD_LIST           0
+             214 CALL                 2
+
+ 17:         222 LOAD_CONST           (('total_cases', 'serious_cases', 'hospitalizations', 'top_reactions'))
+             224 BUILD_CONST_KEY_MAP  4
+             226 RETURN_VALUE
+         >>  228 PUSH_EXC_INFO
+
+ 23:         230 LOAD_GLOBAL          (Exception)
+             240 CHECK_EXC_MATCH
+             242 POP_JUMP_IF_FALSE    (to 332)
+             244 STORE_FAST           (e)
+
+ 24:         246 LOAD_GLOBAL          (logger)
+             256 LOAD_ATTR            (NULL|self + error)
+             276 LOAD_CONST           ("Error getting FDA evidence for '")
+             278 LOAD_FAST            (drug_name)
+             280 FORMAT_VALUE         0
+             282 LOAD_CONST           ("': ")
+             284 LOAD_FAST            (e)
+             286 FORMAT_VALUE         0
+             288 BUILD_STRING         4
+             290 CALL                 1
+             298 POP_TOP
+
+ 26:         300 LOAD_CONST           (0)
+
+ 27:         302 LOAD_CONST           (0)
+
+ 28:         304 LOAD_CONST           (0)
+
+ 29:         306 BUILD_LIST           0
+
+ 25:         308 LOAD_CONST           (('total_cases', 'serious_cases', 'hospitalizations', 'top_reactions'))
+             310 BUILD_CONST_KEY_MAP  4
+             312 SWAP                 (TOS <-> TOS1)
+             314 POP_EXCEPT
+             316 LOAD_CONST           (None)
+             318 STORE_FAST           (e)
+             320 DELETE_FAST          (e)
+             322 RETURN_VALUE
+         >>  324 LOAD_CONST           (None)
+             326 STORE_FAST           (e)
+             328 DELETE_FAST          (e)
+             330 RERAISE              1
+
+ 23:     >>  332 RERAISE              0
+         >>  334 COPY                 3
+             336 POP_EXCEPT
+             338 RERAISE              1
+
+ExceptionTable:
+  4 to 224 -> 228 [0]
+  228 to 244 -> 334 [1] lasti
+  246 to 310 -> 324 [1] lasti
+  312 to 312 -> 334 [1] lasti
+  324 to 332 -> 334 [1] lasti
+
+# Method Name:       get_local_faers_evidence
+# Filename:          /Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  18
+# Stack size:        7
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        32
+# Constants:
+#    0: '\n        Fetches adverse reaction counts matching the drug name from local FAERS dataset.\n        '
+#    1: None
+#    2: 'Local FAERS dataset not loaded.'
+#    3: 0
+#    4: ('drug_validator_service',)
+#    5: 'drugname'
+#    6: False
+#    7: ('case', 'na')
+#    8: 'reactions'
+#    9: 1
+#   10: <code object <lambda> at 0x10387a590, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py", line 62>
+#   11: True
+#   12: ('key', 'reverse')
+#   13: 10
+#   14: 'FAERS_2026_Q1'
+#   15: ('reaction', 'count', 'source')
+#   16: "Error calculating local FAERS evidence for '"
+#   17: "': "
+# Names:
+#    0: fda_service_instance
+#    1: faers_df
+#    2: logger
+#    3: warning
+#    4: normalize_drug_name
+#    5: app.services.drug_validator_service
+#    6: drug_validator_service
+#    7: validate_drugs
+#    8: str
+#    9: contains
+#   10: dropna
+#   11: items
+#   12: ast
+#   13: literal_eval
+#   14: isinstance
+#   15: list
+#   16: title
+#   17: strip
+#   18: get
+#   19: Exception
+#   20: sorted
+#   21: append
+#   22: error
+# Varnames:
+#	self, drug_name, evidence_list, normalized_name, drug_validator_service, validated, search_name, df, matching_rows, reaction_counts, idx, r_str, r_list, rx, rx_title, sorted_reactions, count, e
+# Positional arguments:
+#	self, drug_name
+# Local variables:
+#    2: evidence_list
+#    3: normalized_name
+#    4: drug_validator_service
+#    5: validated
+#    6: search_name
+#    7: df
+#    8: matching_rows
+#    9: reaction_counts
+#   10: idx
+#   11: r_str
+#   12: r_list
+#   13: rx
+#   14: rx_title
+#   15: sorted_reactions
+#   16: count
+#   17: e
+ 32:           0 RESUME               0
+
+ 36:           2 BUILD_LIST           0
+               4 STORE_FAST           (evidence_list)
+
+ 37:           6 LOAD_GLOBAL          (fda_service_instance)
+              16 LOAD_ATTR            (faers_df)
+              36 POP_JUMP_IF_NOT_NONE (to 84)
+
+ 38:          38 LOAD_GLOBAL          (logger)
+              48 LOAD_ATTR            (NULL|self + warning)
+              68 LOAD_CONST           ("Local FAERS dataset not loaded.")
+              70 CALL                 1
+              78 POP_TOP
+
+ 39:          80 BUILD_LIST           0
+              82 RETURN_VALUE
+
+ 41:     >>   84 NOP
+
+ 42:          86 LOAD_GLOBAL          (NULL + normalize_drug_name)
+              96 LOAD_FAST            (drug_name)
+              98 CALL                 1
+             106 STORE_FAST           (normalized_name)
+
+ 43:         108 LOAD_CONST           (0)
+             110 LOAD_CONST           (('drug_validator_service',))
+             112 IMPORT_NAME          (app.services.drug_validator_service)
+             114 IMPORT_FROM          (drug_validator_service)
+             116 STORE_FAST           (drug_validator_service)
+             118 POP_TOP
+
+ 44:         120 LOAD_FAST            (drug_validator_service)
+             122 LOAD_ATTR            (NULL|self + validate_drugs)
+             142 LOAD_FAST            (normalized_name)
+             144 BUILD_LIST           1
+             146 CALL                 1
+             154 STORE_FAST           (validated)
+
+ 45:         156 LOAD_FAST            (validated)
+             158 POP_JUMP_IF_FALSE    (to 170)
+             160 LOAD_FAST            (validated)
+             162 LOAD_CONST           (0)
+             164 BINARY_SUBSCR
+             168 JUMP_FORWARD         (to 172)
+         >>  170 LOAD_FAST            (normalized_name)
+         >>  172 STORE_FAST           (search_name)
+
+ 47:         174 LOAD_GLOBAL          (fda_service_instance)
+             184 LOAD_ATTR            (faers_df)
+             204 STORE_FAST           (df)
+
+ 48:         206 LOAD_FAST            (df)
+             208 LOAD_FAST            (df)
+             210 LOAD_CONST           ("drugname")
+             212 BINARY_SUBSCR
+             216 LOAD_ATTR            (str)
+             236 LOAD_ATTR            (NULL|self + contains)
+             256 LOAD_FAST            (search_name)
+             258 LOAD_CONST           (False)
+             260 LOAD_CONST           (False)
+             262 KW_NAMES             (('case', 'na'))
+             264 CALL                 3
+             272 BINARY_SUBSCR
+             276 STORE_FAST           (matching_rows)
+
+ 50:         278 BUILD_MAP            0
+             280 STORE_FAST           (reaction_counts)
+
+ 51:         282 LOAD_FAST            (matching_rows)
+             284 LOAD_CONST           ("reactions")
+             286 BINARY_SUBSCR
+             290 LOAD_ATTR            (NULL|self + dropna)
+             310 CALL                 0
+             318 LOAD_ATTR            (NULL|self + items)
+             338 CALL                 0
+             346 GET_ITER
+             348 FOR_ITER             (to 578)
+             352 UNPACK_SEQUENCE      2
+             356 STORE_FAST           (idx)
+             358 STORE_FAST           (r_str)
+
+ 52:         360 NOP
+
+ 53:         362 LOAD_GLOBAL          (NULL + ast)
+             372 LOAD_ATTR            (literal_eval)
+             392 LOAD_FAST            (r_str)
+             394 CALL                 1
+             402 STORE_FAST           (r_list)
+
+ 54:         404 LOAD_GLOBAL          (NULL + isinstance)
+             414 LOAD_FAST            (r_list)
+             416 LOAD_GLOBAL          (list)
+             426 CALL                 2
+             434 POP_JUMP_IF_FALSE    (to 576)
+
+ 55:         436 LOAD_FAST            (r_list)
+             438 GET_ITER
+             440 FOR_ITER             (to 574)
+             444 STORE_FAST           (rx)
+
+ 56:         446 LOAD_GLOBAL          (NULL + str)
+             456 LOAD_FAST            (rx)
+             458 CALL                 1
+             466 LOAD_ATTR            (NULL|self + title)
+             486 CALL                 0
+             494 LOAD_ATTR            (NULL|self + strip)
+             514 CALL                 0
+             522 STORE_FAST           (rx_title)
+
+ 57:         524 LOAD_FAST            (reaction_counts)
+             526 LOAD_ATTR            (NULL|self + get)
+             546 LOAD_FAST            (rx_title)
+             548 LOAD_CONST           (0)
+             550 CALL                 2
+             558 LOAD_CONST           (1)
+             560 BINARY_OP            (+)
+             564 LOAD_FAST            (reaction_counts)
+             566 LOAD_FAST            (rx_title)
+             568 STORE_SUBSCR
+         >>  572 JUMP_BACKWARD        (to 440)
+
+ 55:         574 END_FOR
+         >>  576 JUMP_BACKWARD        (to 348)
+
+ 51:         578 END_FOR
+
+ 62:         580 LOAD_GLOBAL          (NULL + sorted)
+             590 LOAD_FAST            (reaction_counts)
+             592 LOAD_ATTR            (NULL|self + items)
+             612 CALL                 0
+             620 LOAD_CONST           (<code object <lambda> at 0x10387a590, file "/Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py", line 62>)
+             622 MAKE_FUNCTION        (No arguments)
+             624 LOAD_CONST           (True)
+             626 KW_NAMES             (('key', 'reverse'))
+             628 CALL                 3
+             636 STORE_FAST           (sorted_reactions)
+
+ 63:         638 LOAD_FAST            (sorted_reactions)
+             640 LOAD_CONST           (None)
+             642 LOAD_CONST           (10)
+             644 BINARY_SLICE
+             646 GET_ITER
+             648 FOR_ITER             (to 704)
+             652 UNPACK_SEQUENCE      2
+             656 STORE_FAST           (rx)
+             658 STORE_FAST           (count)
+
+ 64:         660 LOAD_FAST            (evidence_list)
+             662 LOAD_ATTR            (NULL|self + append)
+
+ 65:         682 LOAD_FAST            (rx)
+
+ 66:         684 LOAD_FAST            (count)
+
+ 67:         686 LOAD_CONST           ("FAERS_2026_Q1")
+
+ 64:         688 LOAD_CONST           (('reaction', 'count', 'source'))
+             690 BUILD_CONST_KEY_MAP  3
+             692 CALL                 1
+             700 POP_TOP
+         >>  702 JUMP_BACKWARD        (to 648)
+
+ 63:         704 END_FOR
+             706 NOP
+
+ 72:     >>  708 LOAD_FAST            (evidence_list)
+             710 RETURN_VALUE
+         >>  712 PUSH_EXC_INFO
+
+ 58:         714 LOAD_GLOBAL          (Exception)
+             724 CHECK_EXC_MATCH
+             726 POP_JUMP_IF_FALSE    (to 734)
+             728 POP_TOP
+
+ 59:         730 POP_EXCEPT
+             732 JUMP_BACKWARD        (to 348)
+
+ 58:     >>  734 RERAISE              0
+         >>  736 COPY                 3
+             738 POP_EXCEPT
+             740 RERAISE              1
+         >>  742 PUSH_EXC_INFO
+
+ 69:         744 LOAD_GLOBAL          (Exception)
+             754 CHECK_EXC_MATCH
+             756 POP_JUMP_IF_FALSE    (to 834)
+             758 STORE_FAST           (e)
+
+ 70:     >>  760 LOAD_GLOBAL          (logger)
+             770 LOAD_ATTR            (NULL|self + error)
+             790 LOAD_CONST           ("Error calculating local FAERS evidence for '")
+             792 LOAD_FAST            (drug_name)
+             794 FORMAT_VALUE         0
+             796 LOAD_CONST           ("': ")
+             798 LOAD_FAST            (e)
+             800 FORMAT_VALUE         0
+             802 BUILD_STRING         4
+             804 CALL                 1
+             812 POP_TOP
+             814 POP_EXCEPT
+             816 LOAD_CONST           (None)
+             818 STORE_FAST           (e)
+             820 DELETE_FAST          (e)
+
+ 72:         822 LOAD_FAST            (evidence_list)
+             824 RETURN_VALUE
+         >>  826 LOAD_CONST           (None)
+             828 STORE_FAST           (e)
+             830 DELETE_FAST          (e)
+             832 RERAISE              1
+
+ 69:     >>  834 RERAISE              0
+         >>  836 COPY                 3
+             838 POP_EXCEPT
+             840 RERAISE              1
+
+ExceptionTable:
+  86 to 358 -> 742 [0]
+  362 to 574 -> 712 [1]
+  576 to 704 -> 742 [0]
+  712 to 728 -> 736 [2] lasti
+  730 to 732 -> 742 [0]
+  734 to 734 -> 736 [2] lasti
+  736 to 740 -> 742 [0]
+  742 to 758 -> 836 [1] lasti
+  760 to 812 -> 826 [1] lasti
+  826 to 834 -> 836 [1] lasti
+
+# Method Name:       get_knowledge_base_evidence
+# Filename:          /Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  11
+# Stack size:        8
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        74
+# Constants:
+#    0: '\n        Searches Milvus knowledge_base collection for warning texts regarding the drug.\n        '
+#    1: 0
+#    2: ('drug_validator_service',)
+#    3: 'knowledge_base'
+#    4: 'drug_name'
+#    5: 3
+#    6: ('collection_name', 'query_text', 'metadata_filters', 'limit')
+#    7: 'document_name'
+#    8: 'document_type'
+#    9: 'Knowledge Base Document'
+#   10: 'None'
+#   11: 'text'
+#   12: ''
+#   13: ('document_source', 'retrieved_chunk')
+#   14: "Error searching knowledge base for '"
+#   15: "': "
+#   16: None
+# Names:
+#    0: normalize_drug_name
+#    1: app.services.drug_validator_service
+#    2: drug_validator_service
+#    3: validate_drugs
+#    4: hybrid_search_service
+#    5: search_collection
+#    6: get
+#    7: append
+#    8: Exception
+#    9: logger
+#   10: error
+# Varnames:
+#	self, drug_name, evidence_list, normalized_name, drug_validator_service, validated, search_name, results, item, doc_src, e
+# Positional arguments:
+#	self, drug_name
+# Local variables:
+#    2: evidence_list
+#    3: normalized_name
+#    4: drug_validator_service
+#    5: validated
+#    6: search_name
+#    7: results
+#    8: item
+#    9: doc_src
+#   10: e
+ 74:           0 RESUME               0
+
+ 78:           2 BUILD_LIST           0
+               4 STORE_FAST           (evidence_list)
+
+ 79:           6 NOP
+
+ 80:           8 LOAD_GLOBAL          (NULL + normalize_drug_name)
+              18 LOAD_FAST            (drug_name)
+              20 CALL                 1
+              28 STORE_FAST           (normalized_name)
+
+ 81:          30 LOAD_CONST           (0)
+              32 LOAD_CONST           (('drug_validator_service',))
+              34 IMPORT_NAME          (app.services.drug_validator_service)
+              36 IMPORT_FROM          (drug_validator_service)
+              38 STORE_FAST           (drug_validator_service)
+              40 POP_TOP
+
+ 82:          42 LOAD_FAST            (drug_validator_service)
+              44 LOAD_ATTR            (NULL|self + validate_drugs)
+              64 LOAD_FAST            (normalized_name)
+              66 BUILD_LIST           1
+              68 CALL                 1
+              76 STORE_FAST           (validated)
+
+ 83:          78 LOAD_FAST            (validated)
+              80 POP_JUMP_IF_FALSE    (to 92)
+              82 LOAD_FAST            (validated)
+              84 LOAD_CONST           (0)
+              86 BINARY_SUBSCR
+              90 JUMP_FORWARD         (to 94)
+         >>   92 LOAD_FAST            (normalized_name)
+         >>   94 STORE_FAST           (search_name)
+
+ 86:          96 LOAD_GLOBAL          (NULL + hybrid_search_service)
+             106 LOAD_ATTR            (search_collection)
+
+ 87:         126 LOAD_CONST           ("knowledge_base")
+
+ 88:         128 LOAD_FAST            (search_name)
+
+ 89:         130 LOAD_CONST           ("drug_name")
+             132 LOAD_FAST            (search_name)
+             134 BUILD_MAP            1
+
+ 90:         136 LOAD_CONST           (3)
+
+ 86:         138 KW_NAMES             (('collection_name', 'query_text', 'metadata_filters', 'limit'))
+             140 CALL                 4
+             148 STORE_FAST           (results)
+
+ 93:         150 LOAD_FAST            (results)
+             152 GET_ITER
+             154 FOR_ITER             (to 328)
+             158 STORE_FAST           (item)
+
+ 94:         160 LOAD_FAST            (item)
+             162 LOAD_ATTR            (NULL|self + get)
+             182 LOAD_CONST           ("document_name")
+             184 CALL                 1
+             192 COPY                 1
+             194 POP_JUMP_IF_TRUE     (to 238)
+             196 POP_TOP
+             198 LOAD_FAST            (item)
+             200 LOAD_ATTR            (NULL|self + get)
+             220 LOAD_CONST           ("document_type")
+             222 CALL                 1
+             230 COPY                 1
+             232 POP_JUMP_IF_TRUE     (to 238)
+             234 POP_TOP
+             236 LOAD_CONST           ("Knowledge Base Document")
+         >>  238 STORE_FAST           (doc_src)
+
+ 95:         240 LOAD_FAST            (doc_src)
+             242 LOAD_CONST           ("None")
+             244 COMPARE_OP           (==)
+             248 POP_JUMP_IF_FALSE    (to 254)
+
+ 96:         250 LOAD_CONST           ("Knowledge Base Document")
+             252 STORE_FAST           (doc_src)
+
+ 97:     >>  254 LOAD_FAST            (evidence_list)
+             256 LOAD_ATTR            (NULL|self + append)
+
+ 98:         276 LOAD_FAST            (doc_src)
+
+ 99:         278 LOAD_FAST            (item)
+             280 LOAD_ATTR            (NULL|self + get)
+             300 LOAD_CONST           ("text")
+             302 LOAD_CONST           ("")
+             304 CALL                 2
+
+ 97:         312 LOAD_CONST           (('document_source', 'retrieved_chunk'))
+             314 BUILD_CONST_KEY_MAP  2
+             316 CALL                 1
+             324 POP_TOP
+         >>  326 JUMP_BACKWARD        (to 154)
+
+ 93:         328 END_FOR
+             330 NOP
+
+104:         332 LOAD_FAST            (evidence_list)
+             334 RETURN_VALUE
+         >>  336 PUSH_EXC_INFO
+
+101:         338 LOAD_GLOBAL          (Exception)
+             348 CHECK_EXC_MATCH
+             350 POP_JUMP_IF_FALSE    (to 428)
+             352 STORE_FAST           (e)
+
+102:         354 LOAD_GLOBAL          (logger)
+             364 LOAD_ATTR            (NULL|self + error)
+             384 LOAD_CONST           ("Error searching knowledge base for '")
+             386 LOAD_FAST            (drug_name)
+             388 FORMAT_VALUE         0
+             390 LOAD_CONST           ("': ")
+             392 LOAD_FAST            (e)
+             394 FORMAT_VALUE         0
+             396 BUILD_STRING         4
+             398 CALL                 1
+             406 POP_TOP
+             408 POP_EXCEPT
+             410 LOAD_CONST           (None)
+             412 STORE_FAST           (e)
+             414 DELETE_FAST          (e)
+
+104:         416 LOAD_FAST            (evidence_list)
+             418 RETURN_VALUE
+         >>  420 LOAD_CONST           (None)
+             422 STORE_FAST           (e)
+             424 DELETE_FAST          (e)
+             426 RERAISE              1
+
+101:     >>  428 RERAISE              0
+         >>  430 COPY                 3
+             432 POP_EXCEPT
+             434 RERAISE              1
+
+ExceptionTable:
+  8 to 328 -> 336 [0]
+  336 to 352 -> 430 [1] lasti
+  354 to 406 -> 420 [1] lasti
+  420 to 428 -> 430 [1] lasti
+
+# Method Name:       get_supporting_cases
+# Filename:          /Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py
+# Argument count:    3
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  20
+# Stack size:        7
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        106
+# Constants:
+#    0: '\n        Retrieves matching individual case records from the local FAERS dataset.\n        '
+#    1: None
+#    2: 0
+#    3: ('drug_validator_service',)
+#    4: 'drugname'
+#    5: False
+#    6: ('case', 'na')
+#    7: 'caseid'
+#    8: 'primaryid'
+#    9: ''
+#   10: 'reactions'
+#   11: ('case_id', 'reaction')
+#   12: 1
+#   13: 'Unknown'
+#   14: 5
+#   15: 'Error getting supporting cases: '
+# Names:
+#    0: fda_service_instance
+#    1: faers_df
+#    2: normalize_drug_name
+#    3: app.services.drug_validator_service
+#    4: drug_validator_service
+#    5: validate_drugs
+#    6: str
+#    7: contains
+#    8: iterrows
+#    9: get
+#   10: ast
+#   11: literal_eval
+#   12: isinstance
+#   13: list
+#   14: title
+#   15: strip
+#   16: append
+#   17: Exception
+#   18: logger
+#   19: error
+# Varnames:
+#	self, drug_name, reaction, cases, normalized_name, drug_validator_service, validated, search_name, df, matching_rows, count, idx, row, cid, r_str, r_list, r, r_list_title, rx_val, e
+# Positional arguments:
+#	self, drug_name, reaction
+# Local variables:
+#    3: cases
+#    4: normalized_name
+#    5: drug_validator_service
+#    6: validated
+#    7: search_name
+#    8: df
+#    9: matching_rows
+#   10: count
+#   11: idx
+#   12: row
+#   13: cid
+#   14: r_str
+#   15: r_list
+#   16: r
+#   17: r_list_title
+#   18: rx_val
+#   19: e
+106:           0 RESUME               0
+
+110:           2 BUILD_LIST           0
+               4 STORE_FAST           (cases)
+
+111:           6 LOAD_GLOBAL          (fda_service_instance)
+              16 LOAD_ATTR            (faers_df)
+              36 POP_JUMP_IF_NOT_NONE (to 42)
+
+112:          38 BUILD_LIST           0
+              40 RETURN_VALUE
+
+114:     >>   42 NOP
+
+115:          44 LOAD_GLOBAL          (NULL + normalize_drug_name)
+              54 LOAD_FAST            (drug_name)
+              56 CALL                 1
+              64 STORE_FAST           (normalized_name)
+
+116:          66 LOAD_CONST           (0)
+              68 LOAD_CONST           (('drug_validator_service',))
+              70 IMPORT_NAME          (app.services.drug_validator_service)
+              72 IMPORT_FROM          (drug_validator_service)
+              74 STORE_FAST           (drug_validator_service)
+              76 POP_TOP
+
+117:          78 LOAD_FAST            (drug_validator_service)
+              80 LOAD_ATTR            (NULL|self + validate_drugs)
+             100 LOAD_FAST            (normalized_name)
+             102 BUILD_LIST           1
+             104 CALL                 1
+             112 STORE_FAST           (validated)
+
+118:         114 LOAD_FAST            (validated)
+             116 POP_JUMP_IF_FALSE    (to 128)
+             118 LOAD_FAST            (validated)
+             120 LOAD_CONST           (0)
+             122 BINARY_SUBSCR
+             126 JUMP_FORWARD         (to 130)
+         >>  128 LOAD_FAST            (normalized_name)
+         >>  130 STORE_FAST           (search_name)
+
+120:         132 LOAD_GLOBAL          (fda_service_instance)
+             142 LOAD_ATTR            (faers_df)
+             162 STORE_FAST           (df)
+
+121:         164 LOAD_FAST            (df)
+             166 LOAD_FAST            (df)
+             168 LOAD_CONST           ("drugname")
+             170 BINARY_SUBSCR
+             174 LOAD_ATTR            (str)
+             194 LOAD_ATTR            (NULL|self + contains)
+             214 LOAD_FAST            (search_name)
+             216 LOAD_CONST           (False)
+             218 LOAD_CONST           (False)
+             220 KW_NAMES             (('case', 'na'))
+             222 CALL                 3
+             230 BINARY_SUBSCR
+             234 STORE_FAST           (matching_rows)
+
+123:         236 LOAD_CONST           (0)
+             238 STORE_FAST           (count)
+
+124:         240 LOAD_FAST            (matching_rows)
+             242 LOAD_ATTR            (NULL|self + iterrows)
+             262 CALL                 0
+             270 GET_ITER
+             272 EXTENDED_ARG         (256)
+             274 FOR_ITER             (to 874)
+             278 UNPACK_SEQUENCE      2
+             282 STORE_FAST           (idx)
+             284 STORE_FAST           (row)
+
+125:         286 LOAD_GLOBAL          (NULL + str)
+             296 LOAD_FAST            (row)
+             298 LOAD_ATTR            (NULL|self + get)
+             318 LOAD_CONST           ("caseid")
+             320 CALL                 1
+             328 COPY                 1
+             330 POP_JUMP_IF_TRUE     (to 374)
+             332 POP_TOP
+             334 LOAD_FAST            (row)
+             336 LOAD_ATTR            (NULL|self + get)
+             356 LOAD_CONST           ("primaryid")
+             358 CALL                 1
+             366 COPY                 1
+             368 POP_JUMP_IF_TRUE     (to 374)
+             370 POP_TOP
+             372 LOAD_CONST           ("")
+         >>  374 CALL                 1
+             382 STORE_FAST           (cid)
+
+126:         384 LOAD_FAST            (row)
+             386 LOAD_ATTR            (NULL|self + get)
+             406 LOAD_CONST           ("reactions")
+             408 CALL                 1
+             416 STORE_FAST           (r_str)
+
+127:         418 LOAD_FAST            (cid)
+             420 POP_JUMP_IF_FALSE    (to 426)
+             422 LOAD_FAST            (r_str)
+             424 POP_JUMP_IF_TRUE     (to 428)
+
+128:     >>  426 JUMP_BACKWARD        (to 272)
+
+130:     >>  428 NOP
+
+131:         430 LOAD_GLOBAL          (NULL + ast)
+             440 LOAD_ATTR            (literal_eval)
+             460 LOAD_FAST            (r_str)
+             462 CALL                 1
+             470 STORE_FAST           (r_list)
+
+132:         472 LOAD_GLOBAL          (NULL + isinstance)
+             482 LOAD_FAST            (r_list)
+             484 LOAD_GLOBAL          (list)
+             494 CALL                 2
+             502 POP_JUMP_IF_TRUE     (to 506)
+
+133:         504 JUMP_BACKWARD        (to 272)
+
+136:     >>  506 LOAD_FAST            (r_list)
+             508 GET_ITER
+             510 LOAD_FAST_AND_CLEAR  (r)
+             512 SWAP                 (TOS <-> TOS1)
+             514 BUILD_LIST           0
+             516 SWAP                 (TOS <-> TOS1)
+             518 FOR_ITER             (to 604)
+             522 STORE_FAST           (r)
+             524 LOAD_GLOBAL          (NULL + str)
+             534 LOAD_FAST            (r)
+             536 CALL                 1
+             544 LOAD_ATTR            (NULL|self + title)
+             564 CALL                 0
+             572 LOAD_ATTR            (NULL|self + strip)
+             592 CALL                 0
+             600 LIST_APPEND          2
+         >>  602 JUMP_BACKWARD        (to 518)
+             604 END_FOR
+             606 STORE_FAST           (r_list_title)
+             608 STORE_FAST           (r)
+
+139:         610 LOAD_FAST            (reaction)
+             612 POP_JUMP_IF_FALSE    (to 786)
+
+140:         614 LOAD_FAST            (reaction)
+             616 LOAD_ATTR            (NULL|self + title)
+             636 CALL                 0
+             644 LOAD_ATTR            (NULL|self + strip)
+             664 CALL                 0
+             672 LOAD_FAST            (r_list_title)
+             674 CONTAINS_OP          (in)
+             676 POP_JUMP_IF_FALSE    (to 854)
+
+141:         678 LOAD_FAST            (cases)
+             680 LOAD_ATTR            (NULL|self + append)
+
+142:         700 LOAD_FAST            (cid)
+
+143:         702 LOAD_FAST            (reaction)
+             704 LOAD_ATTR            (NULL|self + title)
+             724 CALL                 0
+             732 LOAD_ATTR            (NULL|self + strip)
+             752 CALL                 0
+
+141:         760 LOAD_CONST           (('case_id', 'reaction'))
+             762 BUILD_CONST_KEY_MAP  2
+             764 CALL                 1
+             772 POP_TOP
+
+145:         774 LOAD_FAST            (count)
+             776 LOAD_CONST           (1)
+             778 BINARY_OP            (+=)
+             782 STORE_FAST           (count)
+             784 JUMP_FORWARD         (to 854)
+
+148:     >>  786 LOAD_FAST            (r_list_title)
+             788 POP_JUMP_IF_FALSE    (to 800)
+             790 LOAD_FAST            (r_list_title)
+             792 LOAD_CONST           (0)
+             794 BINARY_SUBSCR
+             798 JUMP_FORWARD         (to 802)
+         >>  800 LOAD_CONST           ("Unknown")
+         >>  802 STORE_FAST           (rx_val)
+
+149:         804 LOAD_FAST            (cases)
+             806 LOAD_ATTR            (NULL|self + append)
+
+150:         826 LOAD_FAST            (cid)
+
+151:         828 LOAD_FAST            (rx_val)
+
+149:         830 LOAD_CONST           (('case_id', 'reaction'))
+             832 BUILD_CONST_KEY_MAP  2
+             834 CALL                 1
+             842 POP_TOP
+
+153:         844 LOAD_FAST            (count)
+             846 LOAD_CONST           (1)
+             848 BINARY_OP            (+=)
+             852 STORE_FAST           (count)
+
+155:     >>  854 LOAD_FAST            (count)
+             856 LOAD_CONST           (5)
+             858 COMPARE_OP           (>=)
+             862 POP_JUMP_IF_FALSE    (to 870)
+
+156:         864 POP_TOP
+
+162:         866 LOAD_FAST            (cases)
+             868 RETURN_VALUE
+
+155:     >>  870 EXTENDED_ARG         (256)
+         >>  872 JUMP_BACKWARD        (to 272)
+
+124:         874 END_FOR
+             876 NOP
+
+162:         878 LOAD_FAST            (cases)
+             880 RETURN_VALUE
+         >>  882 SWAP                 (TOS <-> TOS1)
+             884 POP_TOP
+
+136:         886 SWAP                 (TOS <-> TOS1)
+             888 STORE_FAST           (r)
+             890 RERAISE              0
+         >>  892 PUSH_EXC_INFO
+
+157:         894 LOAD_GLOBAL          (Exception)
+             904 CHECK_EXC_MATCH
+             906 POP_JUMP_IF_FALSE    (to 916)
+             908 POP_TOP
+
+158:         910 POP_EXCEPT
+             912 EXTENDED_ARG         (256)
+             914 JUMP_BACKWARD        (to 272)
+
+157:     >>  916 RERAISE              0
+         >>  918 COPY                 3
+             920 POP_EXCEPT
+             922 RERAISE              1
+         >>  924 PUSH_EXC_INFO
+
+159:         926 LOAD_GLOBAL          (Exception)
+             936 CHECK_EXC_MATCH
+             938 POP_JUMP_IF_FALSE    (to 1010)
+             940 STORE_FAST           (e)
+
+160:         942 LOAD_GLOBAL          (logger)
+             952 LOAD_ATTR            (NULL|self + error)
+             972 LOAD_CONST           ("Error getting supporting cases: ")
+             974 LOAD_FAST            (e)
+             976 FORMAT_VALUE         0
+             978 BUILD_STRING         2
+             980 CALL                 1
+             988 POP_TOP
+             990 POP_EXCEPT
+             992 LOAD_CONST           (None)
+             994 STORE_FAST           (e)
+             996 DELETE_FAST          (e)
+
+162:         998 LOAD_FAST            (cases)
+            1000 RETURN_VALUE
+         >> 1002 LOAD_CONST           (None)
+            1004 STORE_FAST           (e)
+            1006 DELETE_FAST          (e)
+            1008 RERAISE              1
+
+159:     >> 1010 RERAISE              0
+         >> 1012 COPY                 3
+            1014 POP_EXCEPT
+            1016 RERAISE              1
+
+ExceptionTable:
+  44 to 426 -> 924 [0]
+  430 to 502 -> 892 [1]
+  504 to 504 -> 924 [0]
+  506 to 512 -> 892 [1]
+  514 to 604 -> 882 [3]
+  606 to 862 -> 892 [1]
+  864 to 864 -> 924 [0]
+  870 to 874 -> 924 [0]
+  882 to 890 -> 892 [1]
+  892 to 908 -> 918 [2] lasti
+  910 to 914 -> 924 [0]
+  916 to 916 -> 918 [2] lasti
+  918 to 922 -> 924 [0]
+  924 to 940 -> 1012 [1] lasti
+  942 to 988 -> 1002 [1] lasti
+  1002 to 1010 -> 1012 [1] lasti
+
+# Method Name:       <lambda>
+# Filename:          /Users/affu01/GRAD_PROJ_NEW/backend/app/services/verification/evidence_service.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  1
+# Stack size:        2
+# Flags:             0x00000013 (NESTED | NEWLOCALS | OPTIMIZED)
+# First Line:        62
+# Constants:
+#    0: None
+#    1: 1
+# Varnames:
+#	x
+# Positional arguments:
+#	x
+ 62:           0 RESUME               0
+               2 LOAD_FAST            (x)
+               4 LOAD_CONST           (1)
+               6 BINARY_SUBSCR
+              10 RETURN_VALUE
+
