@@ -19,3 +19,5 @@ pymilvus[milvus_lite]
 # Note: SciSpacy and its model must be installed explicitly due to direct URL dependencies:
 # pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.4/scispacy-0.5.4.tar.gz
 # pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.4/en_core_sci_md-0.5.4.tar.gz
+reportlab==4.5.1
+qrcode==8.2

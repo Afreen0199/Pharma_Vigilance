@@ -206,6 +206,18 @@ async def generate_report(request: ReportGenerateRequest):
             response_data["status"] = "success"
             response_data["cached"] = True
             
+            # Inject database-stored fields that might not be in ai_summary JSON
+            fda_signals_data = case_data.get("fda_signals", {})
+            visualizations_data = {}
+            if isinstance(fda_signals_data, dict):
+                # Copy to avoid mutating the original dict if needed, but pop works
+                visualizations_data = fda_signals_data.get("visualizations", {})
+                
+            response_data["fda_signal"] = fda_signals_data
+            response_data["visualizations"] = visualizations_data
+            if "regulatory_alerts" not in response_data or not response_data["regulatory_alerts"]:
+                response_data["regulatory_alerts"] = case_data.get("regulatory_alerts", [])
+            
             # Regenerate on-disk files if missing
             report_service_instance.generate_json_report(report_data, analysis_id)
             report_service_instance.generate_excel_report(report_data, analysis_id)
@@ -508,6 +520,11 @@ async def generate_report(request: ReportGenerateRequest):
         response_data["pdf_url"] = f"/report/download/{analysis_id}?format=pdf"
         response_data["status"] = "success"
         response_data["cached"] = False
+        
+        # Inject FDA signals, visualizations, and regulatory alerts
+        response_data["fda_signal"] = fda_signals
+        response_data["visualizations"] = fda_signals.get("visualizations", {}) if isinstance(fda_signals, dict) else {}
+        response_data["regulatory_alerts"] = regulatory_alerts
         
         return response_data
     except Exception as e:
