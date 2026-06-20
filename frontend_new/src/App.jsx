@@ -13,6 +13,7 @@ import UploadCasePage from './pages/UploadCasePage';
 import AnalysisWorkspacePage from './pages/AnalysisWorkspacePage';
 import PreviousAnalysesPage from './pages/PreviousAnalysesPage';
 import KnowledgeBasePage from './pages/KnowledgeBasePage';
+import DrugVerificationPage from './pages/DrugVerificationPage';
 
 // Simple Auth Guard
 const ProtectedRoute = ({ children }) => {
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/" element={<DashboardPage />} />
           <Route path="/upload" element={<UploadCasePage />} />
           <Route path="/kb" element={<KnowledgeBasePage />} />
+          <Route path="/verify-drug" element={<DrugVerificationPage />} />
           <Route path="/analyses" element={<PreviousAnalysesPage />} />
           <Route path="/analysis/:id" element={<AnalysisWorkspacePage />} />
         </Route>

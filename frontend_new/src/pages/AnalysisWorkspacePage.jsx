@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { reportApi } from '../api/reportApi';
 import ChatbotPanel from '../components/analysis/ChatbotPanel';
+import VerificationPanel from '../components/analysis/VerificationPanel';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line, Legend, AreaChart, Area
@@ -598,19 +599,32 @@ const MetadataFooter = ({ data, id }) => {
 };
 
 /* ─── Multi-case Tab Selector ─── */
-const CaseTabs = ({ cases, activeIdx, onSelect }) => (
-  <div className="flex gap-2 flex-wrap mb-4">
-    {cases.map((c, i) => (
-      <button
-        key={i}
-        onClick={() => onSelect(i)}
-        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${i === activeIdx ? 'bg-violet-600 text-white border-violet-600' : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-slate-200 hover:border-slate-600'}`}
-      >
-        Case {i + 1}{c.drug_entities?.[0] ? ` — ${c.drug_entities[0]}` : ''}
-      </button>
-    ))}
-  </div>
-);
+const CaseTabs = ({ cases, activeIdx, onSelect }) => {
+  const getDrugName = (c) => {
+    if (c.drug_information?.product_active_ingredient) {
+      return c.drug_information.product_active_ingredient;
+    }
+    if (c.drug_entities?.[0]) return c.drug_entities[0];
+    return '';
+  };
+
+  return (
+    <div className="flex gap-2 flex-wrap mb-4">
+      {cases.map((c, i) => {
+        const drugName = getDrugName(c);
+        return (
+          <button
+            key={i}
+            onClick={() => onSelect(i)}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${i === activeIdx ? 'bg-violet-600 text-white border-violet-600' : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-slate-200 hover:border-slate-600'}`}
+          >
+            Case {i + 1}{drugName ? ` — ${drugName}` : ''}
+          </button>
+        );
+      })}
+    </div>
+  );
+};
 
 /* ─── Main Workspace Page ─── */
 const AnalysisWorkspacePage = () => {
@@ -713,6 +727,7 @@ const AnalysisWorkspacePage = () => {
     { id: 'overview', label: 'Case Overview', icon: FileText },
     { id: 'timeline', label: 'ADR Timeline', icon: Clock },
     { id: 'fda', label: 'FDA Signals', icon: Activity },
+    { id: 'verification', label: 'Evidence Verification', icon: ShieldCheck },
     { id: 'alerts', label: `Regulatory Alerts ${alerts.length > 0 ? `(${alerts.length})` : ''}`, icon: ShieldCheck },
     { id: 'missing', label: `Missing Info ${missing.length > 0 ? `(${missing.length})` : ''}`, icon: AlertCircle },
   ];
@@ -730,7 +745,10 @@ const AnalysisWorkspacePage = () => {
             <Badge variant={report.status === 'completed' ? 'success' : 'warning'}>{report.status || 'completed'}</Badge>
             {isMultiCase && bundleData && <Badge variant="cyan">{bundleData.cases.length} cases</Badge>}
           </div>
-          <p className="text-slate-400 text-sm mt-1">Primary: <span className="font-semibold text-slate-200 capitalize">{drug}</span></p>
+          <p className="text-slate-400 text-sm mt-1">
+            {report.filename && <span className="mr-4">File: <span className="font-semibold text-slate-200">{report.filename}</span></span>}
+            Primary: <span className="font-semibold text-slate-200 capitalize">{drug}</span>
+          </p>
         </div>
         <div className="flex flex-wrap gap-2">
           {[['PDF', 'pdf'], ['Excel', 'xlsx'], ['JSON', 'json']].map(([label, fmt]) => (
@@ -834,6 +852,7 @@ const AnalysisWorkspacePage = () => {
         
         {activeTab === 'timeline' && <TimelinePanel timeline={timeline} />}
         {activeTab === 'fda' && <FDAPanel fdaData={fdaSignal} visualizations={visualizations} />}
+        {activeTab === 'verification' && <VerificationPanel analysisId={activeCaseId} report={activeCase} />}
         {activeTab === 'alerts' && <Panel title="Regulatory Alerts" icon={ShieldCheck}><RegAlertsPanel alerts={alerts} /></Panel>}
         {activeTab === 'missing' && <Panel title="Missing Information Review" icon={AlertCircle}><MissingInfoPanel missing={missing} /></Panel>}
         

@@ -205,6 +205,7 @@ async def generate_report(request: ReportGenerateRequest):
             response_data["pdf_url"] = f"/report/download/{analysis_id}?format=pdf"
             response_data["status"] = "success"
             response_data["cached"] = True
+            response_data["filename"] = case_data.get("filename", "Unknown")
             
             # Inject database-stored fields that might not be in ai_summary JSON
             fda_signals_data = case_data.get("fda_signals", {})
@@ -246,6 +247,7 @@ async def generate_report(request: ReportGenerateRequest):
                 "pdf_url": f"/report/download/{analysis_id}?format=pdf",
                 "status": "success",
                 "cached": True,
+                "filename": case_data.get("filename", "Unknown"),
                 "drug_entities": case_data.get("drugs", []),
                 "symptoms": case_data.get("symptoms", []),
                 "regulatory_alerts": case_data.get("regulatory_alerts", []),
@@ -339,7 +341,8 @@ async def generate_report(request: ReportGenerateRequest):
                 "bundle_url": f"/report/download/{analysis_id}?format=zip",
                 "status": "success",
                 "cached": False,
-                "report_id": analysis_id
+                "report_id": analysis_id,
+                "filename": case_data.get("filename", "Unknown")
             }
             
             # Save parent completed state to Supabase
@@ -520,6 +523,7 @@ async def generate_report(request: ReportGenerateRequest):
         response_data["pdf_url"] = f"/report/download/{analysis_id}?format=pdf"
         response_data["status"] = "success"
         response_data["cached"] = False
+        response_data["filename"] = case_data.get("filename", "Unknown")
         
         # Inject FDA signals, visualizations, and regulatory alerts
         response_data["fda_signal"] = fda_signals

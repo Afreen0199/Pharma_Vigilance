@@ -3,7 +3,7 @@ load_dotenv()
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import fda, analyze, report, knowledgebase, verification, chat, auth
+from app.routes import fda, analyze, report, knowledgebase, verification, chat, auth, dashboard
 
 app = FastAPI(
     title="AI Pharmacovigilance & Regulatory Intelligence System",
@@ -26,6 +26,7 @@ app.include_router(report.router)
 app.include_router(knowledgebase.router)
 app.include_router(verification.router)
 app.include_router(chat.router)
+app.include_router(dashboard.router)
 
 @app.get("/")
 def root():

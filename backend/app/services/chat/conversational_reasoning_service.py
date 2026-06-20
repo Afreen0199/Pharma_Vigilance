@@ -49,7 +49,11 @@ class ConversationalReasoningService:
                     messages.append(AIMessage(content=turn["content"]))
             messages.append(HumanMessage(content=question))
             try:
-                response = llm_service_instance.llm.invoke(messages)
+                config = {"run_name": "conversational_greeting"}
+                if hasattr(llm_service_instance, 'langfuse_handler') and llm_service_instance.langfuse_handler:
+                    config["callbacks"] = [llm_service_instance.langfuse_handler]
+                
+                response = llm_service_instance.llm.invoke(messages, config=config)
                 return response.content.strip()
             except Exception as e:
                 logger.error(f"Error invoking LLM for general conversation: {e}")

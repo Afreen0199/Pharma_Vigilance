@@ -2,6 +2,7 @@ from langchain_groq import ChatGroq
 import os
 import logging
 from typing import Dict, Any
+from langfuse.langchain import CallbackHandler
 
 logger = logging.getLogger(__name__)
 
@@ -12,6 +13,12 @@ class LLMService:
         if not self.api_key:
             logger.warning("GROQ_API_KEY not found in environment. LLM generation will fail.")
         else:
+            try:
+                self.langfuse_handler = CallbackHandler()
+            except Exception as e:
+                logger.error(f"Failed to initialize Langfuse CallbackHandler: {e}")
+                self.langfuse_handler = None
+                
             try:
                 # Use Llama 3.3 70B Versatile as primary, fall back to Llama 3.1 8B Instant if not available
                 self.llm = ChatGroq(
@@ -186,7 +193,11 @@ The JSON must follow this exact format, combining the legacy fields for backward
 Output ONLY valid JSON without Markdown code block backticks (do not wrap in ```json ... ```). Ensure the JSON is syntactically correct and complete.
 """
         try:
-            response = self.llm.invoke(prompt)
+            config = {"run_name": "generate_analysis"}
+            if hasattr(self, 'langfuse_handler') and self.langfuse_handler:
+                config["callbacks"] = [self.langfuse_handler]
+                
+            response = self.llm.invoke(prompt, config=config)
             return {"raw_ai_response": response.content}
         except Exception as e:
             logger.error(f"Error generating AI analysis: {e}")
@@ -272,7 +283,11 @@ Format:
 Output ONLY valid JSON without Markdown code block backticks.
 """
         try:
-            response = self.llm.invoke(prompt)
+            config = {"run_name": "identify_suspected_drug"}
+            if hasattr(self, 'langfuse_handler') and self.langfuse_handler:
+                config["callbacks"] = [self.langfuse_handler]
+                
+            response = self.llm.invoke(prompt, config=config)
             content = response.content.strip()
             if content.startswith("```json"):
                 content = content[7:]

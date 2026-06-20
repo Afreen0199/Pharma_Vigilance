@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card'
 import Button from '../components/ui/Button';
 import Badge from '../components/ui/Badge';
 import Skeleton from '../components/ui/Skeleton';
+import { analysisApi } from '../api/analysisApi';
 
 const PreviousAnalysesPage = () => {
   const navigate = useNavigate();
@@ -16,22 +17,28 @@ const PreviousAnalysesPage = () => {
   const [statusFilter, setStatusFilter] = useState('');
   
   useEffect(() => {
-    setTimeout(() => {
-      setAnalyses([
-        { id: 'REP-2026-001', date: '2026-06-17', drug: 'Aspirin', adr: 'Nausea, Bleeding', status: 'completed' },
-        { id: 'REP-2026-002', date: '2026-06-16', drug: 'Lisinopril', adr: 'Cough', status: 'processing' },
-        { id: 'REP-2026-003', date: '2026-06-15', drug: 'Metformin', adr: 'Lactic Acidosis', status: 'failed' },
-        { id: 'REP-2026-004', date: '2026-06-14', drug: 'Atorvastatin', adr: 'Muscle Pain', status: 'completed' },
-        { id: 'REP-2026-005', date: '2026-06-10', drug: 'Amoxicillin', adr: 'Rash', status: 'completed' },
-      ]);
-      setIsLoading(false);
-    }, 1000);
+    const fetchAnalyses = async () => {
+      try {
+        setIsLoading(true);
+        const data = await analysisApi.getAllAnalyses();
+        setAnalyses(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Failed to fetch analyses:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchAnalyses();
   }, []);
 
-  const filteredAnalyses = analyses.filter(a => {
-    const matchesSearch = a.id.toLowerCase().includes(search.toLowerCase()) || 
-                          a.drug.toLowerCase().includes(search.toLowerCase()) ||
-                          a.adr.toLowerCase().includes(search.toLowerCase());
+  const filteredAnalyses = [...analyses].reverse().filter(a => {
+    const analysisId = a.analysis_id || '';
+    const filename = a.filename || '';
+    const drug = (a.drugs && a.drugs.length > 0) ? a.drugs[0] : '';
+    
+    const matchesSearch = analysisId.toLowerCase().includes(search.toLowerCase()) || 
+                          filename.toLowerCase().includes(search.toLowerCase()) ||
+                          drug.toLowerCase().includes(search.toLowerCase());
     const matchesStatus = statusFilter ? a.status === statusFilter : true;
     return matchesSearch && matchesStatus;
   });
@@ -79,9 +86,9 @@ const PreviousAnalysesPage = () => {
               <thead className="text-xs text-slate-500 uppercase bg-slate-50 border-y border-slate-200">
                 <tr>
                   <th className="px-6 py-4 font-medium">Analysis ID</th>
-                  <th className="px-6 py-4 font-medium">Date</th>
+                  <th className="px-6 py-4 font-medium">Original Filename</th>
+                  <th className="px-6 py-4 font-medium">Upload Date</th>
                   <th className="px-6 py-4 font-medium">Primary Drug</th>
-                  <th className="px-6 py-4 font-medium">Key ADRs</th>
                   <th className="px-6 py-4 font-medium">Status</th>
                   <th className="px-6 py-4 font-medium text-right">Action</th>
                 </tr>
@@ -105,26 +112,31 @@ const PreviousAnalysesPage = () => {
                     </td>
                   </tr>
                 ) : (
-                  filteredAnalyses.map((row) => (
-                    <tr key={row.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-6 py-4 font-medium text-slate-900">{row.id}</td>
-                      <td className="px-6 py-4 text-slate-500">{row.date}</td>
-                      <td className="px-6 py-4 text-slate-700">{row.drug}</td>
-                      <td className="px-6 py-4 text-slate-600 truncate max-w-xs">{row.adr}</td>
-                      <td className="px-6 py-4">
-                        <Badge 
-                          variant={row.status === 'completed' ? 'success' : row.status === 'failed' ? 'danger' : 'warning'}
-                        >
-                          {row.status}
-                        </Badge>
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        <Button variant="outline" size="sm" onClick={() => navigate(`/analysis/${row.id}`)} className="gap-2">
-                          <Eye className="h-4 w-4" /> Open Report
-                        </Button>
-                      </td>
-                    </tr>
-                  ))
+                  filteredAnalyses.map((row) => {
+                    const drug = (row.drugs && row.drugs.length > 0) ? row.drugs[0] : 'Unknown';
+                    const uploadDate = row.created_at ? new Date(row.created_at).toLocaleDateString() : 'Unknown';
+                    
+                    return (
+                      <tr key={row.analysis_id} className="hover:bg-slate-50 transition-colors">
+                        <td className="px-6 py-4 font-medium text-slate-900 font-mono text-xs">{row.analysis_id?.substring(0, 16)}...</td>
+                        <td className="px-6 py-4 text-slate-600 truncate max-w-xs" title={row.filename}>{row.filename}</td>
+                        <td className="px-6 py-4 text-slate-500">{uploadDate}</td>
+                        <td className="px-6 py-4 text-slate-700 capitalize">{drug}</td>
+                        <td className="px-6 py-4">
+                          <Badge 
+                            variant={row.status === 'completed' ? 'success' : row.status === 'failed' ? 'danger' : 'warning'}
+                          >
+                            {row.status}
+                          </Badge>
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <Button variant="outline" size="sm" onClick={() => navigate(`/analysis/${row.analysis_id}`)} className="gap-2">
+                            <Eye className="h-4 w-4" /> Open Report
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })
                 )}
               </tbody>
             </table>

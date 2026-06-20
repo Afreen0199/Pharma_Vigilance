@@ -47,14 +47,20 @@ const ChartCard = ({ title, children }) => (
 
 const DashboardPage = () => {
   const navigate = useNavigate();
-  const [analyses, setAnalyses] = useState([]);
+  const [data, setData] = useState({
+    statistics: { total_cases: 0, completed: 0, processing: 0, failed: 0, high_risk: 0, single_case_documents: 0, multi_case_documents: 0 },
+    submission_trend: [],
+    seriousness_distribution: { serious: 0, non_serious: 0 },
+    recent_uploads: [],
+    all_analyses: []
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetch = async () => {
       try {
-        const data = await analysisApi.getAllAnalyses();
-        setAnalyses(Array.isArray(data) ? data : []);
+        const dashboardData = await analysisApi.getDashboard();
+        setData(dashboardData);
       } catch (e) {
         console.error(e);
       } finally {
@@ -64,28 +70,14 @@ const DashboardPage = () => {
     fetch();
   }, []);
 
-  // Compute metrics
-  const total = analyses.length;
-  const completed = analyses.filter(a => a.status === 'completed').length;
-  const highRisk = analyses.filter(a => {
-    const alerts = a.regulatory_alerts || [];
-    return alerts.length > 0;
-  }).length;
-  const recent = [...analyses].reverse().slice(0, 5);
-
-  // Seriousness distribution for pie
+  const stats = data.statistics;
+  const trendData = data.submission_trend || [];
   const seriosnessData = [
-    { name: 'Serious', value: analyses.filter(a => a.seriousness_assessment?.level === 'Serious' || (a.seriousness_assessment && Object.keys(a.seriousness_assessment).length > 0)).length || Math.floor(completed * 0.6) },
-    { name: 'Non-Serious', value: Math.max(0, completed - Math.floor(completed * 0.6)) },
+    { name: 'Serious', value: data.seriousness_distribution?.serious || 0 },
+    { name: 'Non-Serious', value: data.seriousness_distribution?.non_serious || 0 }
   ].filter(d => d.value > 0);
-
-  // Group analyses by date for trend chart
-  const trendMap = {};
-  analyses.forEach(a => {
-    const d = a.created_at ? new Date(a.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Unknown';
-    trendMap[d] = (trendMap[d] || 0) + 1;
-  });
-  const trendData = Object.entries(trendMap).slice(-7).map(([date, count]) => ({ date, count }));
+  const recent = data.recent_uploads || [];
+  const allAnalyses = data.all_analyses || [];
 
   return (
     <div className="space-y-6">
@@ -105,12 +97,14 @@ const DashboardPage = () => {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        <StatCard icon={FileText} label="Total Cases" value={total} color="violet" loading={loading} />
-        <StatCard icon={CheckCircle} label="Completed" value={completed} color="emerald" loading={loading} />
-        <StatCard icon={ShieldAlert} label="High Risk" value={highRisk} sub="Regulatory alerts" color="red" loading={loading} />
-        <StatCard icon={Activity} label="Processing" value={analyses.filter(a => a.status === 'processing').length} color="amber" loading={loading} />
-        <StatCard icon={Database} label="KB Vectors" value="Active" sub="Milvus online" color="cyan" loading={loading} />
+      <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4">
+        <StatCard icon={FileText} label="Total Cases" value={stats.total_cases} color="violet" loading={loading} />
+        <StatCard icon={CheckCircle} label="Completed" value={stats.completed} color="emerald" loading={loading} />
+        <StatCard icon={ShieldAlert} label="High Risk" value={stats.high_risk} sub="Regulatory alerts" color="red" loading={loading} />
+        <StatCard icon={Activity} label="Processing" value={stats.processing} color="amber" loading={loading} />
+        <StatCard icon={AlertTriangle} label="Failed" value={stats.failed} color="red" loading={loading} />
+        <StatCard icon={Database} label="Multi-case" value={stats.multi_case_documents} color="cyan" loading={loading} />
+        <StatCard icon={FileText} label="Single-case" value={stats.single_case_documents} color="cyan" loading={loading} />
       </div>
 
       {/* Charts Row */}
@@ -161,26 +155,25 @@ const DashboardPage = () => {
             ) : recent.length === 0 ? (
               <p className="text-slate-600 text-sm text-center py-6">No cases yet</p>
             ) : recent.map((item, i) => {
-              const drugs = Array.isArray(item.drugs) ? item.drugs : [];
               return (
                 <div
                   key={i}
                   onClick={() => navigate(`/analysis/${item.analysis_id}`)}
                   className="flex items-center gap-3 p-2.5 bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 rounded-lg cursor-pointer transition-all"
                 >
-                  <div className={`h-2 w-2 rounded-full shrink-0 ${item.status === 'completed' ? 'bg-emerald-500' : item.status === 'failed' ? 'bg-red-500' : 'bg-amber-500'}`} />
+                  <div className={`h-2 w-2 rounded-full shrink-0 ${item.status.toLowerCase() === 'completed' ? 'bg-emerald-500' : item.status.toLowerCase() === 'failed' ? 'bg-red-500' : 'bg-amber-500'}`} />
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-semibold text-slate-200 truncate">{drugs[0] || 'Unknown Drug'}</p>
+                    <p className="text-xs font-semibold text-slate-200 truncate">{item.primary_drug || 'Unknown Drug'}</p>
                     <p className="text-[10px] text-slate-500 truncate">{item.analysis_id?.substring(0, 16)}...</p>
                   </div>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full capitalize ${item.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}`}>{item.status}</span>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full capitalize ${item.status.toLowerCase() === 'completed' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}`}>{item.status}</span>
                 </div>
               );
             })}
           </div>
-          {!loading && analyses.length > 5 && (
+          {!loading && allAnalyses.length > 5 && (
             <button onClick={() => navigate('/analyses')} className="mt-3 w-full text-xs text-violet-400 hover:text-violet-300 font-semibold text-center">
-              View all {analyses.length} cases →
+              View all {allAnalyses.length} cases →
             </button>
           )}
         </div>
@@ -190,7 +183,7 @@ const DashboardPage = () => {
       <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
         <div className="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
           <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider">All Case Analyses</h3>
-          <span className="text-xs text-slate-500">{total} total</span>
+          <span className="text-xs text-slate-500">{stats.total_cases} total</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
@@ -212,22 +205,22 @@ const DashboardPage = () => {
                     ))}
                   </tr>
                 ))
-              ) : analyses.length === 0 ? (
+              ) : allAnalyses.length === 0 ? (
                 <tr>
                   <td colSpan="5" className="px-6 py-12 text-center text-slate-500">
                     No analyses found. Click <strong className="text-violet-400">New Analysis</strong> to get started.
                   </td>
                 </tr>
-              ) : [...analyses].reverse().map((row) => {
-                const drugs = Array.isArray(row.drugs) ? row.drugs : [];
+              ) : allAnalyses.map((row) => {
+                const s = row.status.toLowerCase();
                 return (
                   <tr key={row.analysis_id} className="hover:bg-slate-800/50 transition-colors cursor-pointer" onClick={() => navigate(`/analysis/${row.analysis_id}`)}>
                     <td className="px-6 py-4 font-mono text-xs text-slate-300">{row.analysis_id?.substring(0, 20)}...</td>
                     <td className="px-6 py-4 text-slate-400 text-xs">{row.created_at ? new Date(row.created_at).toLocaleDateString() : '—'}</td>
-                    <td className="px-6 py-4 text-slate-300 font-medium capitalize">{drugs[0] || 'Unknown'}</td>
+                    <td className="px-6 py-4 text-slate-300 font-medium capitalize">{row.primary_drug || 'Unknown'}</td>
                     <td className="px-6 py-4">
-                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold capitalize ${row.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : row.status === 'failed' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}`}>
-                        <span className={`h-1.5 w-1.5 rounded-full ${row.status === 'completed' ? 'bg-emerald-400' : row.status === 'failed' ? 'bg-red-400' : 'bg-amber-400 animate-pulse'}`} />
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold capitalize ${s === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : s === 'failed' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}`}>
+                        <span className={`h-1.5 w-1.5 rounded-full ${s === 'completed' ? 'bg-emerald-400' : s === 'failed' ? 'bg-red-400' : 'bg-amber-400 animate-pulse'}`} />
                         {row.status}
                       </span>
                     </td>

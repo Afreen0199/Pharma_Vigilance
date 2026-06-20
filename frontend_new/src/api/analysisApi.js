@@ -1,7 +1,13 @@
 import apiClient from './client';
 
 export const analysisApi = {
-  // Fetch all recent analyses for the dashboard
+  // Fetch unified dashboard data
+  getDashboard: async () => {
+    const response = await apiClient.get('/dashboard/');
+    return response.data;
+  },
+
+  // Fetch all recent analyses
   getAllAnalyses: async () => {
     const response = await apiClient.get('/analyze/');
     return response.data;

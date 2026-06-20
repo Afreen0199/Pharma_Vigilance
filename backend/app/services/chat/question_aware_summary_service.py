@@ -122,7 +122,11 @@ Operational Rules for the response:
 
         # 5. Execute LLM call
         try:
-            response = llm_service_instance.llm.invoke(messages)
+            config = {"run_name": "question_aware_summary"}
+            if hasattr(llm_service_instance, 'langfuse_handler') and llm_service_instance.langfuse_handler:
+                config["callbacks"] = [llm_service_instance.langfuse_handler]
+                
+            response = llm_service_instance.llm.invoke(messages, config=config)
             return response.content.strip()
         except Exception as e:
             logger.error(f"Error invoking Groq LLM in question-aware summary service: {e}")

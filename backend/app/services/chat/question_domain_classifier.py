@@ -48,7 +48,11 @@ User Question: "{question}"
 Output only the category name in lowercase: 'greeting', 'capability_question', 'pharmacovigilance_question', or 'irrelevant_question'. Do not include explanation or markdown formatting.
 """
         try:
-            response = llm_service_instance.llm.invoke(prompt)
+            config = {"run_name": "question_domain_classifier"}
+            if hasattr(llm_service_instance, 'langfuse_handler') and llm_service_instance.langfuse_handler:
+                config["callbacks"] = [llm_service_instance.langfuse_handler]
+                
+            response = llm_service_instance.llm.invoke(prompt, config=config)
             decision = response.content.strip().lower().replace("'", "").replace('"', "")
             if decision in ["greeting", "capability_question", "pharmacovigilance_question", "irrelevant_question"]:
                 return decision

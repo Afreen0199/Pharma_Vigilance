@@ -9,9 +9,8 @@ import { useAuth } from '../contexts/AuthContext';
 const navItems = [
   { name: 'Dashboard', path: '/', icon: LayoutDashboard, exact: true },
   { name: 'Upload Case', path: '/upload', icon: UploadCloud },
+  { name: 'Drug Verification', path: '/verify-drug', icon: Shield },
   { name: 'Knowledge Base', path: '/kb', icon: BookOpen },
-  { name: 'Previous Cases', path: '/analyses', icon: History },
-  { name: 'Settings', path: '/settings', icon: Settings },
 ];
 
 const DashboardLayout = () => {
