@@ -19,11 +19,11 @@ const COLORS = ['#8b5cf6', '#10b981', '#f59e0b', '#ef4444', '#06b6d4', '#ec4899'
 
 /* ─── Helper: Section Card ─── */
 const Panel = ({ title, icon: Icon, children, className = '' }) => (
-  <div className={`bg-slate-900 border border-slate-800 rounded-xl overflow-hidden ${className}`}>
+  <div className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm dark:shadow-none ${className}`}>
     {title && (
-      <div className="flex items-center gap-2 px-5 py-3.5 border-b border-slate-800 bg-slate-950/50">
-        {Icon && <Icon className="h-4 w-4 text-violet-400" />}
-        <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider">{title}</h3>
+      <div className="flex items-center gap-2 px-5 py-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50">
+        {Icon && <Icon className="h-4 w-4 text-violet-600 dark:text-violet-400" />}
+        <h3 className="text-xs font-bold text-slate-800 dark:text-slate-300 uppercase tracking-wider">{title}</h3>
       </div>
     )}
     <div className="p-5">{children}</div>
@@ -32,12 +32,12 @@ const Panel = ({ title, icon: Icon, children, className = '' }) => (
 
 const Badge = ({ children, variant = 'default', className = '' }) => {
   const vars = {
-    default: 'bg-slate-700 text-slate-300',
-    success: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
-    danger: 'bg-red-500/10 text-red-400 border border-red-500/20',
-    warning: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
-    violet: 'bg-violet-500/10 text-violet-400 border border-violet-500/20',
-    cyan: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    default: 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300',
+    success: 'bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20',
+    danger: 'bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-500/20',
+    warning: 'bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/20',
+    violet: 'bg-violet-100 dark:bg-violet-500/10 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-500/20',
+    cyan: 'bg-cyan-100 dark:bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-500/20',
   };
   return (
     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold capitalize ${vars[variant]} ${className}`}>
@@ -47,9 +47,9 @@ const Badge = ({ children, variant = 'default', className = '' }) => {
 };
 
 const DataRow = ({ label, value }) => (
-  <div className="flex flex-col sm:flex-row sm:items-center justify-between py-2 border-b border-slate-800/50 last:border-0 gap-1">
-    <span className="text-xs font-medium text-slate-500 capitalize">{label.replace(/_/g, ' ')}</span>
-    <span className="text-sm font-semibold text-slate-200 text-left sm:text-right">
+  <div className="flex flex-col sm:flex-row sm:items-center justify-between py-2 border-b border-slate-100 dark:border-slate-800/50 last:border-0 gap-1">
+    <span className="text-xs font-medium text-slate-600 dark:text-slate-500 capitalize">{label.replace(/_/g, ' ')}</span>
+    <span className="text-sm font-semibold text-slate-800 dark:text-slate-200 text-left sm:text-right">
       {value !== undefined && value !== null && value !== '' ? String(value) : 'Not Specified'}
     </span>
   </div>
@@ -143,17 +143,17 @@ const InsightCard = ({ insight, type }) => {
 
   const Icon = isSafety ? ShieldCheck : isMedical ? Stethoscope : Eye;
   const color = isSafety ? 'violet' : isMedical ? 'cyan' : 'amber';
-  const bgClass = isSafety ? 'bg-violet-900/10 border-violet-800/30' : isMedical ? 'bg-cyan-900/10 border-cyan-800/30' : 'bg-amber-900/10 border-amber-800/30';
-  const iconColor = isSafety ? 'text-violet-400' : isMedical ? 'text-cyan-400' : 'text-amber-400';
+  const bgClass = isSafety ? 'bg-violet-50 dark:bg-violet-900/10 border-violet-200 dark:border-violet-800/30' : isMedical ? 'bg-cyan-50 dark:bg-cyan-900/10 border-cyan-200 dark:border-cyan-800/30' : 'bg-amber-50 dark:bg-amber-900/10 border-amber-200 dark:border-amber-800/30';
+  const iconColor = isSafety ? 'text-violet-600 dark:text-violet-400' : isMedical ? 'text-cyan-600 dark:text-cyan-400' : 'text-amber-600 dark:text-amber-400';
   const badgeLabel = isSafety ? 'AI Safety' : isMedical ? 'Medical Review' : 'Recommendation';
 
   return (
     <div className={`flex items-start gap-3 p-4 rounded-xl border ${bgClass}`}>
-      <div className={`mt-1 p-1.5 rounded-lg bg-slate-900/50 ${iconColor}`}>
+      <div className={`mt-1 p-1.5 rounded-lg bg-white dark:bg-slate-900/50 shadow-sm dark:shadow-none ${iconColor}`}>
         <Icon className="h-4 w-4" />
       </div>
       <div className="flex-1">
-        <p className="text-sm text-slate-200 leading-relaxed">{insight}</p>
+        <p className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed">{insight}</p>
       </div>
       <Badge variant={color} className="shrink-0">{badgeLabel}</Badge>
     </div>
@@ -213,9 +213,9 @@ const FDAPanel = ({ fdaData, visualizations }) => {
       {/* Stats bar */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {stats.map(s => (
-          <div key={s.label} className="bg-slate-800 border border-slate-700 rounded-xl p-3 text-center">
+          <div key={s.label} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-center shadow-sm dark:shadow-none">
             <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">{s.label}</p>
-            <p className="text-lg font-bold text-white mt-1">{s.value}</p>
+            <p className="text-lg font-bold text-slate-900 dark:text-white mt-1">{s.value}</p>
           </div>
         ))}
       </div>
@@ -223,10 +223,10 @@ const FDAPanel = ({ fdaData, visualizations }) => {
       {/* Recent FDA Cases */}
       {sig.recent_cases && sig.recent_cases.length > 0 && (
          <div className="space-y-2">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Recent FDA Cases</h4>
+            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Recent FDA Cases</h4>
             <div className="flex flex-wrap gap-2">
                {sig.recent_cases.map((rc, i) => (
-                  <div key={i} className="px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-xs text-slate-300">
+                  <div key={i} className="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-700 dark:text-slate-300">
                      {typeof rc === 'string' ? rc : JSON.stringify(rc)}
                   </div>
                ))}
@@ -237,7 +237,7 @@ const FDAPanel = ({ fdaData, visualizations }) => {
       {/* Top Reactions */}
       {sig.top_reactions && sig.top_reactions.length > 0 && (
          <div className="space-y-2">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Top FDA Reported Reactions</h4>
+            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Top FDA Reported Reactions</h4>
             <div className="flex flex-wrap gap-2">
                {sig.top_reactions.map((reaction, i) => {
                    const name = reaction.term || reaction.name || reaction;
@@ -314,9 +314,9 @@ const FDAPanel = ({ fdaData, visualizations }) => {
                  if (active && payload && payload.length) {
                      const data = payload[0].payload;
                      return (
-                         <div className="bg-slate-900 border border-slate-700 p-3 rounded-lg shadow-xl z-50 relative max-w-xs">
-                             <p className="text-xs text-slate-200 font-bold uppercase tracking-wider leading-relaxed">{data.name}</p>
-                             <p className="text-sm text-violet-400 font-semibold mt-1">— {data.value?.toLocaleString()} cases</p>
+                         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3 rounded-lg shadow-xl z-50 relative max-w-xs">
+                             <p className="text-xs text-slate-800 dark:text-slate-200 font-bold uppercase tracking-wider leading-relaxed">{data.name}</p>
+                             <p className="text-sm text-violet-600 dark:text-violet-400 font-semibold mt-1">— {data.value?.toLocaleString()} cases</p>
                          </div>
                      );
                  }
@@ -419,13 +419,13 @@ const RegAlertsPanel = ({ alerts }) => {
         const reason = alert.reason;
         
         return (
-          <div key={i} className="flex items-start gap-3 p-4 bg-red-900/10 border border-red-700/40 rounded-xl">
-            <AlertTriangle className="h-5 w-5 text-red-400 shrink-0 mt-0.5" />
+          <div key={i} className="flex items-start gap-3 p-4 bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-700/40 rounded-xl">
+            <AlertTriangle className="h-5 w-5 text-red-500 dark:text-red-400 shrink-0 mt-0.5" />
             <div className="flex-1">
-              <p className="text-sm font-semibold text-red-300">{message}</p>
-              {reason && <p className="text-sm text-slate-300 mt-1">{reason}</p>}
+              <p className="text-sm font-semibold text-red-700 dark:text-red-300">{message}</p>
+              {reason && <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">{reason}</p>}
               <div className="flex items-center gap-3 mt-2">
-                {source && <span className="text-xs text-slate-400 flex items-center gap-1"><Info className="h-3 w-3"/> Source: {source}</span>}
+                {source && <span className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1"><Info className="h-3 w-3"/> Source: {source}</span>}
                 {severity && <Badge variant={severity.toLowerCase() === 'high' ? 'danger' : 'warning'}>{severity}</Badge>}
               </div>
             </div>
@@ -452,18 +452,18 @@ const MissingInfoPanel = ({ missing }) => {
   const impactColor = { High: 'danger', Medium: 'warning', Low: 'success' }[impact];
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between p-4 bg-amber-900/10 border border-amber-700/30 rounded-xl">
+      <div className="flex items-center justify-between p-4 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-700/30 rounded-xl">
         <div>
-          <p className="text-xs font-bold text-amber-400 uppercase tracking-wider">Impact on Assessment</p>
-          <p className="text-sm text-slate-300 mt-1">{len} missing field{len !== 1 ? 's' : ''} detected</p>
+          <p className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Impact on Assessment</p>
+          <p className="text-sm text-slate-700 dark:text-slate-300 mt-1">{len} missing field{len !== 1 ? 's' : ''} detected</p>
         </div>
         <Badge variant={impactColor}>{impact} Impact</Badge>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {missing.map((item, i) => (
-          <div key={i} className="flex items-center gap-3 p-3 bg-slate-800/50 border border-slate-700/50 rounded-lg">
-            <AlertCircle className="h-4 w-4 text-amber-400 shrink-0" />
-            <span className="text-sm text-slate-300 font-medium">{typeof item === 'string' ? item : JSON.stringify(item)}</span>
+          <div key={i} className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 rounded-lg shadow-sm dark:shadow-none">
+            <AlertCircle className="h-4 w-4 text-amber-500 dark:text-amber-400 shrink-0" />
+            <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">{typeof item === 'string' ? item : JSON.stringify(item)}</span>
           </div>
         ))}
       </div>
@@ -476,30 +476,30 @@ const TimelinePanel = ({ timeline }) => {
   if (!timeline || timeline.length === 0) {
     return (
       <div className="text-center py-10 text-slate-500 text-sm">
-        <Clock className="h-8 w-8 text-slate-600 mx-auto mb-2" />
+        <Clock className="h-8 w-8 text-slate-400 dark:text-slate-600 mx-auto mb-2" />
         No timeline events available for this case.
       </div>
     );
   }
   return (
-    <div className="relative border-l-2 border-violet-800/50 ml-4 space-y-6 py-2">
+    <div className="relative border-l-2 border-violet-200 dark:border-violet-800/50 ml-4 space-y-6 py-2">
       {timeline.map((event, i) => {
         const displayDate = event.timestamp || event.date;
         return (
           <div key={i} className="relative pl-8">
-            <span className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-violet-700 ring-4 ring-slate-900">
+            <span className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-violet-600 dark:bg-violet-700 ring-4 ring-slate-50 dark:ring-slate-900">
               <Clock className="h-3.5 w-3.5 text-white" />
             </span>
-            <div className="bg-slate-800/60 border border-slate-700/50 rounded-xl p-4">
+            <div className="bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/50 rounded-xl p-4 shadow-sm dark:shadow-none">
               <div className="flex items-center gap-2 mb-1">
-                {displayDate && <span className="text-xs font-bold text-violet-400">{displayDate}</span>}
+                {displayDate && <span className="text-xs font-bold text-violet-600 dark:text-violet-400">{displayDate}</span>}
                 {event.related_drugs?.map((d, j) => (
                   <Badge key={j} variant="violet">{d}</Badge>
                 ))}
               </div>
-              <h4 className="text-sm font-bold text-slate-200">{event.event || event.description}</h4>
+              <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">{event.event || event.description}</h4>
               {event.description && event.event && event.description !== event.event && (
-                  <p className="text-xs text-slate-400 mt-1">{event.description}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{event.description}</p>
               )}
             </div>
           </div>
@@ -516,19 +516,19 @@ const OCRMetadata = ({ ocr }) => {
   if (!ocr || Object.keys(ocr).length === 0) return null;
 
   return (
-    <div className="border border-slate-800 rounded-xl bg-slate-900/50 overflow-hidden mt-6">
+    <div className="border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900/50 overflow-hidden mt-6 shadow-sm dark:shadow-none">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 hover:bg-slate-800/50 transition-colors"
+        className="w-full flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
       >
         <div className="flex items-center gap-2">
-          <FileSearch className="h-4 w-4 text-slate-400" />
-          <span className="text-sm font-bold text-slate-300 uppercase tracking-wider">OCR Metadata</span>
+          <FileSearch className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+          <span className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">OCR Metadata</span>
         </div>
         {isOpen ? <ChevronUp className="h-4 w-4 text-slate-500" /> : <ChevronDown className="h-4 w-4 text-slate-500" />}
       </button>
       {isOpen && (
-        <div className="p-4 border-t border-slate-800 bg-slate-950/30">
+        <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/30">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             <DataRow label="Source Type" value={ocr.source_type} />
             <DataRow label="OCR Used" value={ocr.ocr_used ? 'Yes' : 'No'} />
@@ -551,26 +551,26 @@ const VerificationSection = ({ data }) => {
   return (
     <Panel title="Verification Sources" icon={CheckCircle}>
       <div className="flex flex-wrap gap-3">
-        <div className="flex items-center gap-2 px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg">
-           <CheckCircle className="h-4 w-4 text-emerald-500" />
-           <span className="text-sm font-semibold text-slate-200">Clinical Report</span>
+        <div className="flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+           <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-500" />
+           <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">Clinical Report</span>
         </div>
         {hasFDA && (
-           <div className="flex items-center gap-2 px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg">
-             <CheckCircle className="h-4 w-4 text-emerald-500" />
-             <span className="text-sm font-semibold text-slate-200">FDA API</span>
+           <div className="flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+             <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-500" />
+             <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">FDA API</span>
           </div>
         )}
         {sources.some(s => s.source_type === 'FAERS_LOCAL') && (
-           <div className="flex items-center gap-2 px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg">
-             <CheckCircle className="h-4 w-4 text-emerald-500" />
-             <span className="text-sm font-semibold text-slate-200">Local FAERS Dataset</span>
+           <div className="flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+             <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-500" />
+             <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">Local FAERS Dataset</span>
           </div>
         )}
         {hasMilvus && (
-           <div className="flex items-center gap-2 px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg">
-             <CheckCircle className="h-4 w-4 text-emerald-500" />
-             <span className="text-sm font-semibold text-slate-200">Milvus Knowledge Base</span>
+           <div className="flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+             <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-500" />
+             <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">Milvus Knowledge Base</span>
           </div>
         )}
       </div>
@@ -581,12 +581,12 @@ const VerificationSection = ({ data }) => {
 /* ─── Case Metadata Footer ─── */
 const MetadataFooter = ({ data, id }) => {
   return (
-    <div className="mt-8 pt-6 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
+    <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
       <div className="flex items-center gap-4 flex-wrap">
-        <span className="flex items-center gap-1.5"><Server className="h-3.5 w-3.5" /> Analysis ID: <span className="text-slate-300 font-mono">{id}</span></span>
-        <span className="flex items-center gap-1.5"><FileCode className="h-3.5 w-3.5" /> Report ID: <span className="text-slate-300 font-mono">{data.case_information?.case_id || 'N/A'}</span></span>
-        <span>Status: <span className="text-slate-300 capitalize">{data.status || 'Completed'}</span></span>
-        {data.cached && <span>Cached: <span className="text-slate-300">True</span></span>}
+        <span className="flex items-center gap-1.5"><Server className="h-3.5 w-3.5" /> Analysis ID: <span className="text-slate-800 dark:text-slate-300 font-mono">{id}</span></span>
+        <span className="flex items-center gap-1.5"><FileCode className="h-3.5 w-3.5" /> Report ID: <span className="text-slate-800 dark:text-slate-300 font-mono">{data.case_information?.case_id || 'N/A'}</span></span>
+        <span>Status: <span className="text-slate-800 dark:text-slate-300 capitalize">{data.status || 'Completed'}</span></span>
+        {data.cached && <span>Cached: <span className="text-slate-800 dark:text-slate-300">True</span></span>}
       </div>
       <div className="flex items-center gap-2">
         <span>Generated Formats:</span>
@@ -616,7 +616,7 @@ const CaseTabs = ({ cases, activeIdx, onSelect }) => {
           <button
             key={i}
             onClick={() => onSelect(i)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${i === activeIdx ? 'bg-violet-600 text-white border-violet-600' : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-slate-200 hover:border-slate-600'}`}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${i === activeIdx ? 'bg-violet-600 text-white border-violet-600' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700'}`}
           >
             Case {i + 1}{drugName ? ` — ${drugName}` : ''}
           </button>
@@ -636,6 +636,7 @@ const AnalysisWorkspacePage = () => {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('overview');
   const [activeCaseIdx, setActiveCaseIdx] = useState(0);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -733,26 +734,26 @@ const AnalysisWorkspacePage = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className={`space-y-6 transition-all duration-300 ${isChatOpen ? 'lg:pr-[420px]' : ''}`}>
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <button onClick={() => navigate('/')} className="text-xs text-slate-500 hover:text-violet-400 flex items-center gap-1 mb-2 transition-colors">
+          <button onClick={() => navigate('/')} className="text-xs text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center gap-1 mb-2 transition-colors">
             <ArrowLeft className="h-3.5 w-3.5" /> Back to Dashboard
           </button>
           <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="text-xl font-bold text-white">{id.substring(0, 18)}...</h1>
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white">{id.substring(0, 18)}...</h1>
             <Badge variant={report.status === 'completed' ? 'success' : 'warning'}>{report.status || 'completed'}</Badge>
             {isMultiCase && bundleData && <Badge variant="cyan">{bundleData.cases.length} cases</Badge>}
           </div>
-          <p className="text-slate-400 text-sm mt-1">
-            {report.filename && <span className="mr-4">File: <span className="font-semibold text-slate-200">{report.filename}</span></span>}
-            Primary: <span className="font-semibold text-slate-200 capitalize">{drug}</span>
+          <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+            {report.filename && <span className="mr-4">File: <span className="font-semibold text-slate-800 dark:text-slate-200">{report.filename}</span></span>}
+            Primary: <span className="font-semibold text-slate-800 dark:text-slate-200 capitalize">{drug}</span>
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           {[['PDF', 'pdf'], ['Excel', 'xlsx'], ['JSON', 'json']].map(([label, fmt]) => (
-            <button key={fmt} onClick={() => handleDownload(fmt)} className="flex items-center gap-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold rounded-xl transition-all">
+            <button key={fmt} onClick={() => handleDownload(fmt)} className="flex items-center gap-1.5 px-3 py-2 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-semibold rounded-xl transition-all shadow-sm dark:shadow-none">
               <Download className="h-3.5 w-3.5" /> {label}
             </button>
           ))}
@@ -767,10 +768,10 @@ const AnalysisWorkspacePage = () => {
 
       {/* Multi-case tabs */}
       {isMultiCase && bundleData && (
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-3">
-            <Users className="h-4 w-4 text-cyan-400" />
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Multi-Patient Document — Select Case</span>
+            <Users className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Multi-Patient Document — Select Case</span>
           </div>
           <CaseTabs cases={bundleData.cases} activeIdx={activeCaseIdx} onSelect={handleCaseSelect} />
           <div className="text-xs text-slate-500">Each case has separate report, AI context, and download.</div>
@@ -778,13 +779,13 @@ const AnalysisWorkspacePage = () => {
       )}
 
       {/* Tab Navigation */}
-      <div className="border-b border-slate-800">
+      <div className="border-b border-slate-200 dark:border-slate-800">
         <nav className="-mb-px flex gap-1 overflow-x-auto">
           {TABS.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`whitespace-nowrap flex items-center gap-2 px-4 py-3 text-xs font-bold border-b-2 transition-all ${activeTab === tab.id ? 'border-violet-500 text-violet-400' : 'border-transparent text-slate-500 hover:text-slate-300 hover:border-slate-700'}`}
+              className={`whitespace-nowrap flex items-center gap-2 px-4 py-3 text-xs font-bold border-b-2 transition-all ${activeTab === tab.id ? 'border-violet-600 dark:border-violet-500 text-violet-700 dark:text-violet-400' : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'}`}
             >
               <tab.icon className="h-4 w-4" />
               {tab.label}
@@ -798,18 +799,18 @@ const AnalysisWorkspacePage = () => {
         {activeTab === 'overview' && (
            <div className="space-y-6">
               {activeCase.final_case_classification && (
-                <div className="bg-gradient-to-r from-violet-900/40 to-slate-900 border border-violet-800/50 rounded-xl p-5 flex items-center justify-between">
+                <div className="bg-gradient-to-r from-violet-50 dark:from-violet-900/40 to-white dark:to-slate-900 border border-violet-200 dark:border-violet-800/50 rounded-xl p-5 flex items-center justify-between shadow-sm dark:shadow-none">
                   <div>
-                    <h3 className="text-xs font-bold text-violet-400 uppercase tracking-wider mb-1">Final Case Classification</h3>
-                    <p className="text-lg font-bold text-white">{activeCase.final_case_classification}</p>
+                    <h3 className="text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">Final Case Classification</h3>
+                    <p className="text-lg font-bold text-slate-900 dark:text-white">{activeCase.final_case_classification}</p>
                   </div>
-                  <ShieldCheck className="h-10 w-10 text-violet-500/50" />
+                  <ShieldCheck className="h-10 w-10 text-violet-200 dark:text-violet-500/50" />
                 </div>
               )}
               
               {(activeCase.ai_generated_summary || activeCase.ai_generated_narrative_summary || activeCase.summary) && (
                 <Panel title="AI Narrative Summary" icon={Brain}>
-                  <p className="text-sm text-slate-300 leading-relaxed">
+                  <p className="text-sm text-slate-800 dark:text-slate-300 leading-relaxed">
                     {activeCase.ai_generated_summary || activeCase.ai_generated_narrative_summary || activeCase.summary}
                   </p>
                 </Panel>
@@ -860,7 +861,7 @@ const AnalysisWorkspacePage = () => {
       </div>
 
       {/* AI Chatbot — tied to the active case ID */}
-      <ChatbotPanel analysisId={activeCaseId} />
+      <ChatbotPanel analysisId={activeCaseId} onToggle={setIsChatOpen} />
     </div>
   );
 };

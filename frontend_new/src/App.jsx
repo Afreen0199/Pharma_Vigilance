@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 // Layouts
 import AuthLayout from './layouts/AuthLayout';
@@ -25,7 +26,8 @@ const ProtectedRoute = ({ children }) => {
 
 const App = () => {
   return (
-    <Router>
+    <ThemeProvider>
+      <Router>
       <Routes>
         {/* Public Routes */}
         <Route element={<AuthLayout />}>
@@ -51,7 +53,8 @@ const App = () => {
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </Router>
+      </Router>
+    </ThemeProvider>
   );
 };
 

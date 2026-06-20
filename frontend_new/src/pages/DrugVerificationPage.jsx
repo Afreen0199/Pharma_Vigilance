@@ -6,18 +6,18 @@ import {
 import { verificationApi } from '../api/verificationApi';
 
 const Card = ({ children, className = '' }) => (
-  <div className={`bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden ${className}`}>
+  <div className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm dark:shadow-none ${className}`}>
     {children}
   </div>
 );
 
 const Badge = ({ children, variant = 'gray' }) => {
   const styles = {
-    success: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
-    warning: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
-    danger: 'bg-rose-500/10 text-rose-400 border border-rose-500/20',
-    violet: 'bg-violet-500/10 text-violet-400 border border-violet-500/20',
-    gray: 'bg-slate-800 text-slate-300 border border-slate-700',
+    success: 'bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20',
+    warning: 'bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/20',
+    danger: 'bg-rose-100 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-500/20',
+    violet: 'bg-violet-100 dark:bg-violet-500/10 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-500/20',
+    gray: 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700',
   };
   
   return (
@@ -41,8 +41,8 @@ const StatCard = ({ title, value, icon: Icon, color = 'violet' }) => {
         <Icon className="h-6 w-6" />
       </div>
       <div>
-        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{title}</p>
-        <p className="text-2xl font-bold text-white tracking-tight">
+        <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">{title}</p>
+        <p className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
           {typeof value === 'number' ? value.toLocaleString() : value}
         </p>
       </div>
@@ -91,11 +91,11 @@ const DrugVerificationPage = () => {
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-10">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-extrabold tracking-tight text-white flex items-center gap-3">
-          <ShieldCheck className="h-8 w-8 text-violet-500" />
+        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
+          <ShieldCheck className="h-8 w-8 text-violet-600 dark:text-violet-500" />
           Drug Verification
         </h1>
-        <p className="text-slate-400 text-sm max-w-2xl">
+        <p className="text-slate-600 dark:text-slate-400 text-sm max-w-2xl">
           Search the global pharmacovigilance database, FDA FAERS, and internal knowledge base to verify drug safety profiles, historical signals, and known adverse reactions.
         </p>
       </div>
@@ -107,7 +107,7 @@ const DrugVerificationPage = () => {
             <input
               type="text"
               placeholder="Enter drug name (e.g. Aspirin, Apratixaban)..."
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 pl-12 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all"
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-violet-600 dark:focus:border-violet-500 focus:ring-1 focus:ring-violet-600 dark:focus:ring-violet-500 transition-all"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -132,25 +132,25 @@ const DrugVerificationPage = () => {
 
       {loading && (
         <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">
-          <Loader2 className="h-10 w-10 text-violet-500 animate-spin" />
-          <p className="text-slate-400 text-sm font-medium animate-pulse">Querying FDA APIs and Global Databases...</p>
+          <Loader2 className="h-10 w-10 text-violet-600 dark:text-violet-500 animate-spin" />
+          <p className="text-slate-600 dark:text-slate-400 text-sm font-medium animate-pulse">Querying FDA APIs and Global Databases...</p>
         </div>
       )}
 
       {!loading && !evidence && !error && (
         <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4 opacity-50">
-          <Database className="h-16 w-16 text-slate-700" />
-          <p className="text-slate-500 text-sm font-medium">Enter a drug name to view evidence.</p>
+          <Database className="h-16 w-16 text-slate-400 dark:text-slate-700" />
+          <p className="text-slate-600 dark:text-slate-500 text-sm font-medium">Enter a drug name to view evidence.</p>
         </div>
       )}
 
       {!loading && evidence && (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-gradient-to-r from-violet-600/10 to-indigo-600/10 border border-violet-500/20 rounded-2xl">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-gradient-to-r from-violet-100 dark:from-violet-600/10 to-indigo-100 dark:to-indigo-600/10 border border-violet-200 dark:border-violet-500/20 rounded-2xl">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <h2 className="text-2xl font-bold text-white capitalize">{evidence.drug_name}</h2>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white capitalize">{evidence.drug_name}</h2>
                 <Badge variant={evidence.verification_status === 'Verified' ? 'success' : 'warning'}>
                   {evidence.verification_status}
                 </Badge>
@@ -161,7 +161,7 @@ const DrugVerificationPage = () => {
                   {getSignalLevel(evidence).label}
                 </Badge>
               </div>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-slate-700 dark:text-slate-400">
                 Found {evidence.supporting_cases?.length || 0} local matching cases and {evidence.fda_evidence?.total_cases?.toLocaleString() || 0} historical FDA reports.
               </p>
             </div>
@@ -195,15 +195,15 @@ const DrugVerificationPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Top Reactions */}
             <Card>
-              <div className="p-4 border-b border-slate-800 bg-slate-900/50 flex items-center gap-2">
-                <Activity className="h-5 w-5 text-emerald-400" />
-                <h3 className="font-bold text-white text-sm">Top FDA Reported Reactions</h3>
+              <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex items-center gap-2">
+                <Activity className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                <h3 className="font-bold text-slate-900 dark:text-white text-sm">Top FDA Reported Reactions</h3>
               </div>
               <div className="p-5">
                 {evidence.fda_evidence?.top_reactions?.length > 0 ? (
                   <div className="flex flex-wrap gap-2">
                     {evidence.fda_evidence.top_reactions.map((reaction, idx) => (
-                      <span key={idx} className="px-3 py-1.5 bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold rounded-lg">
+                      <span key={idx} className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-lg">
                         {reaction}
                       </span>
                     ))}
@@ -216,27 +216,27 @@ const DrugVerificationPage = () => {
 
             {/* Local FAERS Evidence */}
             <Card>
-              <div className="p-4 border-b border-slate-800 bg-slate-900/50 flex items-center gap-2">
-                <FileText className="h-5 w-5 text-indigo-400" />
-                <h3 className="font-bold text-white text-sm">Local FAERS Dataset Evidence</h3>
+              <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex items-center gap-2">
+                <FileText className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+                <h3 className="font-bold text-slate-900 dark:text-white text-sm">Local FAERS Dataset Evidence</h3>
               </div>
               <div className="p-0 overflow-x-auto">
                 <table className="w-full text-sm text-left">
-                  <thead className="text-xs text-slate-500 uppercase bg-slate-950">
+                  <thead className="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-950">
                     <tr>
                       <th className="px-5 py-3 font-semibold">Reaction</th>
                       <th className="px-5 py-3 font-semibold">Count</th>
                       <th className="px-5 py-3 font-semibold">Source</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800">
+                  <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
                     {evidence.local_faers_evidence?.length > 0 ? (
                       evidence.local_faers_evidence.slice(0, 5).map((row, idx) => (
-                        <tr key={idx} className="hover:bg-slate-800/50 transition-colors">
-                          <td className="px-5 py-3 font-medium text-slate-300">{row.reaction}</td>
-                          <td className="px-5 py-3 text-slate-400">{row.count.toLocaleString()}</td>
+                        <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                          <td className="px-5 py-3 font-medium text-slate-800 dark:text-slate-300">{row.reaction}</td>
+                          <td className="px-5 py-3 text-slate-600 dark:text-slate-400">{row.count.toLocaleString()}</td>
                           <td className="px-5 py-3">
-                            <span className="px-2 py-1 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-[10px] uppercase font-bold rounded">
+                            <span className="px-2 py-1 bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/20 text-[10px] uppercase font-bold rounded">
                               {row.source}
                             </span>
                           </td>
@@ -255,19 +255,19 @@ const DrugVerificationPage = () => {
 
           {/* Supporting Internal Cases */}
           <Card>
-            <div className="p-4 border-b border-slate-800 bg-slate-900/50 flex items-center gap-2">
-              <ShieldAlert className="h-5 w-5 text-violet-400" />
-              <h3 className="font-bold text-white text-sm">Internal Verified Cases</h3>
+            <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex items-center gap-2">
+              <ShieldAlert className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+              <h3 className="font-bold text-slate-900 dark:text-white text-sm">Internal Verified Cases</h3>
             </div>
             <div className="p-5">
               {evidence.supporting_cases?.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   {evidence.supporting_cases.slice(0, 6).map((c, idx) => (
-                    <div key={idx} className="p-4 bg-slate-950 border border-slate-800 rounded-xl flex items-start gap-3">
-                      <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                    <div key={idx} className="p-4 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl flex items-start gap-3 shadow-sm dark:shadow-none">
+                      <CheckCircle className="h-5 w-5 text-emerald-600 dark:text-emerald-500 shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-xs font-bold text-slate-400 mb-1">Case: {c.case_id}</p>
-                        <p className="text-sm font-medium text-white">{c.reaction}</p>
+                        <p className="text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Case: {c.case_id}</p>
+                        <p className="text-sm font-medium text-slate-900 dark:text-white">{c.reaction}</p>
                       </div>
                     </div>
                   ))}
