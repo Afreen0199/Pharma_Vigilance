@@ -49,9 +49,22 @@ class ConversationalReasoningService:
                     messages.append(AIMessage(content=turn["content"]))
             messages.append(HumanMessage(content=question))
             try:
+                from app.services.langfuse.metadata_builder import build_langfuse_metadata
                 config = {"run_name": "conversational_greeting"}
                 if hasattr(llm_service_instance, 'langfuse_handler') and llm_service_instance.langfuse_handler:
                     config["callbacks"] = [llm_service_instance.langfuse_handler]
+                    config["metadata"] = build_langfuse_metadata(
+                        analysis_id=analysis_id,
+                        run_name="conversational_greeting",
+                        trace_group="chat",
+                        run_type="chat_reasoning",
+                        pipeline_stage="chat",
+                        evaluation_target="chat_response",
+                        processing_status="success",
+                        model_name=getattr(llm_service_instance.llm, "model_name", "Unknown"),
+                        llm_provider="Groq",
+                        question_type=domain
+                    )
                 
                 response = llm_service_instance.llm.invoke(messages, config=config)
                 return response.content.strip()

@@ -30,6 +30,27 @@ class QuestionAwareSummaryService:
         # 1. Classify the user question to fetch response type guidelines
         response_type = response_type_classifier.classify_question(user_question)
 
+        # Extract primary drug and symptoms for guidelines and metadata
+        primary_drug = "Unknown Drug"
+        drugs = report_context.get("drugs", [])
+        if not drugs:
+            # Fallback to parsing from ai_summary
+            import json
+            ai_summary = report_context.get("ai_summary", "")
+            if ai_summary:
+                try:
+                    rep_data = json.loads(ai_summary)
+                    drug_name = rep_data.get("drug_information", {}).get("product_active_ingredient") or \
+                                rep_data.get("suspected_drug_information", {}).get("drug_name")
+                    if drug_name:
+                        primary_drug = drug_name
+                except Exception:
+                    pass
+        else:
+            primary_drug = drugs[0]
+            
+        symptoms = report_context.get("symptoms", [])
+
         # 2. Compile specific sub-service clinical reasoning guidelines
         extra_guidelines = ""
         if response_type == "seriousness_explanation":
@@ -45,25 +66,6 @@ class QuestionAwareSummaryService:
         elif response_type == "safety_recommendation":
             extra_guidelines = safety_recommendation_service.get_recommendation_guidelines(report_context)
         else:
-            primary_drug = "Unknown Drug"
-            drugs = report_context.get("drugs", [])
-            if not drugs:
-                # Fallback to parsing from ai_summary
-                import json
-                ai_summary = report_context.get("ai_summary", "")
-                if ai_summary:
-                    try:
-                        rep_data = json.loads(ai_summary)
-                        drug_name = rep_data.get("drug_information", {}).get("product_active_ingredient") or \
-                                    rep_data.get("suspected_drug_information", {}).get("drug_name")
-                        if drug_name:
-                            primary_drug = drug_name
-                    except Exception:
-                        pass
-            else:
-                primary_drug = drugs[0]
-
-            symptoms = report_context.get("symptoms", [])
             extra_guidelines = f"""### PHARMACOVIGILANCE CLINICAL REASONING RULES
 - Analyze the user question: "{user_question}" relative to the suspect drug "{primary_drug}" and symptom profile "{symptoms}".
 - Ground your response in the provided database totals, verified claims, and warning guidance texts.
@@ -122,9 +124,31 @@ Operational Rules for the response:
 
         # 5. Execute LLM call
         try:
+            from app.services.langfuse.metadata_builder import build_langfuse_metadata
             config = {"run_name": "question_aware_summary"}
             if hasattr(llm_service_instance, 'langfuse_handler') and llm_service_instance.langfuse_handler:
                 config["callbacks"] = [llm_service_instance.langfuse_handler]
+                
+                analysis_id = report_context.get("analysis_id")
+                analysis_mode = report_context.get("analysis_mode", "single_case")
+                retrieved_chunk_count = len(evidence.get("retrieved_chunks", [])) if evidence and "retrieved_chunks" in evidence else 0
+                
+                config["metadata"] = build_langfuse_metadata(
+                    analysis_id=analysis_id,
+                    analysis_mode=analysis_mode,
+                    run_name="question_aware_summary",
+                    trace_group="summary",
+                    run_type="summary_generation",
+                    pipeline_stage="chat",
+                    evaluation_target="summary",
+                    processing_status="success",
+                    model_name=getattr(llm_service_instance.llm, "model_name", "Unknown"),
+                    llm_provider="Groq",
+                    question_type="pharmacovigilance",
+                    response_type=response_type,
+                    retrieved_chunk_count=retrieved_chunk_count,
+                    primary_suspect_drug=primary_drug
+                )
                 
             response = llm_service_instance.llm.invoke(messages, config=config)
             return response.content.strip()

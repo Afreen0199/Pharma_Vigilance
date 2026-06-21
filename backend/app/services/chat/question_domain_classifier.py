@@ -48,9 +48,20 @@ User Question: "{question}"
 Output only the category name in lowercase: 'greeting', 'capability_question', 'pharmacovigilance_question', or 'irrelevant_question'. Do not include explanation or markdown formatting.
 """
         try:
+            from app.services.langfuse.metadata_builder import build_langfuse_metadata
             config = {"run_name": "question_domain_classifier"}
             if hasattr(llm_service_instance, 'langfuse_handler') and llm_service_instance.langfuse_handler:
                 config["callbacks"] = [llm_service_instance.langfuse_handler]
+                config["metadata"] = build_langfuse_metadata(
+                    run_name="question_domain_classifier",
+                    trace_group="classifier",
+                    run_type="question_classification",
+                    pipeline_stage="chat",
+                    evaluation_target="classification",
+                    processing_status="success",
+                    model_name=getattr(llm_service_instance.llm, "model_name", "Unknown"),
+                    llm_provider="Groq"
+                )
                 
             response = llm_service_instance.llm.invoke(prompt, config=config)
             decision = response.content.strip().lower().replace("'", "").replace('"', "")

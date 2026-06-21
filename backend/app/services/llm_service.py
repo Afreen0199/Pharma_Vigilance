@@ -193,9 +193,31 @@ The JSON must follow this exact format, combining the legacy fields for backward
 Output ONLY valid JSON without Markdown code block backticks (do not wrap in ```json ... ```). Ensure the JSON is syntactically correct and complete.
 """
         try:
+            from app.services.langfuse.metadata_builder import build_langfuse_metadata
             config = {"run_name": "generate_analysis"}
             if hasattr(self, 'langfuse_handler') and self.langfuse_handler:
                 config["callbacks"] = [self.langfuse_handler]
+                
+                suspect_drug = None
+                if extracted_entities and isinstance(extracted_entities, dict):
+                    suspect_drug = extracted_entities.get("suspected_drug", {}).get("drug_name")
+                    
+                fda_total_cases = None
+                if fda_context and isinstance(fda_context, dict):
+                    fda_total_cases = fda_context.get("total_cases")
+                
+                config["metadata"] = build_langfuse_metadata(
+                    run_name="generate_analysis",
+                    trace_group="analysis",
+                    run_type="analysis_generation",
+                    pipeline_stage="generation",
+                    evaluation_target="analysis_report",
+                    processing_status="success",
+                    model_name=getattr(self.llm, "model_name", "Unknown"),
+                    llm_provider="Groq",
+                    primary_suspect_drug=suspect_drug,
+                    matched_fda_cases=fda_total_cases
+                )
                 
             response = self.llm.invoke(prompt, config=config)
             return {"raw_ai_response": response.content}
@@ -283,9 +305,20 @@ Format:
 Output ONLY valid JSON without Markdown code block backticks.
 """
         try:
+            from app.services.langfuse.metadata_builder import build_langfuse_metadata
             config = {"run_name": "identify_suspected_drug"}
             if hasattr(self, 'langfuse_handler') and self.langfuse_handler:
                 config["callbacks"] = [self.langfuse_handler]
+                config["metadata"] = build_langfuse_metadata(
+                    run_name="identify_suspected_drug",
+                    trace_group="analysis",
+                    run_type="drug_identification",
+                    pipeline_stage="generation",
+                    evaluation_target="classification",
+                    processing_status="success",
+                    model_name=getattr(self.llm, "model_name", "Unknown"),
+                    llm_provider="Groq"
+                )
                 
             response = self.llm.invoke(prompt, config=config)
             content = response.content.strip()
