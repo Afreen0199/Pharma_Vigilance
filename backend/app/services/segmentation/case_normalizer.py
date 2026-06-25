@@ -180,16 +180,42 @@ def normalize_case_data(case_data: Dict[str, Any]) -> Dict[str, Any]:
     }
     
     # Naranjo causality
-    naranjo_score = case_data.get("naranjo", "")
-    causality_rel = "Possible"
-    if "probable" in naranjo_score.lower() or "6" in naranjo_score or "7" in naranjo_score or "8" in naranjo_score:
-        causality_rel = "Probable"
-    elif "definite" in naranjo_score.lower() or "9" in naranjo_score or "10" in naranjo_score:
-        causality_rel = "Certain"
+    naranjo_str = str(case_data.get("naranjo", "")).lower()
+    causality_rel = "Possible"  # default
+    
+    # Try to extract a numeric score first
+    score_match = re.search(r'\b(-?\d+)\b', naranjo_str)
+    if score_match:
+        score = int(score_match.group(1))
+        if score >= 9:
+            causality_rel = "Highly probable"
+        elif 5 <= score <= 8:
+            causality_rel = "Probable"
+        elif 1 <= score <= 4:
+            causality_rel = "Possible"
+        else:
+            causality_rel = "Doubtful"
+    else:
+        # Fallback to text matching
+        if "highly probable" in naranjo_str or "definite" in naranjo_str:
+            causality_rel = "Highly probable"
+        elif "probable" in naranjo_str:
+            causality_rel = "Probable"
+        elif "doubtful" in naranjo_str or "unlikely" in naranjo_str:
+            causality_rel = "Doubtful"
+        elif "possible" in naranjo_str:
+            causality_rel = "Possible"
+            
+    conf_map = {
+        "Highly probable": 0.95,
+        "Probable": 0.80,
+        "Possible": 0.50,
+        "Doubtful": 0.20
+    }
         
     normalized["causality_assessment"] = {
         "suspected_relationship": causality_rel,
-        "confidence_score": 0.8 if causality_rel == "Probable" else (0.95 if causality_rel == "Certain" else 0.5)
+        "confidence_score": conf_map.get(causality_rel, 0.50)
     }
     
     # Carry over structured raw details for LLM formatting

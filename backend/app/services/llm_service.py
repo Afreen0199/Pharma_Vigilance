@@ -150,7 +150,7 @@ The JSON must follow this exact format, combining the legacy fields for backward
     "death": "Yes / No"
   }},
   "causality_assessment": {{
-    "suspected_relationship": "Certain / Probable / Possible / Unlikely",
+    "suspected_relationship": "Highly probable / Probable / Possible / Doubtful",
     "confidence_score": 0.00 (a float between 0.0 and 1.0 representing confidence)
   }},
   "key_entities_extracted": {{

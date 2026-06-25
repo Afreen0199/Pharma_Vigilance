@@ -104,6 +104,18 @@ def normalize_report_data(report_data: dict, ocr_metadata: Optional[dict] = None
         if dct not in report_data or not isinstance(report_data[dct], dict):
             report_data[dct] = {}
 
+    # Strictly enforce causality text mapping to prevent LLM hallucinated synonyms
+    if "causality_assessment" in report_data:
+        causality_val = str(report_data["causality_assessment"].get("suspected_relationship", "")).lower()
+        if any(w in causality_val for w in ["highly probable", "definite", "certain", "9+", "10"]):
+            report_data["causality_assessment"]["suspected_relationship"] = "Highly probable"
+        elif any(w in causality_val for w in ["probable", "likely"]):
+            report_data["causality_assessment"]["suspected_relationship"] = "Probable"
+        elif any(w in causality_val for w in ["doubtful", "unlikely", "none"]):
+            report_data["causality_assessment"]["suspected_relationship"] = "Doubtful"
+        elif "possible" in causality_val:
+            report_data["causality_assessment"]["suspected_relationship"] = "Possible"
+
     if "ai_generated_summary" not in report_data:
         report_data["ai_generated_summary"] = report_data.get("ai_generated_narrative_summary") or report_data.get("summary") or ""
 

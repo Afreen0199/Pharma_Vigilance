@@ -32,7 +32,7 @@ def inspect_milvus_db():
             print("\nSample Data (First 3 entries):")
             try:
                 # Querying with an always-true filter to get sample data
-                res = client.query(collection_name=col_name, filter="id != ''", limit=, output_fields=["*"])
+                res = client.query(collection_name=col_name, filter="id != ''", limit=5, output_fields=["*"])
                 if res:
                     for i, item in enumerate(res):
                         print(f"\n--- Entry {i+1} ---")
