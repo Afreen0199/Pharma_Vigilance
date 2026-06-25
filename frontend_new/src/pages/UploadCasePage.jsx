@@ -8,7 +8,7 @@ import { analysisApi } from '../api/analysisApi';
 
 const PIPELINE_STAGES = [
   { id: 'upload', label: 'Upload Complete', icon: Upload },
-  { id: 'ocr', label: 'OCR Extraction', icon: Scan },
+  { id: 'ocr', label: 'Entity Extraction', icon: Scan },
   { id: 'entity', label: 'Entity Recognition', icon: Brain },
   { id: 'milvus', label: 'Milvus Hybrid Search', icon: Database },
   { id: 'fda', label: 'FDA Signal Retrieval', icon: FlaskConical },

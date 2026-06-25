@@ -130,7 +130,7 @@ const ChatbotPanel = ({ analysisId, onToggle }) => {
               <Bot className="h-5 w-5 text-violet-600 dark:text-violet-400" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">AI Safety Copilot</h3>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">PV Intelligence Copilot</h3>
               <p className="text-[10px] text-slate-600 dark:text-slate-400 font-medium">Context: <span className="text-violet-600 dark:text-violet-400 font-mono">{analysisId?.substring(0, 12)}...</span></p>
             </div>
           </div>
@@ -145,7 +145,7 @@ const ChatbotPanel = ({ analysisId, onToggle }) => {
             <div className="text-center pt-8 space-y-3">
               <div className="p-4 bg-violet-600/10 border border-violet-600/20 rounded-2xl">
                 <Bot className="h-8 w-8 text-violet-600 dark:text-violet-400 mx-auto mb-2" />
-                <p className="text-sm text-slate-800 dark:text-slate-300 font-semibold">AI Safety Assistant</p>
+                <p className="text-sm text-slate-800 dark:text-slate-300 font-semibold">AI PharmaVigil Analyst</p>
                 <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">I'm ready to answer questions about this case report. Ask me about reactions, causality, FDA signals, or missing information.</p>
               </div>
             </div>

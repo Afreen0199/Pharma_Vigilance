@@ -39,8 +39,8 @@ const DashboardLayout = () => {
           </div>
           {!collapsed && (
             <div className="overflow-hidden">
-              <p className="font-bold text-slate-900 dark:text-white text-sm tracking-tight leading-tight">AI Pharma</p>
-              <p className="text-[10px] text-violet-600 dark:text-violet-400 font-medium tracking-wider uppercase leading-tight">Vigilance</p>
+              <p className="font-bold text-slate-900 dark:text-white text-sm tracking-tight leading-tight">PharmaVigil AI</p>
+              <p className="text-[10px] text-violet-600 dark:text-violet-400 font-medium tracking-wider uppercase leading-tight">Assistant</p>
             </div>
           )}
         </div>

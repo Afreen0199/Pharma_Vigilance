@@ -387,9 +387,15 @@ The following is a <SYSTEM_MESSAGE> not actually sent by the user. It is provide
 				The command failed with exit code: 1
 				Output:
 				Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 6706.93it/s]
-Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 11281.49it/s]
-Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 11579.33it/s]
+
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 103/103 [00:00<00:00, 6706.93it/s]
+
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 103/103 [00:00<00:00, 11281.49it/s]
+
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 103/103 [00:00<00:00, 11579.33it/s]
 /Users/affu01/GRAD_PROJ_NEW/backend/venv/lib/python3.12/site-packages/spacy/util.py:971: UserWarning: [W095] Model 'en_core_sci_md' (0.5.4) was trained with spaCy v3.7.4 and may not be 100% compatible with the current version (3.8.14). If you see errors or degraded performance, download a newer compatible model or retrain your custom model with the current spaCy version. For more details and available updates, run: python -m spacy validate
   warnings.warn(warn_msg)
 /Users/affu01/GRAD_PROJ_NEW/backend/venv/lib/python3.12/site-packages/spacy/language.py:2235: FutureWarning: Possible set union at position 6328
@@ -2320,7 +2326,7 @@ The following changes were made by the replace_file_content tool to: /Users/affu
 +---
 +
 +## Unified Multimodal Medical Ingestion Pipeline
-+We refactored the case ingestion subsystem to support unified processing of all input types (digital documents & scanned/handwritten clinical images) through a single universal API endpoint:
++We retion subsystem to support unified processing of all input types (digital documents & scanned/handwritten clinical images) through a single universal API endpoint:
 +
 +### 1. Extraction Layer Architecture (`backend/app/services/extraction/`)
 +* **[pdf_extractor.py](file:///Users/affu01/GRAD_PROJ_NEW/backend/app/services/extraction/pdf_extractor.py)**: Extracts text from PDFs.
